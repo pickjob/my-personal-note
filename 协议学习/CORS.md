@@ -1,0 +1,14 @@
+# CORS学习（Cross-Origin Resource Sharing）跨域资源共享
+- 本质上是浏览器对跨域的限制的规范解决(个人理解)
+- headers
+    - response
+        - Access-Control-Max-Age
+        - Access-Control-Allow-Origin: *
+        - Access-Control-Allow-Headers
+        - Access-Control-Allow-Methods: GET, POST, OPTIONS, DELEFT, PUT
+        - Access-Control-Allow-Credentials
+        - Access-Control-Expose-Headers
+    - request
+        - Origin
+        - Access-Control-Request-Headers
+        - Access-Control-Request-Method
