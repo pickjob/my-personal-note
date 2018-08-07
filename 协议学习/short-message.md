@@ -4,6 +4,11 @@
     - ESME : External Short Messaging Entity
     - SMSC : Short Message Service Center
     - PDU : Protocol Data Units
+    - CMPP : China Mobile Peer to Peer
+    - ISMG : Internet Short Message Gateway
+    - SMC : Short Message Center
+    - GNS : Gateway Name Server
+    - SP : Service Provider
     - 国内运营商
         - CMPP : 中国移动
         - SGIP : 中国联通
@@ -40,12 +45,27 @@
             - generic_nack
         - BOUND_TRX : bind_transceiver
         - CLOSED : Unbound and Disconnected
-- PDU格式
-    - PDU Header (mandatory >= 16 octets)
-        - Command Length : 4 octets (Length = (Command Length value - 4) octets)
-        - Command Id : 4 octets
-        - Command Status : 4 octets
-        - Sequence Number : 4 octets
-    - PDU Body (Optional)
-        - PDU Body
-    - 具体PDU格式,参见Short Message Peer to Peer Protocol Specification v3.4 -- ch4, ch5
+    - PDU格式
+        - PDU Header (mandatory >= 16 octets)
+            - Command Length : 4 octets (Length = (Command Length value - 4) octets)
+            - Command Id : 4 octets
+            - Command Status : 4 octets
+            - Sequence Number : 4 octets
+        - PDU Body (Optional)
+            - PDU Body
+        - 具体PDU格式,参见Short Message Peer to Peer Protocol Specification v3.4 -- ch4, ch5
+- CMPP
+    - SP与ISMG交互
+        - CMPP_CONNECT / CMPP_CONNECT_RESP (SP请求连接)
+        - CMPP_TERMINATE / CMPP_TERMINATE_RESP (SP/ISMG请求)
+        - CMPP_SUBMIT / CMPP_SUBMIT_RESP (SP->ISMG)
+        - CMPP_QUERY / CMPP_QUERY_RESP (SP->ISMG)
+        - CMPP_DELIVER / CMPP_DELIVER_RESP (ISMG->SP)
+        - CMPP_CANCEL / CMPP_CANCEL_RESP
+        - CMPP_ACTIVE / CAMPP_ACTIVE_RESP
+    - PDU格式
+        - Message Header
+            - Total Length : 4 octets
+            - Command Id : 4 octets
+            - Sequence Id : 4 octets
+        - Message Body
