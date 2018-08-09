@@ -1,0 +1,8 @@
+[Unit]
+Description=Eample Service
+
+[Service]
+ExecStart=/usr/sbin/example
+
+[Install]
+WantedBy=multi-user.target
