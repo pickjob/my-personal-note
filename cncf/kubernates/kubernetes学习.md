@@ -1,0 +1,98 @@
+# kubernetes学习
+- command
+    - kubectl apply -f *.yaml / kubectl apply -R -f config/
+    - kubectl delete -f *.yaml
+    - kubectl get
+    - kubectl describe
+    - kubectl logs
+- kubernetes Objects
+    - basic
+        - pod
+        - service
+        - volume
+        - namespace
+    - higher lever
+        - ReplicaSet
+        - Deployment
+        - StatefulSet
+        - DaemonSet
+        - Job
+- 管理
+    - 自动补全
+        - echo "source <(kubectl completion bash)" >> ~/.bashrc
+    - 私有仓库
+        - kubectl create secret docker-registry regcred --docker-server=<your-registry-server> --docker-username=<your-name> --docker-password=<your-pword> --docker-email=<your-email>
+    - 启动shell
+        - kubectl exec -it shell-demo -- /bin/bash
+    - DNS
+        - my-svc.my-namespace.svc.cluster.local
+- Kubernetes Components
+    - Server
+        - etcd
+        - kube-apiserver
+        - kube-controller-manager
+        - kube-scheduler
+    - Client
+        - kubelet
+        - kube-proxy
+        - Container Runtime
+    - Addons
+        - network
+            - wget https://raw.githubusercontent.com/coreos/flannel/v0.9.1/Documentation/kube-flannel.yml
+            - kube-flannel.yml
+                ```systemd
+                image: quay.io/coreos/flannel:v0.9.1-amd64
+                command: [ "/opt/bin/flanneld", "--ip-masq", "--kube-subnet-mgr" ,"--iface=enp0s8"]
+                ```
+            - kubectl apply -f kube-flannel.yml
+        - coreDNS
+        - heapster
+            - git clone https://github.com/kubernetes/heapster.git
+            - kubectl create -f deploy/kube-config/influxdb/
+            - kubectl create -f deploy/kube-config/rbac/heapster-rbac.yaml
+        - Web UI(Dashboard)
+            - wget https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
+            - kubectl apply -f kubernetes-dashboard.yaml
+            - kubectl create -f dashboard-admin.yaml
+            - kubectl proxy --address="192.168.56.20" -p 8001 --accept-hosts='^*$'
+            - http://192.168.56.20:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/
+                - login -> skip
+        - Container Resource Monitoring
+        - Cluster-level Logging
+- 部署
+    - minkube
+        - https_proxy=https://localhost:1081 http_proxy=http://localhost:1081 no_proxy=192.168.99.0/24 minikube start --docker-env http_proxy=http://192.168.99.1:1081 --docker-env https_proxy=https://192.168.99.1:1081 --docker-env no_proxy=192.168.99.0/24
+        - 虚拟机默认用户名/密码(docker/tcuser)
+    - centos
+        - sudo yum install docker etcd kubernetes
+        - /etc/kubernetes/apiserver
+            - 去掉serviceaccount
+        - sudo yum install *rhsm*
+        - sudo iptables -P FORWARD ACCEPT
+        - sudo systemctl start etcd
+        - sudo systemctl start kube-apiserver
+        - sudo systemctl start kube-controller-manager
+        - sudo systemctl start kube-scheduler
+        - sudo systemctl start kubelet
+        - sudo systemctl start kube-proxy
+    - kubeadm
+        - apt-get update && apt-get install -y apt-transport-https curl
+        - curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+        - cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
+        - deb http://apt.kubernetes.io/ kubernetes-xenial main
+        - EOF
+        - sudo sysctl net.bridge.bridge-nf-call-iptables=1
+        - export no_proxy=<machine IP>;
+        - sudo kubeadm init --apiserver-advertise-address=192.168.56.20 --pod-network-cidr=10.244.0.0/16
+        - mkdir -p $HOME/.kube
+        - sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+        - sudo chown $(id -u):$(id -g) $HOME/.kube/config
+        - wget https://raw.githubusercontent.com/coreos/flannel/v0.9.1/Documentation/kube-flannel.yml
+        - kube-flannel.yml
+            ```systemd
+            image: quay.io/coreos/flannel:v0.9.1-amd64
+            command: [ "/opt/bin/flanneld", "--ip-masq", "--kube-subnet-mgr" ,"--iface=enp0s8"]
+            ```
+        - kubectl apply -f kube-flannel.yml
+        - join
+            - sudo kubeadm join 192.168.56.20:6443 --token 019cut.g0mfszpumqix996h --discovery-token-ca-cert-hash sha256:3f2a1382d92345ec0c51ff607615338c2319e7e450757d7c3abf86428da593dd
