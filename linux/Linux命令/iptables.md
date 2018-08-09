@@ -1,0 +1,143 @@
+# iptables学习
+- iptables [-t table] {-A|-C|-D} chain rule-specification
+    - table
+        - filter
+            - INPUT
+            - OUTPUT
+            - FORWARD
+        - nat
+            - PREROUTING
+            - OUTPUT
+            - POSTROUTING
+        - mangle
+            - PREROUTING
+            - INPUT
+            - FORWARD
+            - POSTROUTING
+            - OUTPUT
+        - raw
+        - security
+    - chain
+        - --append / -A <chain> <rule specification>
+        - --insert / -I <chain> [<rule number>] <rule specification>
+        - --replace / -R <chain> <rule number> <rule specification>
+        - --delete / -D <chain> <rule number> | <rule specification>
+        - --check / -C <chain> <rule specification>
+        - --list / -L [<chain>]
+            - --numeric / -n
+            - --verbose / -v
+            - --exact / -x
+            - --line-numbers
+        - --flush / -F [<chain>]
+        - --policy / -P <chain> <policy>
+        - --zero / -Z
+        - --delete-chain / -X [<chain>]
+    - 操作匹配
+        - --in-interface / -i [!] [<interface>]
+        - --out-interface / -o [!] [<interface>]
+        - --protocol / -p [!] [<protocol>]
+            - tcp
+                - --source-port / --sport port[:port]
+                - --destination-port / --dport port[:port]
+                - --tcp-flags
+            - udp
+                - --source-port / --sport port[:port]
+                - --destination-port / --dport port[:port]
+            - imcp
+                - --icmp-type typename
+                    - any
+                    - echo-reply (pong)
+                    - destination-unreachable
+                        - network-unreachable
+                        - host-unreachable
+                        - protocol-unreachable
+                        - port-unreachable
+                        - fragmentation-needed
+                        - source-route-failed
+                        - network-unknown
+                        - host-unknown
+                        - network-prohibited
+                        - host-prohibited
+                        - TOS-network-unreachable
+                        - TOS-host-unreachable
+                        - communication-prohibited
+                        - host-precedence-violation
+                        - precedence-cutoff
+                    - source-quench
+                    - redirect
+                        - network-redirect
+                        - host-redirect
+                        - TOS-network-redirect
+                        - TOS-host-redirect
+                    - echo-request (ping)
+                    - router-advertisement
+                    - router-solicitation
+                    - time-exceeded (ttl-exceeded)
+                    -    ttl-zero-during-transit
+                    -    ttl-zero-during-reassembly
+                    - parameter-problem
+                        - ip-header-bad
+                        - required-option-missing
+                    - timestamp-request
+                    - timestamp-reply
+                    - address-mask-request
+                    - address-mask-reply                  - 
+
+        - --source / -src / -s [!] <address> [</mask>]
+        - --destination | --dest | -d
+        - --jump | -j <target>
+            - LOG
+                - --log-level
+                - --log-prefix
+                - --log-ip-options
+                - --log-tcp-sequence
+                - --log-tcp-option
+                - --log-uid
+        - --goto | -g <chain>
+        - --match | -m <match>
+            - multiport
+                - --source-port <port>[,<port>]
+                - --destination-port <port>[,<port>]
+                - --port
+            - state
+                - --state <state>[,<state>]
+                    - NEW
+                    - ESTABLISHED
+                    - RELATED
+                    - INVAID
+            - mac
+                - --mac-source [!] <address>
+            - owner
+                - --uid-owner <userid>
+                - --gid-owner <groupid>
+                - --pid-owner <processid>
+                - --sid-owner <sessionid>
+                - --cmd-owner <name>
+            - addrtype
+                - --src-type <type>
+                - --dst-type <type>
+                - type
+                    - ANYCAST
+                    - BLACKHOLE
+                    - BROADCAST
+                    - LOCAL
+                    - MULTICAST
+                    - PROHIBIT
+                    - UNICAST
+                    - UNREACHABLE
+                    - UNSPEC
+            - iprange
+                - --src-range <ip address-ip address>
+                - --dst-range <ip address-ip address>
+            - length
+                - --length <length>[:<length>]
+        - --fragment | -f [!]
+        - --set-counters | -c <packets> <bytes>
+    - TARGET
+        - ACCEPT
+        - DROP
+        - REDIRECT
+        - SNAT
+        - DNAT
+        - MASQUERADE
+        - LOG / ULOG

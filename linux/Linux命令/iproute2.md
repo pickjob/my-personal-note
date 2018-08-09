@@ -1,0 +1,34 @@
+# iproute2
+- ip [ OPTIONS ] OBJECT { COMMAND | help }
+    - Object
+        - link
+        - address
+        - addrlabel
+        - route
+        - rule
+        - neigh
+        - ntable
+        - tunnel
+        - tuntap
+        - maddress
+        - mroute
+        - mrule
+        - monitor
+        - xfrm
+        - netns
+        - l2tp
+        - fou
+        - macsec
+        - tcp_metrics
+        - token
+        - netconf
+        - ila
+- ss [ OPTIONS ] [ FILTER ]
+    - OPTIONS
+        - -l, --listening
+        - -m, --memory
+        - -p, --processes
+        - -i, --info
+        - -s, --summary
+        - -4, --ipv4 / -6, --ipv6
+        - -t, --tcp / -u, --udp / -w, --raw / -x, --unix

@@ -1,0 +1,13 @@
+# fuser : 用文件或套接字识别进程
+- fuser
+    - -l, --list-signals : 显示信号列表
+    - -4, --ipv4 : IPv4
+    - -6, --ipv6 : IPv6
+    - -a, --all : 显示与指定文件、目录相关的进程
+    - -k, --kill : 杀死访问文件的进程
+    - -i, --interactive : 杀死进程前询问
+    - -n, --namespace
+        - file
+        - tcp
+        - udp
+    - file / port

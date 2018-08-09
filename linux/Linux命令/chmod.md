@@ -1,0 +1,11 @@
+# chmod 改变文件(夹)权限
+- chmod
+    - [options]
+        - R --recursive
+        - v --verbose
+    - mode
+        - [+-=]
+            - r 4
+            - w 2
+            - x 1
+    - file/deirectory
