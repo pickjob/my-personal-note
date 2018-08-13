@@ -1,0 +1,22 @@
+# redis学习
+- 一些命令
+    - Pub/Sub
+        - PSUBSCRIBE / PUNSUBSCRIBE channel pattern
+        - PUBLISH channel message 
+        - SUBSCRIBE / UNSUBSCRIBE channel pattern
+        - PUBSUB
+            - channels
+            - numsub
+            - numpat
+    - Transaction
+        - MULTI
+        - WACTH key
+        - UNWATCH
+        - DISCARD
+        - EXEC
+    - 持久化
+        - RDB
+            - SAVE
+            - BGSAVE
+        - AOF
+            - BGREWRITEAOF
