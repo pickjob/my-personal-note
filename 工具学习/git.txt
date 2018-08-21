@@ -1,0 +1,50 @@
+.git版本管理工具
+    .CONFIGURE
+        .git config --global user.name  "吴胜"
+        .git config --global user.email "pickjob@126.com"
+        .git config --global core.autocrlf false
+        .git config --global color.ui auto
+    .Create repository    
+        .git init [project-name]        创建新的本地仓库
+        .git clone url
+    .Make changes
+        .git status                     列出新的编辑
+        .git diff                       列出未staged的区别
+        .git add *.*                    添加文件快照
+        .git diff --staged              展示staging 和 文件最后版本的区别
+        .git reset                      Unstages文件
+        .git commit -m "[descirtptive message]"  提交文件快照
+    .Group changes
+        .git branch                     列出所有分支
+        .git branck [branch-name]       创建新的分支
+        .git checkout [branch-name]     转换当前工作分支到指定分支
+        .git merge [branch]             指定分支和当前分支修改合并
+        .git branch -d [branch-name]    删除指定分支
+    .Refactor filenames
+        .git rm [file]                  删除文件并保存操作到stage
+        .git rm --cached [file]         从版本控制中删除文件但保存文件
+        .get mv [file-original] [file-renamed]  重命名文件并stage
+    .Suppress tracking
+        .".gitignore"
+    .Save fragments
+        .git stash                      暂存所有修改
+        .git stash pop                  回复最近暂存的文件
+        .git stash list                 列出所有暂存修改
+        .git stash drop                 删除暂存修改
+    .Review history
+        .git log                        列出当前分支历史
+        .git log --follow [file]        列出文件的历史记录
+        .git diff [first-branch] .. [second-branch] 展示两个分之下内容区别
+        .git show [commit]              输出指定提交的内容修改
+    .Redo commits
+        .git reset  [commit]            撤回所有[commit]之后的提交,本地保存
+        .git reset --hard [commit]      丢弃所有历史和改变指定commit
+    .Synchronize changes
+        .git fetch  [bookmark]          下载所有历史从仓库bookmark
+        .get merge [bookmark]/branch    合并bookmark's branch到本地当前版本
+        .git push [alias] [branch]      上传本地提交
+        .git pull                       下载远程分支改变
+    .Tag
+        .git tag --list                 列出所有标签
+        .git tag -m [message] [tag]     创建tag
+        .git tag -d [tag]               删除[tag]
