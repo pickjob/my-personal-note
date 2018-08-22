@@ -30,7 +30,7 @@
     - Web相关(Html、Javascript、CSS、Jquery、angular1)
     - 其他(Nginx、ActiveMQ)
     - 了解基本协议(CORS、Base64、简单认证、URL编码、Http协议...)
-    - k8s基本命令
+    - 了解docker、k8s
 
 - ## 项目经验及职责
     - 摩尔精英(2017.08-2018.07)
