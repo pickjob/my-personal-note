@@ -1,7 +1,7 @@
 version: '3'
 services:
-  web:
-    container_name: web_nginx
+  web-nginx:
+    container_name: web-nginx
     image: nginx
     ports:
       - "8080:80"

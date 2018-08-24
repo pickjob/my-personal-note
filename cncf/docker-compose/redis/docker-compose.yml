@@ -1,7 +1,7 @@
 version: '3'
 services:
-  db:
-    container_name: db_redis
+  db-redis:
+    container_name: db-redis
     image: redis:alpine
     command: redis-server /etc/redis/redis.conf
     volumes:
