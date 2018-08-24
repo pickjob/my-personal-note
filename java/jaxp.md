@@ -6,8 +6,13 @@
     - Node
 - SAX
     - SAXParserFactory
+    - SAXParser / SAXReader
     - DefaultHandler
     - ContentHandler，ErrorHandler，DTDHandler , EntityResolver
 - StAX
     - XMLOutputFactory XMLInputFactory
     - XMLStreamWriter XMLStreamReader
+    - XMLEventFactory
+- XSLT
+    - TransformerFactory
+    - Transformer
