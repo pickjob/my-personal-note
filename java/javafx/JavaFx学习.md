@@ -1,0 +1,13 @@
+# JavaFx学习
+- javafx.application.Application
+  - 生命周期
+    - construct
+    - init()
+    - start(Stage)
+    - exit
+      - Platform.exie()
+    - stop
+  - 静态方法launch()启动
+- javafx.stage.Stage(extends Window)
+  - javafx.scene.Scene
+    - javafx.scene.Parent
