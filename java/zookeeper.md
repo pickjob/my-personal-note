@@ -1,0 +1,34 @@
+# zookeeper学习
+- Configuration
+    - tickTime: 心跳时间(ms)
+    - dataDir: 数据目录
+    - clientPort: 客户端监听端口
+    - initLimit: 允许多少个心跳时间内服务端启动
+    - syncLimit: 允许多少个心跳时间内follower同步
+    - maxClientCnxns: 允许最大客户端连接
+    - server.x: 集群主机配置
+    - group.x: 分组信息
+    - weight.x: 权重信息
+- znode
+    - Ephemeral Node: 临时节点
+    - Sequence Nodes: 序列节点
+- watch: one-time trigger
+    - event
+        - created event: exists
+        - deleted event: exists, getData, getChildren
+        - changed event: exists, getData
+        - child event: getChildren
+- ACL
+    - CREATE
+    - READ
+    - WRITE
+    - DELETED
+    - ADMIN
+    - ZooDefs.Ids
+- 典型应用场景
+    - Name Service
+    - Configuration Management
+    - 锁
+        - EPHEMERAL_SEQUENTIAL
+        - watch
+    - 队列
