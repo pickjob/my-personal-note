@@ -1,0 +1,9 @@
+version: '3'
+services:
+  web-tomcat:
+    container_name: web-tomcat
+    image: tomcat:8-alpine
+    # volumes:
+      # - ./redis.conf:/etc/redis/redis.conf
+    ports:
+      - 8080:8080
