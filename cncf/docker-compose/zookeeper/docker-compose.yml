@@ -1,0 +1,43 @@
+version: '3.1'
+services:
+  zookeeper-service1:
+    container_name: zookeeper-service1
+    image: zookeeper
+    restart: always
+    ports:
+      - 2181:2181
+    environment:
+      # ZOO_TICK_TIME: 2000
+      # ZOO_INIT_LIMIT: 5
+      # ZOO_SYNC_LIMIT: 2
+      # ZOO_MAX_CLIENT_CNXNS: 60
+      # ZOO_STANDALONE_ENABLED: false
+      # ZOO_AUTOPURGE_PURGEINTERVAL: 0
+      # ZOO_AUTOPURGE_SNAPRETAINCOUNT: 3
+      ZOO_MY_ID: 1
+      ZOO_SERVERS: server.1=0.0.0.0:2888:3888 server.2=zookeeper-service2:2888:3888 server.3=zookeeper-service3:2888:3888
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      # - ./zoo.cfg:/conf/zoo.cfg
+  zookeeper-service2:
+    container_name: zookeeper-service2
+    image: zookeeper
+    restart: always
+    ports:
+      - 2182:2181
+    environment:
+      ZOO_MY_ID: 2
+      ZOO_SERVERS: server.1=zookeeper-service1:2888:3888 server.2=0.0.0.0:2888:3888 server.3=zookeeper-service3:2888:3888
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+  zookeeper-service3:
+    container_name: zookeeper-service3
+    image: zookeeper
+    restart: always
+    ports:
+      - 2183:2181
+    environment:
+      ZOO_MY_ID: 3
+      ZOO_SERVERS: server.1=zookeeper-service1:2888:3888 server.2=zookeeper-service2:2888:3888 server.3=0.0.0.0:2888:3888
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
