@@ -7,23 +7,6 @@ exit
 ```
 - 分支
     - if
-        - if-then
-            - (( expression ))
-                - val++
-                - val--
-                - ++val
-                - --val
-                - !
-                - ~
-                - **
-                - <<
-                - >>
-                - &
-                - |
-                - &&
-                - ||
-            - [[ expression ]]
-                - $USER == r*
         - if-then-else
             ```bash
                 if command1 
@@ -106,7 +89,7 @@ exit
     - 标准文件描述符
         - 0 : stdin
         - 1 : stdout
-            - cmd 2>&1 output.txt / cmd &> out.put(错误重定向到标准输出)
+            - cmd args 2>&1 output.txt / cmd &> out.put(错误重定向到标准输出)
         - 2-stderr
             - cmd 2>stderr.txt 1>stdout.txt
     - > : 输出重定向(覆盖)
@@ -114,19 +97,18 @@ exit
     - < : 输入重定向
     - << : 内联重定向
     - | : 管道
-    - &> : 标准输出(stdout) 和标准错误输出
-(stderr) 重定向
-        - 测试是否存在命令
-            ```bash
-                command_test () { type "$1" &>/dev/null; }
-                # 存在的命令,返回0
-                cmd=rmdir
-                command_test $cmd; echo $?
-                # 不存在的命令,返回1
-                cmd=bogus_command
-                command_test $cmd; echo $?
-            ```
-    - >& : >&2 标准输出重定向至标准错误输出
+    - &> : 标准输出(stdout) 和标准错误输出(stderr)重定向
+    - >& : 2>&1 标准错误输出重定向至标准输出
+- 测试是否存在命令
+    ```bash
+        command_test () { type "$1" &>/dev/null; }
+        # 存在的命令,返回0
+        cmd=rmdir
+        command_test $cmd; echo $?
+        # 不存在的命令,返回1
+        cmd=bogus_command
+        command_test $cmd; echo $?
+    ```
 - 数学运算
     - $[ operation]
 - 退出状态码
