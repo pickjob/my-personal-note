@@ -1,30 +1,40 @@
 # 编写vim脚本
-- 变量
-    - let
-    - unlet
-- 分支
+- 基本语法
     ```vim
-    while {condition}
-        {expr}
-    endwhile
+    " 分支循环
     if {condition}
         {expr}
     elseif {condition}
     else
         {expr}
     endif
-    ```
-- 函数
-    ```vim
+    for i in range(1, 4)
+        ${expr}
+    endfor
+    while {condition}
+        {expr}
+    endwhile
+    " 函数
     function! {name}({var1},{var2},...)
         {body}
     endfunction
-    ```
-- 列表、字典
-    ```vim
+    " 列表、字典
     let alist = ['a','b','c']
     let adict = {'a':'a','b':'b'}
     ```
+- 变量范围
+    - a:name 函数参数变量
+    - l:name 函数内局部变量
+    - s:name 脚本局部变量
+    - b:name 缓冲区局部变量
+    - w:name 窗口的局部变量
+    - t:name 标签局部变量
+    - g:name 全局变量
+    - v:name vim预定义变量
+- 表达式
+    - $NAME 环境变量
+    - &name vim选项
+    - @r    寄存器
 - 禁止加载
     ```vim
     if exists("g:loaded_typecorr")
@@ -32,56 +42,18 @@
     endif
     let g:loaded_typecorr = 1
     ```
-- Example
-    ```
-    if exists("g:loaded_typecorr")
-        finish
-    endif
-    let g:loaded_typecorr = 1
-    let s:save_cpo = &cpo
-    set cpo&vim
-    iabbrev teh the
-    iabbrev otehr other
-    iabbrev wnat want
-    iabbrev synchronisation
-        \ synchronization
-    if !hasmapto(’<Plug>TypecorrAdd’)
-    map <unique> <Leader>a <Plug>TypecorrAdd
-    endif
-    noremap <unique> <script> <Plug>TypecorrAdd <SID>Add
-    noremenu <script> Plugin.Add\ Correction <SID>Add
-    noremap <SID>Add :call <SID>Add(expand("<cword>"), 1)<CR>
-    function s:Add(from, correct)
-        let to = input("type the correction for " . a:from . ": ")
-        exe ":iabbrev " . a:from . " " . to
-        if a:correct | exe "normal viws\<C-R>\" \b\e" | endif
-        let s:count = s:count + 1
-        echo s:count . " corrections now"
-    endfunction
-    if !exists(":Correct")
-        command -nargs=1 Correct
-    endif
-    let &cpo = s:save_cpo
-    unlet s:save_cpo
-    ```
-    ```vim
-    " 演示快速载入的 Vim 全局插件
-    " Last Change: 2005 Feb 25
-    " Maintainer: Bram Moolenaar <Bram@vim.org>
-    " License: This file is placed in the public domain.
-    if !exists("s:did_load")
-        command -nargs=* BNRead call BufNetRead(<f-args>)
-        map <F19> :call BufNetWrite(’something’)<CR>
-        let s:did_load = 1
-        exe ’au FuncUndefined BufNet* source ’ . expand(’<sfile>’)
-        finish
-    endif
-    function BufNetRead(...)
-        echo ’BufNetRead(’ . string(a:000) . ’)’
-        " 读入功能在此
-    endfunction
-    function BufNetWrite(...)
-        echo ’BufNetWrite(’ . string(a:000) . ’)’
-        " 写回功能在此
-    endfunction
-    ```
+- 键映射
+    - :map <F2> GoDate: <Esc>:read !date<CR>kJ (普通,可视模式及操作符等待模式)
+    - :imap <F2> <CR>Date: <Esc>:read !date<CR>kJ (插入模式)
+    - :vmap (可视模式)
+    - :nmap (普通模式)
+    - :omap (操作符等待模式)
+    - :map! (插入和命令行模式)
+    - :cmap (命令行模式)
+    - nore (不再映射) un(不映射)
+- 自动命令
+    - :autocmd [group] {events} {file_pattern} [nested] {command}
+    - events
+        - BufReadPost
+    - file_pattern
+        - * ? [abc] . a{b,c}

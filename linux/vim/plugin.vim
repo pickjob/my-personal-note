@@ -9,7 +9,6 @@ call vundle#begin('~/.vim/plugins')
 "
 Plugin 'VundleVim/Vundle.vim' " let Vundle manage Vundle, required
 Plugin 'joshdick/onedark.vim' " onedark things
-Plugin 'mkitt/tabline.vim' " tabline
 Plugin 'scrooloose/nerdtree' " nerdtree
 Plugin 'tiagofumo/vim-nerdtree-syntax-highlight' " nerdtree-syntax-highlight
 Plugin 'ryanoasis/vim-devicons' " devicons
@@ -18,9 +17,6 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-ctrlspace/vim-ctrlspace'
 Plugin 'tpope/vim-surround'
 Plugin 'mhinz/vim-signify'
-Plugin 'tpope/vim-fugitive'
-Plugin 'gregsexton/gitv'
-Plugin 'scrooloose/nerdcommenter'
 Plugin 'drmingdrmer/xptemplate'
 Plugin 'Valloric/YouCompleteMe'
 " All of your Plugins must be added before the following line
@@ -43,10 +39,6 @@ filetype plugin indent on    " required
 "
 colorscheme onedark
 "
-" tabline
-"
-let g:tablineclosebutton=1 "  enable the close button
-"
 " nerdtree
 "
 let NERDTreeWinPos='right' " 窗口右边
@@ -59,8 +51,8 @@ let NERDTreeSortOrder=[] " 文件排序
 let g:NERDTreePatternMatchHighlightFullName = 1
 let g:NERDTreeHighlightFolders = 1 " enables folder icon highlighting using exact match
 let g:NERDTreeHighlightFoldersFullName = 1 " highlights the folder name
-let g:NERDTreeDirArrowExpandable = '▸' " 指标使用图标
-let g:NERDTreeDirArrowCollapsible = '▾'
+let g:NERDTreeDirArrowExpandable = '👉' " 指标使用图标
+let g:NERDTreeDirArrowCollapsible = '👇'
 autocmd VimEnter * NERDTree " 启动开启NERDTree
 autocmd VimEnter * wincmd h " 光标切换到左边窗口
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif " close vim if the only window left open is a NERDTree
@@ -69,9 +61,6 @@ autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 "
 let g:airline_theme='wombat'
 let g:airline_detect_iminsert=1
-" let g:airline#extensions#tabline#left_sep = ' '
-" let g:airline#extensions#tabline#left_alt_sep = '|'
-" let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 "
 " vim-devicons
 "
@@ -83,10 +72,12 @@ let g:DevIconsEnableFoldersOpenClose = 1 " enable open and close folder/director
 "   h - buffer list
 "   o - file list
 "   l - tab list
+"   b - bookmark list
+"   w - workspace list
 "
 set hidden
 let g:CtrlSpaceCacheDir = expand('~/.vim')
-let g:CtrlSpaceDefaultMappingKey = "<C-F>"
+" let g:CtrlSpaceDefaultMappingKey = "<C-P>"
 let g:CtrlSpaceHeight = 5 " the minimal height of the plugin window
 let g:CtrlSpaceUseMouseAndArrowsInTerm = 1 " the plugin use mouse
 " Automatically Saving Workspace
@@ -95,11 +86,18 @@ let g:CtrlSpaceSaveWorkspaceOnSwitch = 1
 let g:CtrlSpaceSaveWorkspaceOnExit = 1
 "
 " vim-surround
-"    cs"'  - Change surroundings
-"    ds"   - Delete surroundings is *ds*
+"    cs"'  - "hello" -> 'hello'
+"    cst"  - <p>Hello</p> -> "Hello"
+"    ds"   - "hello" -> hello
+"    ysiw" - hello -> "hello"
 "
+" xptemplate
+"   for<C-\>
+"
+let g:xptemplate_minimal_prefix = 0
 "
 " YouCompleteMe
+"    ./install.py --go-completer
 "
 let g:ycm_python_binary_path = '/usr/bin/python3'
 let g:ycm_min_num_of_chars_for_completion = 1

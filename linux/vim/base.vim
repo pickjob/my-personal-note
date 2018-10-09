@@ -6,6 +6,7 @@ set ignorecase " 搜索忽略大小写
 set hlsearch " 高亮查找匹配
 set number " 显示行号
 set ruler " 显示标尺
+set showcmd " 显示命令
 
 " 文件自动检测外部更改
 set autoread
@@ -58,4 +59,4 @@ language messages zh_CN.utf-8
 set guioptions-=T " 隐藏工具栏
 set guioptions+=b " 底部的 (水平) 滚动条总是存在
 set guioptions+=h " 限制水平滚动条的大小为光标所在行的长度
-set guifont=Hasklug\ Nerd\ Font\ Mono\ Semibold\ 16 " 设置字体
+set guifont=Courier\ 10\ Pitch\ Bold\ 16 " 设置字体
