@@ -36,8 +36,9 @@ cp sources.list /etc/apt/sources.list
 apt update
 # 一些必要配置及工具
 # fcitx-ui
-apt install -y fcitx-ui-classic \
-               fcitx-ui-light
+apt install -y fcitx-frontend-gtk2 \
+               fcitx-frontend-gtk3 \
+               fcitx-frontend-qt4
 # gtk
 apt install -y gtk2-engines-murrine \
                libcanberra-gtk-module \
@@ -87,17 +88,17 @@ echo "Breeze-Adapta has been created"
 # snap packages
 #
 # browser
-sudo snap install midori
-sudo snap install opera
-sudo snap install firefox
-sudo snap install chromium
+# sudo snap install midori
+# sudo snap install opera
+# sudo snap install firefox
+# sudo snap install chromium
 sudo snap install zevdocs
 # editor and ide
-sudo snap install notepadqq
+# sudo snap install notepadqq
 sudo snap install ghex-udt
-sudo snap install vscode --classic
-sudo snap install sublime-text --classic
-sudo snap install liteide-tpaw
+# sudo snap install vscode --classic
+# sudo snap install sublime-text --classic
+# sudo snap install liteide-tpaw
 sudo snap install android-studio --classic
 sudo snap install pycharm-community --classic
 sudo snap install intellij-idea-community --classic
@@ -112,16 +113,15 @@ DEFAULT_USER_EXEC "echo 'export GOPATH=~/$DEFAULT_CODE/go # Go package sources' 
                    echo 'export GOOS=linux # Go target OS' >> ~/.bashrc && \
                    echo 'export GOARCH=amd64 #Go target ARCH' >> ~/.bashrc"
 sudo snap install node --channel=10/stable --classic
-npm config set registry https://registry.npm.taobao.org
-sudo snap install docker && \
-addgroup --system docker && \
-adduser $DEFAULT_USER docker && \
-newgrp docker && \
-echo "{" > /etc/docker/daemon.json && \
-echo "  \"registry-mirrors\": [\"https://docker.mirrors.ustc.edu.cn\"]" >> /etc/docker/daemon.json && \
-echo "}" >> /etc/docker/daemon.json
-snap disable docker
-snap enable docker
+# npm config -g set registry https://registry.npm.taobao.org
+sudo snap install docker
+# $SNAP_DATA(/var/snap/docker/current)/config/daemon.json
+# "registry-mirrors": ["https://docker.mirrors.ustc.edu.cn"]
+# addgroup --system docker
+# adduser $DEFAULT_USER docker
+# newgrp docker
+# snap disable docker
+# snap enable docker
 # database
 sudo snap install dbtarzan
 sudo snap install squirrelsql
@@ -132,7 +132,7 @@ sudo snap install remmina
 # utily
 sudo snap install postman
 sudo snap install insomnia
-sudo snap install wallpaperdownloader
 sudo snap install foobar2000
-sudo snap install mailspring
-sudo snap install hugo
+# sudo snap install mailspring
+# web
+# sudo snap install hugo
