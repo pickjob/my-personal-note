@@ -1,0 +1,12 @@
+[Unit]
+Description=My Startup Service
+
+[Service]
+# type: simple forking oneshot dbus notify idle
+Type=simple
+# PIDFile=
+WorkingDirectory=/home/china
+ExecStart=/home/china/startup.bash
+
+[Install]
+WantedBy=default.target

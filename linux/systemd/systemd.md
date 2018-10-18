@@ -1,4 +1,4 @@
-# 命令
+# systemd学习
 - systemctl
     - start
     - stop

@@ -32,20 +32,28 @@ CHECK_USER
 hwclock --localtime --systohc
 timedatectl set-local-rtc 1 --adjust-system-clock
 # 配置repository
-cp sources.list /etc/apt/sources.list
+echo 'deb http://mirrors.ustc.edu.cn/debian/ stretch main contrib non-free' > /etc/apt/sources.list
+echo 'deb-src http://mirrors.ustc.edu.cn/debian/ stretch main contrib non-free' >>  /etc/apt/sources.list
+echo 'deb http://mirrors.ustc.edu.cn/debian/ stretch-updates main contrib non-free' >>  /etc/apt/sources.list
+echo 'deb-src http://mirrors.ustc.edu.cn/debian/ stretch-updates main contrib non-free' >>  /etc/apt/sources.list
+echo 'deb http://mirrors.ustc.edu.cn/debian/ stretch-backports main contrib non-free' >>  /etc/apt/sources.list
+echo 'deb-src http://mirrors.ustc.edu.cn/debian/ stretch-backports main contrib non-free' >>  /etc/apt/sources.list
+echo 'deb http://mirrors.ustc.edu.cn/debian-security/ stretch/updates main contrib non-free' >>  /etc/apt/sources.list
+echo 'deb-src http://mirrors.ustc.edu.cn/debian-security/ stretch/updates main contrib non-free' >>  /etc/apt/sources.list
 apt update
-# 一些必要配置及工具
 # fcitx-ui
 apt install -y fcitx-frontend-gtk2 \
                fcitx-frontend-gtk3 \
-               fcitx-frontend-qt4
+               fcitx-frontend-qt4 \
+               fcitx-ui-classic
 # gtk
 apt install -y gtk2-engines-murrine \
                libcanberra-gtk-module \
 # some basic utily
 apt install -y git \
                snapd \
-            #    virtualbox
+               chromium \
+               virtualbox
 # sudo
 apt install -y sudo && \
 echo $DEFAULT_USER'  ALL=(ALL:ALL) ALL' > /etc/sudoers.d/$DEFAULT_USER && \
@@ -55,15 +63,11 @@ apt install -y vim python-dev python3-dev && \
 apt install -y build-essential cmake && \
 DEFAULT_USER_EXEC "git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/plugins/Vundle.vim" && \
 echo "vim has been installed successfully"
-# pipy
-echo '[global]' > $HOME/.config/pip/pip.conf
-index-url = https://mirrors.ustc.edu.cn/pypi/web/simple
-format = columns
 # $DEFAULT_CODE目录生成
 DEFAULT_USER_EXEC "mkdir -p ~/$DEFAULT_THEME && \
                    mkdir -p ~/$DEFAULT_SOURCE" && \
 echo "$DEFAULT_CODE has been created"
-# 主题配置
+# # 主题配置
 DEFAULT_USER_EXEC "cd ~/$DEFAULT_THEME && \
                    git clone https://github.com/daniruiz/flat-remix && \
                    mkdir -p ~/.icons && \
@@ -87,52 +91,59 @@ echo "Breeze-Adapta has been created"
 # 
 # snap packages
 #
-# browser
-# sudo snap install midori
-# sudo snap install opera
-# sudo snap install firefox
-# sudo snap install chromium
-sudo snap install zevdocs
-# editor and ide
-# sudo snap install notepadqq
-sudo snap install ghex-udt
-# sudo snap install vscode --classic
-# sudo snap install sublime-text --classic
-# sudo snap install liteide-tpaw
-sudo snap install android-studio --classic
-sudo snap install pycharm-community --classic
-sudo snap install intellij-idea-community --classic
-sudo snap install onlyoffice-desktopeditors
-# program language
-sudo snap install gitkraken
-sudo snap install git-cola
-sudo snap install go --classic && 
+# 一些暂时不能使用应用
+# # browser
+# snap install midori
+# snap install opera
+# snap install firefox
+# snap install chromium
+# # editor and ide
+# snap install notepadqq
+# snap install ghex-udt
+snap install zevdocs
+snap install atom --classic
+# snap install vscode --classic
+# snap install sublime-text --classic
+# snap install liteide-tpaw
+snap install android-studio --classic
+snap install pycharm-community --classic
+snap install intellij-idea-community --classic
+# snap install onlyoffice-desktopeditors
+# # program language
+# snap install gitkraken
+# snap install git-cola
+snap install go --classic && 
 DEFAULT_USER_EXEC "echo 'export GOPATH=~/$DEFAULT_CODE/go # Go package sources' >> ~/.bashrc && \
                    echo 'export GOHOSTOS=linux # Go local OS' >> ~/.bashrc && \
                    echo 'export GOHOSTARCH=amd64 # Go local ARCH' >> ~/.bashrc && \
                    echo 'export GOOS=linux # Go target OS' >> ~/.bashrc && \
                    echo 'export GOARCH=amd64 #Go target ARCH' >> ~/.bashrc"
-sudo snap install node --channel=10/stable --classic
-# npm config -g set registry https://registry.npm.taobao.org
-sudo snap install docker
+snap install node --channel=10/stable --classic
+# # npm config -g set registry https://registry.npm.taobao.org
+snap install docker
 # $SNAP_DATA(/var/snap/docker/current)/config/daemon.json
-# "registry-mirrors": ["https://docker.mirrors.ustc.edu.cn"]
-# addgroup --system docker
-# adduser $DEFAULT_USER docker
-# newgrp docker
-# snap disable docker
-# snap enable docker
-# database
-sudo snap install dbtarzan
-sudo snap install squirrelsql
-sudo snap install redis-desktop-manager
-# ssh
-sudo snap install termius-app
-sudo snap install remmina
+echo '' >  /var/snap/docker/current/config/daemon.json
+echo '{' >> /var/snap/docker/current/config/daemon.json
+echo '    "log-level": "error",' >> /var/snap/docker/current/config/daemon.json
+echo '    "storage-driver": "overlay2",' >> /var/snap/docker/current/config/daemon.json
+echo '    "registry-mirrors": ["https://docker.mirrors.ustc.edu.cn"]' >> /var/snap/docker/current/config/daemon.json
+echo '}' >> /var/snap/docker/current/config/daemon.json
+addgroup --system docker
+newgrp docker
+gpassd -a $DEFAULT_USER docker
+snap disable docker
+snap enable docker
+# # database
+snap install squirrelsql
+snap install redis-desktop-manager
+# # ssh
+# snap install termius-app
+# snap install remmina
 # utily
-sudo snap install postman
-sudo snap install insomnia
-sudo snap install foobar2000
-# sudo snap install mailspring
-# web
-# sudo snap install hugo
+snap install postman
+# snap install insomnia
+# snap install foobar2000
+snap install vlc
+# snap install mailspring
+# # web
+# snap install hugo
