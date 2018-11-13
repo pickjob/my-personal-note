@@ -1,13 +1,12 @@
 # JavaFx学习
-- javafx.application.Application
-  - 生命周期
-    - construct
-    - init()
-    - start(Stage)
-    - exit
-      - Platform.exie()
-    - stop
-  - 静态方法launch()启动
-- javafx.stage.Stage(extends Window)
-  - javafx.scene.Scene
+- 主程序类继承javafx.application.Application
+- 常用类继承结构
+  - javafx.stage.Window
+    - javafx.stage.Stage
+  - javafx.scene.Node
     - javafx.scene.Parent
+      - javafx.scene.web.WebView
+      - javafx.scene.layout.Regon
+        - javafx.scene.control.Controller
+        - javafx.scene.layout.Pane
+    - javafx.scene.Shape
