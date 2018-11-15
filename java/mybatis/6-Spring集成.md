@@ -1,0 +1,12 @@
+# spring集成
+- FactoryBean
+    - SqlSessionFactoryBean
+        - SqlSessionTemplate
+    - MapperFactoryBean
+- Scan
+    - MapperScans
+        - MapperScan
+- AutoConfigure
+    - MybatisAutoConfiguration
+    - MybatisProperties
+        - prefix: mybatis
