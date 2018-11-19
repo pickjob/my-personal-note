@@ -1,0 +1,12 @@
+# java模块化
+- module-info.java
+    - requires / exports
+        - requires transitive modulename;
+        - exports packagename;
+        - exports packagename to modulename;
+    - uses / provide
+        - uses serviceInterface
+        - provide serviceInterface with implentService (provide a service implement)
+    - open, opens, and opens…to (Allowing runtime-only access)
+        - opens package
+        - opens package to comma-separated-list-of-modules
