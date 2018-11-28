@@ -14,7 +14,7 @@
         - SGIP : 中国联通
         - SGMP : 中国电信
 - SMPP基本概念
-    - ESME和SMSC之间通信协议
+    - SSME和SMSC之间通信协议
         - SMPP Transmitter : SMPP messages sent from ESME to SMSC
         - SMPP Receiver : SMPP messages sent from SMSC to ESME
         - SMPP Transceiver
@@ -45,9 +45,30 @@
             - generic_nack
         - BOUND_TRX : bind_transceiver
         - CLOSED : Unbound and Disconnected
+    - Message between ESME and SMSC
+        - from ESME to SMSC
+            - submit
+                - submit_sm
+                - data_sm
+                - query_sm
+                - cancel_sm
+                - replace_sm
+            - response
+                - deliver_sm_resp
+                - data_sm_resp
+        - from SMSC to ESME
+            - submit
+                - deliver_sm
+                - data_sm
+            - response
+                - submit_sm_resp
+                - data_sm_resp
+                - query_sm_resp
+                - cancel_sm_resp
+                - replace_sm_resp
     - PDU格式
         - PDU Header (mandatory >= 16 octets)
-            - Command Length : 4 octets (Length = (Command Length value - 4) octets)
+            - Command Length : 4 octets 
             - Command Id : 4 octets
             - Command Status : 4 octets
             - Sequence Number : 4 octets
