@@ -54,5 +54,4 @@
             .sendAsync(request, BodyHandlers.ofString())
             .thenApply(HttpResponse::statusCode)
             .thenAccept(System.out::println);
-}
     ```
