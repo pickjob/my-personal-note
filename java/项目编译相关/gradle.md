@@ -4,62 +4,47 @@
         ```groovy
         plugins {
             id 'java'
-            id 'application'
             id 'idea'
-            id "com.palantir.docker" version "0.20.1"
+            id 'application'
+            id 'org.gradle.java.experimental-jigsaw' version '0.1.1'
         }
-        mainClassName = 'main.App'
-        project.archivesBaseName = rootProject.name
-        project.version = 'v1'
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
 
-        // docker
-        ext.dockerUser = 'pickjob'
-        ext.dockerName = project.archivesBaseName
-        ext.dockerVersion = 'v1'
-        // other dependent version
-        ext.log4jVersion = '2.11.1'
-        ext.junitVersion = '4.12'
+        group 'pickjob'
+        version '0.0.1'
+        mainClassName = 'app.Application'
+        sourceCompatibility = 11
+        targetCompatibility = 11
+        javaModule.name = 'pickjob.java.starter'
 
         dependencies {
-            compile "org.apache.logging.log4j:log4j-api:${log4jVersion}"
-            compile "org.apache.logging.log4j:log4j-core:${log4jVersion}"
-
-            testCompile "junit:junit:${junitVersion}"
+            implementation 'org.apache.logging.log4j:log4j-api:2.11.1'
+            implementation 'org.apache.logging.log4j:log4j-core:2.11.1'
+            runtimeOnly 'com.lmax:disruptor:3.4.2'
+            testImplementation 'junit:junit:4.12'
         }
 
         repositories {
-            jcenter()
-            mavenCentral()
-        }
-
-
-        jar {
-            manifest {
-                attributes 'Main-Class': "${mainClassName}"
-                attributes 'Class-Path': configurations.compile.files.collect { it.name }.join(' ')
-            }
-            from {
-                configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+            maven {
+                url "https://maven.aliyun.com/repository/central"
             }
         }
 
-        idea{
-            module{
+        idea {
+            module {
                 downloadJavadoc = true
                 downloadSources = true
+                inheritOutputDirs = false
+                outputDir = file("$buildDir/classes/java/main/")
+                testOutputDir = file("$buildDir/classes/java/test/")
             }
         }
 
-        docker{
-            dependsOn build
-            name "${dockerUser}/${dockerName}:${dockerVersion}"
-            dockerfile file("src/main/resources/Dockerfile")
-            files jar.archivePath
-            buildArgs([JAR_FILE: jar.archiveName])
-            pull true
-            noCache true
+        sourceSets {
+            main {
+                output.resourcesDir = file("$buildDir/classes/java/main")
+            }
+            test {
+                output.resourcesDir = file("$buildDir/classes/java/test/")
+            }
         }
         ```
-    - gradle build

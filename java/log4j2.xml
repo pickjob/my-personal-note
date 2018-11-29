@@ -2,14 +2,14 @@
 <configuration status="warn">
     <appenders>
         <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%p] %c{1.} %t - %msg%n"/>
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %t [%p] %c{1.} - %msg%n"/>
         </Console>
         <!--
             -DLog4jContextSelector=org.apache.logging.log4j.core.async.AsyncLoggerContextSelector
             -DAsyncLogger.WaitStrategy=busyspin
         -->
         <RollingFile name="FileAppender" fileName="logs/application.log" filePattern="logs/%d{yyyy-MM-dd}/application.log">
-            <PatternLayout pattern="%d{HH:mm:ss} [%p] %c{1.} %t - %msg%n"/>
+            <PatternLayout pattern="%d{HH:mm:ss} %t [%p] %c{1.} - %msg%n"/>
             <Policies>
                 <OnStartupTriggeringPolicy />
                 <TimeBasedTriggeringPolicy />
