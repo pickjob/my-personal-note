@@ -88,6 +88,21 @@ DEFAULT_USER_EXEC "cd ~/$DEFAULT_THEME && \
                    mkdir -p ~/.icons && \
                    cp -r Breeze-Adapta ~/.icons/ " && \
 echo "Breeze-Adapta has been created"
+# docker
+apt install apt-transport-https  ca-certificates curl gnupg2 software-properties-common
+curl -fsSL https://mirrors.ustc.edu.cn/docker-ce/linux/debian/gpg | sudo apt-key add -
+add-apt-repository \
+   "deb [arch=amd64] https://mirrors.ustc.edu.cn/docker-ce/linux/debian \
+   $(lsb_release -cs) \
+   stable"
+apt update
+apt install docker-ce
+gpasswd -a china  docker
+echo '{' > /etc/docker/daemon.json
+echo '"registry-mirrors": ["https://docker.mirrors.ustc.edu.cn/"]' >> /etc/docker/daemon.json
+echo '}' >> /etc/docker/daemon.json
+systemctl restart docker
+
 # 
 # snap packages
 #
@@ -120,19 +135,6 @@ DEFAULT_USER_EXEC "echo 'export GOPATH=~/$DEFAULT_CODE/go # Go package sources' 
                    echo 'export GOARCH=amd64 #Go target ARCH' >> ~/.bashrc"
 snap install node --channel=10/stable --classic
 # # npm config -g set registry https://registry.npm.taobao.org
-snap install docker
-# $SNAP_DATA(/var/snap/docker/current)/config/daemon.json
-echo '' >  /var/snap/docker/current/config/daemon.json
-echo '{' >> /var/snap/docker/current/config/daemon.json
-echo '    "log-level": "error",' >> /var/snap/docker/current/config/daemon.json
-echo '    "storage-driver": "overlay2",' >> /var/snap/docker/current/config/daemon.json
-echo '    "registry-mirrors": ["https://docker.mirrors.ustc.edu.cn"]' >> /var/snap/docker/current/config/daemon.json
-echo '}' >> /var/snap/docker/current/config/daemon.json
-addgroup --system docker
-newgrp docker
-gpassd -a $DEFAULT_USER docker
-snap disable docker
-snap enable docker
 # # database
 snap install squirrelsql
 snap install redis-desktop-manager
