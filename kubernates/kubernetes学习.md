@@ -1,5 +1,5 @@
 # kubernetes学习
-- command
+- kubectl
     - kubectl apply -f *.yaml / kubectl apply -R -f config/
     - kubectl delete -f *.yaml
     - kubectl get

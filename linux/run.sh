@@ -8,7 +8,7 @@ DEFAULT_USER=china
 DEFAULT_CODE=code
 DEFAULT_THEME=$DEFAULT_CODE/theme
 DEFAULT_SOURCE=$DEFAULT_CODE/source
-## 一系列函数
+# 一系列函数
 # 检查是否有root权限
 CHECK_USER(){
     if [ $UID -ne 0 ]
@@ -67,7 +67,7 @@ echo "vim has been installed successfully"
 DEFAULT_USER_EXEC "mkdir -p ~/$DEFAULT_THEME && \
                    mkdir -p ~/$DEFAULT_SOURCE" && \
 echo "$DEFAULT_CODE has been created"
-# # 主题配置
+# 主题配置
 DEFAULT_USER_EXEC "cd ~/$DEFAULT_THEME && \
                    git clone https://github.com/daniruiz/flat-remix && \
                    mkdir -p ~/.icons && \
@@ -88,20 +88,6 @@ DEFAULT_USER_EXEC "cd ~/$DEFAULT_THEME && \
                    mkdir -p ~/.icons && \
                    cp -r Breeze-Adapta ~/.icons/ " && \
 echo "Breeze-Adapta has been created"
-# docker
-apt install apt-transport-https  ca-certificates curl gnupg2 software-properties-common
-curl -fsSL https://mirrors.ustc.edu.cn/docker-ce/linux/debian/gpg | sudo apt-key add -
-add-apt-repository \
-   "deb [arch=amd64] https://mirrors.ustc.edu.cn/docker-ce/linux/debian \
-   $(lsb_release -cs) \
-   stable"
-apt update
-apt install docker-ce
-gpasswd -a china  docker
-echo '{' > /etc/docker/daemon.json
-echo '"registry-mirrors": ["https://docker.mirrors.ustc.edu.cn/"]' >> /etc/docker/daemon.json
-echo '}' >> /etc/docker/daemon.json
-systemctl restart docker
 
 # 
 # snap packages
@@ -115,14 +101,14 @@ systemctl restart docker
 # # editor and ide
 # snap install notepadqq
 # snap install ghex-udt
-snap install zevdocs
-snap install atom --classic
 # snap install vscode --classic
 # snap install sublime-text --classic
 # snap install liteide-tpaw
 snap install android-studio --classic
 snap install pycharm-community --classic
 snap install intellij-idea-community --classic
+// "registry-mirrors": ["https://docker.mirrors.ustc.edu.cn/"]
+snap install microk8s --classic
 # snap install onlyoffice-desktopeditors
 # # program language
 # snap install gitkraken
@@ -149,3 +135,20 @@ snap install vlc
 # snap install mailspring
 # # web
 # snap install hugo
+
+docker image pull pickjob/pause:3.1
+docker tag pickjob/pause:3.1 k8s.gcr.io/pause:3.1
+docker image pull pickjob/k8s-dns-kube-dns-amd64:1.14.7
+docker tag pickjob/k8s-dns-kube-dns-amd64:1.14.7 gcr.io/google_containers/k8s-dns-kube-dns-amd64:1.14.7
+docker image pull pickjob/k8s-dns-dnsmasq-nanny-amd64:1.14.7
+docker tag pickjob/k8s-dns-dnsmasq-nanny-amd64:1.14.7 gcr.io/google_containers/k8s-dns-dnsmasq-nanny-amd64:1.14.7
+docker image pull pickjob/k8s-dns-sidecar-amd64:1.14.7
+docker tag pickjob/k8s-dns-sidecar-amd64:1.14.7 gcr.io/google_containers/k8s-dns-sidecar-amd64:1.14.7
+docker image pull pickjob/heapster-influxdb-amd64:v1.3.3
+docker tag pickjob/heapster-influxdb-amd64:v1.3.3 k8s.gcr.io/heapster-influxdb-amd64:v1.3.3
+docker image pull pickjob/heapster-grafana-amd64:v4.4.3
+docker tag pickjob/heapster-grafana-amd64:v4.4.3 k8s.gcr.io/heapster-grafana-amd64:v4.4.3
+docker image pull pickjob/kubernetes-dashboard-amd64:v1.8.3
+docker tag pickjob/kubernetes-dashboard-amd64:v1.8.3 k8s.gcr.io/kubernetes-dashboard-amd64:v1.8.3
+docker image pull pickjob/heapster-amd64:v1.5.2
+docker tag pickjob/heapster-amd64:v1.5.2 k8s.gcr.io/heapster-amd64:v1.5.2
