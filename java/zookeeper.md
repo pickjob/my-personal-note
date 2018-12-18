@@ -1,11 +1,52 @@
 # zookeeper学习
+- 脚本
+  - zkCleanup.sh
+  - zkCli.sh
+    - create [-s] [-e] path data acl
+    - ls path [watch]
+    - get path [watch]
+    - set path data [watch]
+    - delete path [version]
+  - zkEnv.sh
+  - zkServer.sh stop/start
+- 保证分布式一致性
+  - 顺序一致性
+  - 原子性
+  - 单一视图
+  - 可靠性
+  - 实时性
+- 基本概念
+  - 集群角色 Leader Follower Observer
+  - Session
+  - Znode
+  - Version
+  - Watcher
+  - ACL
+    - Scheme
+      - IP
+      - Digest
+      - World
+      - Super
+    - Permission
+      - CREATE
+      - READ
+      - WRITE
+      - DELETED
+      - ADMIN
+      - ZooDefs.Ids
 - Configuration
-    - tickTime: 心跳时间(ms)
-    - dataDir: 数据目录
+  - 基本配置
     - clientPort: 客户端监听端口
+    - dataDir/dataLogDir: 数据/日志目录
+    - tickTime: 心跳时间(ms)
+  - 高级配置
     - initLimit: 允许多少个心跳时间内服务端启动
     - syncLimit: 允许多少个心跳时间内follower同步
+    - snapCount: 配置相邻两次数据快照事物操作次数
+    - preAllocSize: 事物日志预分配磁盘大小
+    - minSessionTimeout/maxSessionTimeout
     - maxClientCnxns: 允许最大客户端连接
+    - forceSync
     - server.x: 集群主机配置
     - group.x: 分组信息
     - weight.x: 权重信息
@@ -18,13 +59,6 @@
         - deleted event: exists, getData, getChildren
         - changed event: exists, getData
         - child event: getChildren
-- ACL
-    - CREATE
-    - READ
-    - WRITE
-    - DELETED
-    - ADMIN
-    - ZooDefs.Ids
 - 典型应用场景
     - Name Service
     - Configuration Management
@@ -32,3 +66,16 @@
         - EPHEMERAL_SEQUENTIAL
         - watch
     - 队列
+- 四字命令
+  - stat
+  - conf
+  - envi
+  - ruok
+  - crst
+  - dump
+  - srvr
+  - srst
+  - wchs
+  - wchc
+  - wchp
+  - mntr
