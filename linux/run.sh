@@ -113,14 +113,26 @@ snap install microk8s --classic
 # # program language
 # snap install gitkraken
 # snap install git-cola
-snap install go --classic && 
-DEFAULT_USER_EXEC "echo 'export GOPATH=~/$DEFAULT_CODE/go # Go package sources' >> ~/.bashrc && \
-                   echo 'export GOHOSTOS=linux # Go local OS' >> ~/.bashrc && \
-                   echo 'export GOHOSTARCH=amd64 # Go local ARCH' >> ~/.bashrc && \
-                   echo 'export GOOS=linux # Go target OS' >> ~/.bashrc && \
-                   echo 'export GOARCH=amd64 #Go target ARCH' >> ~/.bashrc"
-snap install node --channel=10/stable --classic
-# # npm config -g set registry https://registry.npm.taobao.org
+# # #
+# # GO Language
+# # #
+# snap install go --classic && 
+# DEFAULT_USER_EXEC "echo 'export GOPATH=~/$DEFAULT_CODE/go # Go package sources' >> ~/.bashrc && \
+#                    echo 'export GOHOSTOS=linux # Go local OS' >> ~/.bashrc && \
+#                    echo 'export GOHOSTARCH=amd64 # Go local ARCH' >> ~/.bashrc && \
+#                    echo 'export GOOS=linux # Go target OS' >> ~/.bashrc && \
+#                    echo 'export GOARCH=amd64 #Go target ARCH' >> ~/.bashrc"
+# # # 
+# # nodejs language
+# # #
+# snap install node --channel=10/stable --classic
+# npm config -g set registry https://registry.npm.taobao.org
+# npm config set prefix D:\repository\nmp
+# npm config set cache D:\repository\nmp\cache
+# # #
+# # rust language
+# # #
+# curl https://sh.rustup.rs -sSf | sh
 # # database
 snap install squirrelsql
 snap install redis-desktop-manager
