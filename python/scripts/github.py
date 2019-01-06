@@ -6,11 +6,11 @@ import os
 import subprocess
 
 githubUser = ''
-sourceDir = '/mnt/c/personal'
+sourceDir = '/home/china/code/source'
 baseUrl = 'https://github.com'
 repositories = []
 
-def checkPages(githubRepository, repositories):
+def checkPages(githubRepository):
     url = baseUrl + '/' + githubRepository + '?tab=repositories'
     r = requests.get(url)
     soup = BeautifulSoup(r.text, 'html.parser')
@@ -21,7 +21,7 @@ def checkPages(githubRepository, repositories):
     for nxPage in soup.select('a.next_page'):
         checkPages(baseUrl+nxPage['href'])
 
-checkPages(githubUser, repositories)
+checkPages(githubUser)
 print('总计: ', len(repositories))
 sourceDir += '/' + githubUser + '/'
 
@@ -29,6 +29,6 @@ if not os.path.exists(sourceDir):
     os.makedirs(sourceDir)
 for repo in repositories:
     u = baseUrl + repo + '.git'
-    print('github repository url: ', url)
-    subprocess.call(['git', 'clone', 'u'], shell=True, cwd=sourceDir)
+    print('github repository url: ', u)
+    subprocess.call(['git clone %s' % u], shell=True, cwd=sourceDir)
 
