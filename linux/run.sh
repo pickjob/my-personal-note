@@ -109,6 +109,9 @@ snap install pycharm-community --classic
 snap install intellij-idea-community --classic
 // "registry-mirrors": ["https://docker.mirrors.ustc.edu.cn/"]
 snap install microk8s --classic
+addgroup --system docker
+adduser china docker
+newgrp docker
 # snap install onlyoffice-desktopeditors
 # # program language
 # snap install gitkraken

@@ -1,20 +1,42 @@
 # vert.x学习
-- Future
-  - CompositeFuture.all
-  - CompositeFuture.any
-  - CompositeFuture.join
-  - CompositeFuture.compose
-- Verticle
-  - Stardand Verticle
-  - Stardand Verticle
-  - Multi-threaded Worker Verticle
-- Context
-- Timer
-  - setTimer
-  - setTimer
-  - cancelTimer
-- Event Bus
+- Starter
     ```java
+    // in the beginning
+    Vertx vertx = Vertx.vertx();
+    // extends AbstractVerticle
+    public class MyVerticle extends AbstractVerticle {
+        // Called when verticle is deployed
+        public void start() {
+            // startFuture.complete();
+            // startFuture.fail(res.cause());
+        }
+        // Optional - called when verticle is undeployed
+        public void stop() {
+            //  stopFuture.complete();
+            //  stopFuture.fail();
+        }
+    }
+    // deploy
+    vertx.deployVerticle("package.to.MyVerticle", options);
+    // undeploy
+    vertx.undeploy(deploymentID, res -> {
+        if (res.succeeded()) {
+            System.out.println("Undeployed ok");
+        } else {
+            System.out.println("Undeploy failed!");
+        }
+    });
+    // Context
+    Context context = vertx.getOrCreateContext();
+    // Timer
+    long timerID = vertx.setTimer(1000, id -> {
+        System.out.println("And one second later this is printed");
+    });
+    long timerID = vertx.setPeriodic(1000, id -> {
+        System.out.println("And every second this is printed");
+    });
+    vertx.cancelTimer(timerID);
+    // Event Bus
     EventBus eb = vertx.eventBus();
     // Consumer
     eb.consumer("news.uk.sport", message -> {
@@ -49,22 +71,18 @@
         System.out.println("I have received a message: " + message.body());
         message.reply("how interesting!");
     });
-    ```
-- Codec
-    ```java
+    // Codecs
     eventBus.registerCodec(myCodec);
     DeliveryOptions options = new DeliveryOptions().setCodecName(myCodec.name());
     eventBus.send("orders", new MyPOJO(), options);
     eventBus.registerDefaultCodec(MyPOJO.class, myCodec);
     eventBus.send("orders", new MyPOJO());
-    ```
-- JSON
-  - JSONObject
-    - mapTo
-    - encode
-  - JSONArray
-- Buffer
-    ```java
+    // JsonOBject / JsonArray
+    JsonObject object = new JsonObject();
+    object.put("foo", "bar");
+    object.encode();
+
+    // Buffer
     // Create
     Buffer buff = Buffer.buffer();
     Buffer buff = Buffer.buffer("some string");
@@ -76,9 +94,8 @@
     // Random
     buff.setInt(1000, 123);
     buff.setString(0, "hello");
-    ```
-- TCP
-    ```java
+
+    // TCP
     NetServer server = vertx.createNetServer(options);
     server.listen();
     server.listen(1234, "localhost");
@@ -112,9 +129,8 @@
         System.out.println("Failed to connect: " + res.cause().getMessage());
     }
     });
-    ```
-- FileSystem
-    ```java
+    
+    // FileSystem
     Vertx vertx = Vertx.vertx();
     // Read a file
     vertx.fileSystem().readFile("target/classes/readme.txt", result -> {
@@ -151,3 +167,24 @@
         }
     });
     ```
+- Future
+  - CompositeFuture.all
+  - CompositeFuture.any
+  - CompositeFuture.join
+  - CompositeFuture.compose
+- Verticle
+  - Stardand Verticle
+  - Stardand Verticle
+  - Multi-threaded Worker Verticle
+- Event Bus
+  - Address
+  - Handlers
+  - Publish / Subscribe messaging
+  - Point-to-Point and Request-Response messaging
+  - Best-effort delivery
+- Logging
+  - vertx.logger-delegate-factory-class-name
+    - io.vertx.core.loggine.
+      - Log4jLoDelegateFactory
+      - Log4j2LogDelegateFactory
+      - SLF4JLogDelegateFactory
