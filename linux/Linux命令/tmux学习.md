@@ -1,0 +1,20 @@
+# tmux学习
+- 命令
+  - tmux list-commands
+- Components
+  - Session
+    - tmux list-sessions
+    - tmux new -s session_name
+    - tmux attach -t session_name
+    - tmux switch -t session_name
+    - tmux detach
+    - tmux kill-server
+  - Window
+    - tmux list-windows
+    - tmux new-window
+    - tmux select-window -t :0-9 
+    - tmux rename-window
+  - Pane
+    - tmux split-window [-h]
+    - tmux select-pane -[UDLR]
+    - tmux swap-pane -[UDLR]

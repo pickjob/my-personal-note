@@ -9,12 +9,58 @@
   - @Component
     - selector
     - templateUrl
-    - provderUrl
+    - provder
   - @Injectable
     - providedIn
+  - @Directive
+    - selector
+  - @Pipe
+- template
+  - {{}}
+  - [(ngModel)]
+  - [attr.atrName]="attrValue"
+  - [class.special]="isSpecial" / [ngClass]
+  - [style.styleName]="sytleValue" / [ngStyle]
+  - (event)="onEvent($event)"
+  - *ngIf="isTrue"
+  - *ngFor="let item of list; trackBy: "
+  - [*ngSwitch]="condition"
+    - <director *ngSwitchCase="condition></director>
+    - <director *ngSwitchDefault="condition></director>
+  - #var
+- 常用module
+  - NgModule: import { NgModule } from '@angular/core';
+  - BrowserModule: import { BrowserModule } from '@angular/platform-browser';
+  - FormsModule: import { FormsModule} from '@angular/forms';
+  - ReactiveFormsModule: import { ReactiveFormsModule } from '@angular/forms';
+    - FormControl / [formControl] / setValue
+    - FormGroup / [formGroup] / formGroupName / formControlName / (ngSubmit) / setValue / patchValue
+    - FormBuilder / control() / group() / array()
+    - Validators
+  - RouterModule: import { Routes, RouterModule } from '@angular/router';
+    - <a routerLink="/a"></a>
+    - router-outlet
+    ```typescript
+    const routes: Routes = [
+      {path: '/a', component: HelloComponent},
+      {path: '', redirectTo: '/dashboadr', pathMatch: 'full'}
+    ];
+    @NgModule({
+      imports: [RouterModule.forRoot(routes)],
+      exports: [RouterModule]
+    })
+    export class AppRoutingModule { }
+    ```
+- 组件交互
+  - 父->子
+    - @Input, 父绑定到子属性
+    - setter监听改变
+    - ngOnChanges
+  - 子->父
+    - @Output
 - ng命令
     ```bash
-    ng new my-app
+    ng new hello-angular
     ng serve --open
     ng generate class
     ng generate component
