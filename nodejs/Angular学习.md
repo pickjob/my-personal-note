@@ -30,6 +30,7 @@
   - #var
 - 常用module
   - NgModule: import { NgModule } from '@angular/core';
+  - CommonModule: import {CommonModule} from '@angular/common';
   - BrowserModule: import { BrowserModule } from '@angular/platform-browser';
   - FormsModule: import { FormsModule} from '@angular/forms';
   - ReactiveFormsModule: import { ReactiveFormsModule } from '@angular/forms';
@@ -37,6 +38,7 @@
     - FormGroup / [formGroup] / formGroupName / formControlName / (ngSubmit) / setValue / patchValue
     - FormBuilder / control() / group() / array()
     - Validators
+  - HttpClientModule: import {HttpClientModule} form '@angular/common/http';
   - RouterModule: import { Routes, RouterModule } from '@angular/router';
     - <a routerLink="/a"></a>
     - router-outlet
@@ -60,9 +62,9 @@
     - @Output
 - ng命令
     ```bash
-    ng new hello-angular
+    ng new hello-angular --force
     ng serve --open
-    ng generate class
+    ng generate class --skipTest
     ng generate component
     ng generate directive
     ng generate enum

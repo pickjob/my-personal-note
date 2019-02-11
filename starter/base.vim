@@ -33,7 +33,7 @@ set foldenable
 set foldmethod=indent
 set foldclose=all " 当光标不在折叠上时关闭折叠
 set foldopen=all " 命令移动光标到关闭的折叠
-set foldminlines=2 " 要折叠最少行数
+set foldminlines=5 " 要折叠最少行数
 set foldcolumn=1
 set foldtext=v:folddashes.substitute(getline(v:foldstart),’/\*\\|\\*/\\|{{{\d\=’,’’,’g’)
 
@@ -54,9 +54,9 @@ set autochdir
 set langmenu=zh_CN.UTF-8
 source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
-language messages zh_CN.utf-8
+" language messages zh_CN.utf-8
 " set guioptions-=m 隐藏菜单
 set guioptions-=T " 隐藏工具栏
 set guioptions+=b " 底部的 (水平) 滚动条总是存在
 set guioptions+=h " 限制水平滚动条的大小为光标所在行的长度
-set guifont=Courier\ 10\ Pitch\ Bold\ 16 " 设置字体
+set guifont=Fira\ Code\ Medium\ 16 " 设置字体

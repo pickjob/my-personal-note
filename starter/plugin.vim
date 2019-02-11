@@ -7,6 +7,7 @@ call vundle#begin('~/.vim/plugins')
 "
 " plugins on GitHub repo
 "
+Plugin 'rust-lang/rust.vim'
 Plugin 'VundleVim/Vundle.vim' " let Vundle manage Vundle, required
 Plugin 'joshdick/onedark.vim' " onedark things
 Plugin 'scrooloose/nerdtree' " nerdtree
@@ -18,7 +19,6 @@ Plugin 'vim-ctrlspace/vim-ctrlspace'
 Plugin 'tpope/vim-surround'
 Plugin 'mhinz/vim-signify'
 Plugin 'drmingdrmer/xptemplate'
-Plugin 'Valloric/YouCompleteMe'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -31,8 +31,6 @@ filetype plugin indent on    " required
 " :PluginSearch foo - searches for foo; append `!` to refresh local cache
 " :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
 "
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
 
 "
 " onedark
@@ -51,8 +49,8 @@ let NERDTreeSortOrder=[] " 文件排序
 let g:NERDTreePatternMatchHighlightFullName = 1
 let g:NERDTreeHighlightFolders = 1 " enables folder icon highlighting using exact match
 let g:NERDTreeHighlightFoldersFullName = 1 " highlights the folder name
-let g:NERDTreeDirArrowExpandable = '👉' " 指标使用图标
-let g:NERDTreeDirArrowCollapsible = '👇'
+let g:NERDTreeDirArrowExpandable = '+' " 指标使用图标
+let g:NERDTreeDirArrowCollapsible = '-'
 autocmd VimEnter * NERDTree " 启动开启NERDTree
 autocmd VimEnter * wincmd h " 光标切换到左边窗口
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif " close vim if the only window left open is a NERDTree
@@ -96,13 +94,8 @@ let g:CtrlSpaceSaveWorkspaceOnExit = 1
 "
 let g:xptemplate_minimal_prefix = 0
 "
-" YouCompleteMe
-"    ./install.py --go-completer
+" tmux影响
 "
-let g:ycm_python_binary_path = '/usr/bin/python3'
-let g:ycm_min_num_of_chars_for_completion = 1
-let g:ycm_complete_in_comments = 1
-let g:ycm_collect_identifiers_from_comments_and_strings = 1
-let g:ycm_add_preview_to_completeopt = 0
-let g:ycm_autoclose_preview_window_after_completion = 0
-let g:ycm_autoclose_preview_window_after_insertion = 0
+" if exists('$TMUX')
+"   set term=screen-256color
+" endif
