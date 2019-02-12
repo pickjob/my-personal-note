@@ -1,5 +1,4 @@
 set nocompatible " 取消vi兼容
-filetype off " Vundle需要
 
 syntax on " 语法高亮
 set ignorecase " 搜索忽略大小写
@@ -7,6 +6,7 @@ set hlsearch " 高亮查找匹配
 set number " 显示行号
 set ruler " 显示标尺
 set showcmd " 显示命令
+set termguicolors " 全颜色显示
 
 " 文件自动检测外部更改
 set autoread

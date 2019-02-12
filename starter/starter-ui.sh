@@ -1,53 +1,44 @@
-#!/bin/bash
-
-DEFAULT_USER_EXEC(){
-    echo "su $DEFAULT_USER -c \"$1\""
-    `su $DEFAULT_USER -c "$1"`
-}
-if [ $UID -ne 0 ]
-then
-    echo "Superuser privileges are required to run this script."
-    echo "e.g. \"sudo $0\""
-    exit -1
-fi
+# timezone set
 hwclock --localtime --systohc
 timedatectl set-local-rtc 1 --adjust-system-clock
 # fcitx-ui
-apt install -y fcitx-frontend-gtk2 \ 
-               fcitx-frontend-gtk3 \ 
-               fcitx-frontend-qt4 \ 
+apt install -y fcitx-frontend-gtk2 \
+               fcitx-frontend-gtk3 \
+               fcitx-frontend-qt4 \
                fcitx-ui-classic
-# gtk
-apt install -y gtk2-engines-murrine \ 
-               libcanberra-gtk-module
 # some basic utily
-apt install -y snapd \ 
-               chromium \ 
+apt install -y snapd \
+               chromium \
                virtualbox
 # sudo
 apt install -y sudo && \
-echo 'china  ALL=(ALL:ALL) ALL' > /etc/sudoers.d/china && \ 
-echo "sudo has been installed successfully" 
+echo 'china  ALL=(ALL:ALL) ALL' > /etc/sudoers.d/china && \
+echo "sudo has been installed successfully"
+# fonts
+DEFAULT_USER_EXEC "cd ~/code/source && \
+                   git clone https://github.com/tonsky/FiraCode.git &&
+                   cp --force --recursive FiraCode ~/.fonts" && \
+echo "fonts has been created"
 # themes
 DEFAULT_USER_EXEC "cd ~/code/source && \
                    git clone https://github.com/daniruiz/flat-remix && \
                    mkdir -p ~/.icons && \
-                   cp -r flat-remix/Flat-Remix* ~/.icons/" && \ 
+                   cp -r flat-remix/Flat-Remix* ~/.icons/" && \
 echo "flat-remix has been downloaded"
 DEFAULT_USER_EXEC "cd ~/code/source && \
                    git clone https://github.com/daniruiz/flat-remix-gtk && \
                    mkdir -p ~/.themes && \
-                   cp -r flat-remix-gtk/Flat-Remix-GTK* ~/.themes/ " && \ 
+                   cp -r flat-remix-gtk/Flat-Remix-GTK* ~/.themes/ " && \
 echo "flat-remix-gtk has been created"
 DEFAULT_USER_EXEC "cd ~/code/source && \
                    git clone https://github.com/daniruiz/flat-remix-gnome && \
                    mkdir -p ~/.themes && \
-                   cp -r flat-remix-gnome/Flat-Remix* ~/.themes/ " && \ 
+                   cp -r flat-remix-gnome/Flat-Remix* ~/.themes/ " && \
 echo "flat-remix-gnome has been created"
 DEFAULT_USER_EXEC "cd ~/code/source && \
                    git clone https://github.com/mustafaozhan/Breeze-Adapta.git && \
                    mkdir -p ~/.icons && \
-                   cp -r Breeze-Adapta ~/.icons/ " && \ 
+                   cp -r Breeze-Adapta ~/.icons/ " && \
 echo "Breeze-Adapta has been created"
 # 
 # snap packages
