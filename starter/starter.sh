@@ -6,7 +6,7 @@ DEFAULT_USER_EXEC(){
 if [ $UID -ne 0 ]
 then
     echo 'Superuser privileges are required to run this script.'
-    echo 'e.g. \"sudo $0\"'
+    echo "e.g. \"sudo $0\""
     exit -1
 fi
 # apt repository
@@ -43,10 +43,10 @@ DEFAULT_USER_EXEC 'mkdir --parents ~/code/personal && \
                    echo "export PATH=~/tools/bin:\$PATH" >> ~/.bashrc ' && \
 echo 'directories has been created'
 # vim
-# ln --symbolic vimrc ~/.vimrc
-# ln --symbolic vim-base.vim ~/.vim/base.vim
-# ln --symbolic vim-plug.vim ~/.vim/plug.vim
-# ln --symbolic vim-my.vim ~/.vim/my.vim
+# ln --symbolic --force `pwd`/vimrc ~/.vimrc
+# ln --symbolic --force `pwd`/vim-base.vim ~/.vim/base.vim
+# ln --symbolic --force `pwd`/vim-plug.vim ~/.vim/plug.vim
+# ln --symbolic --force `pwd`/vim-my.vim ~/.vim/my.vim
 apt install -y libncurses5-dev \
                python-dev \
                python3-dev \
