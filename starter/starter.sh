@@ -83,7 +83,7 @@ DEFAULT_USER_EXEC 'echo "# X Server" >> ~/.bashrc && \
                    echo "export LIBGL_ALWAYS_INDIRECT=1" >> ~/.bashrc '  && \
 echo 'china ALL = (root) NOPASSWD: /etc/init.d/dbus' > /etc/sudoers.d/dbus && \
 echo 'code has been configured'
-personal repository
+# personal repository
 DEFAULT_USER_EXEC 'cd ~/code/personal && \
                    git clone https://github.com/pickjob/angular-starter.git && \
                    git clone https://github.com/pickjob/java-starter.git && \

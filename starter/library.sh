@@ -9,10 +9,8 @@ pip3 install requests beautifulsoup4
 pip3 install openpyxl
 # picture
 pip3 install pillow
-# video
-pip3 install opencvs
 # statics
-pip3 install numpy scipy pandas keras gensim
+# pip3 install numpy scipy pandas keras gensim
 #
 # npm
 #
