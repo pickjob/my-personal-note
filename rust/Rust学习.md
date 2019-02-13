@@ -1,0 +1,14 @@
+# Rust学习
+- bin
+  - cargo
+    - --bin/lib
+    - build
+      - --release
+    - run
+    - update
+    - test
+    - clean
+  - rustc
+    - --create-type [bin|lib|rlib|dylib|cdylib|staticlib|proc-macro]
+    - -o FILENAME
+    - --verbose
