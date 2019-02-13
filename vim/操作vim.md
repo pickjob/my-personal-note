@@ -1,90 +1,100 @@
 # vim普通模式操作
-- 编辑&保存&退出
-    - :r(读取)
-    - :e(编辑)
-    - :w(保存)
-    - :q(退出)
-    - ZZ(保存并退出)
-    - :saveas(另存为 )
+- 基本命令
+  - :r(ead)
+  - :new
+  - :e(dit)
+  - :w(rite)
+  - :q(uit)
+  - :saveas(另存为)
+  - :first / :previouce / :next / :last
 - 移动
-    - h(左) j(下) k(上) l(右)
-    - w/e(下一个单词词首/词末) b/ge(上一个单词词首/词末)
-    - ^(行首) $(行尾)
-    - f(当前行正向查找) F(当前行反向查找)
-    - %(括号匹配)
-    - nG(n行) gg(文件首) GG(尾)
-    - 50%(百分比)
-    - H(Home) / M(Middle) / L(Last) (当前页面)
-    - zz(当前行位于中间)
-    - CTRL-F(forward) / CTRL-B(backward) (翻页)
+  - h(左) j(下) k(上) l(右)
+  - ^(行首) b/ge(上一个单词词首/词末) w/e(下一个单词词首/词末) $(行尾)
+  - %(括号匹配)
+  - nG(n行) gg(文件首) GG(尾)
+  - 50%(百分比)
+  - 滚动
+    - 整屏滚动
+      - CTRL-F(Forward) / CTRL-B(Backward)
+    - 半屏滚动
+      - CTRL-U(Upper) / CTRL-D(Down)
+    - 当前光标行更改
+      - zt(改为顶层)
+      - zz(改为中间行)
+      - zb(改为底层)
+    - 跳转
+      - CTRL-O(old) / CTRL-I(new)
+      - ''
+      - ma / 'a
 - 新建一行
-    - o(下面) / O(上面)
-- 删除
-    - x(删除一个字符)
-    - dw(删除一个单词)
-    - d$(删除到当行结尾)
-    - dd(删除一行)
-    - J(删除换行字符)
-- 查找
-    - /(正向) ?(反向)
-    - \> 开始  \< 结束
-- 复制
-    - y(复制一个字符)
-    - yw(一个字符)
-    - y$(到行尾)
-    - yy(一行)
+  - o(下面) / O(上面)
+- d(delete)
+  - x(删除一个字符)
+  - dw(删除一个单词)
+  - d$(删除到当行结尾)
+  - dd(删除一行)
+  - J(删除换行字符)
+- c(change)
+  - c^ / c$ / cc
+- f(find)
+  - f?(正向) F?(反向)
+  - /(正向) ?(反向)
+  - \> 开始  \< 结束
+- yank(抽取)
+  - y(抽取一个字符)
+  - yw(抽取一个单词)
+  - y$(抽取到行尾)
+  - yy(抽取一行)
 - .(重复命令)
-- 粘贴
-    - P(前面) / p(后面)
+- put(放置)
+  - P(前面) / p(后面)
 - 替换
-    - :substitute
-    - :%substitute/four/4/g(所有行中替换)
-- u(撤销) 
+  - :[range]substitute/from/to/[flags]
+  - :%substitute/four/4/g(所有行中替换)
+- U(撤销) 
 - CTRL-R(重做)
-- V(行选择)
-- CTRL-V(列选择)
+- 选择模式
+  - V(行选择)
+  - CTRL-V(列选择)
     - I(左边插入)
     - A(右边插入)
     - ~(大小写转换) U(小写转大写) u(大写转小写)
     - >(平移)
+    - o(斜对角) O(横向对角)
 - 窗口管理
-    - :new
-    - :split :vsplit (分割窗口)
-    - CTRL-W + / -(大小)
-    - CTRL-W h / j / k / l / t / b (窗口跳转)
-    - CTRL-W H / J / K / L (移动窗口)
+  - :split :vsplit (分割窗口)
+  - CTRL-W + / -(调整大小)
+  - CTRL-W h / j / k / l / t / b (窗口跳转)
+  - CTRL-W H / J / K / L (移动窗口)
 - 缓冲区
-    - :buffers
-        - u 列表外缓冲区
-        - % 当前缓冲区
-        - # 轮换缓冲区
-        - a 激活缓冲区
-        - h 隐藏缓冲区
-        - = 制度缓冲区
-        - - 不可该缓冲区
-        - + 已修改缓冲区
-    - :buffer idx
-    - :bnext :bprevious :bfist :blast :bdelete
+  - :buffers
+    - u 列表外缓冲区
+    - % 当前缓冲区
+    - # 轮换缓冲区
+    - a 激活缓冲区
+    - h 隐藏缓冲区
+    - = 制度缓冲区
+    - - 不可该缓冲区
+    - + 已修改缓冲区
+  - :buffer idx
+  - :bdelete
+  - :bfist :bprevious :bnext :blast 
 - 折叠
-    - zf(Fold create)
-    - zo(Open a fold)
-    - zc(Close a fold)
-    - zr(Reduce fold)
-    - zR(Reduce all fold)
-    - zm(More fold)
-    - zM(More all fold)
-- 标签页
-    - :tabedit thatfile
-    - :tab split
-    - :gt
+  - zf(Fold create)
+  - zo(Open a fold)
+  - zc(Close a fold)
+  - zr(Reduce fold)
+  - zR(Reduce all fold)
+  - zm(More fold)
+  - zM(More all fold)
 - 剪贴板
-    - "+y
-    - "+p
+  - "+y
+  - "+p
 - 执行外部命令
-    :!sort
+  - :!sort
 - 二进制文件
-    - vim -b datafile
-    - set display=uhex
-    - :%!xxd
-    - :%!xxd -r
-    - (ga)显示当前光标字符十六进制
+  - vim -b datafile
+  - set display=uhex
+  - :%!xxd
+  - :%!xxd -r
+  - (ga)显示当前光标字符十六进制
