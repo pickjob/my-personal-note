@@ -1,12 +1,18 @@
 set nocompatible " 取消vi兼容
 
 syntax on " 语法高亮
+set autochdir " 自动改变当前工作目录的值
+set background=dark " 背景暗色
 set ignorecase " 搜索忽略大小写
 set hlsearch " 高亮查找匹配
 set number " 显示行号
 set ruler " 显示标尺
 set showcmd " 显示命令
-set termguicolors " 全颜色显示
+set termguicolors " 真彩支持
+set nobackup " 无备份
+set mouse=a " 鼠标可用
+set hidden
+
 
 " 文件自动检测外部更改
 set autoread
@@ -31,9 +37,9 @@ set listchars=tab:>-,precedes:<,extends:>,trail:-
 " 代码折叠
 set foldenable
 set foldmethod=indent
-set foldclose=all " 当光标不在折叠上时关闭折叠
-set foldopen=all " 命令移动光标到关闭的折叠
-set foldminlines=5 " 要折叠最少行数
+set foldclose=all
+set foldopen=all
+set foldminlines=10
 set foldcolumn=1
 set foldtext=v:folddashes.substitute(getline(v:foldstart),’/\*\\|\\*/\\|{{{\d\=’,’’,’g’)
 
@@ -43,11 +49,9 @@ set fileencodings=ucs-bom,utf-8,chinese
 set fileformat=unix
 set fileformats=unix,dos
 
-set nobackup " 无备份
-set mouse=a " 鼠标可用
-set novisualbell " 使用可视响铃代替鸣叫
-
-set autochdir
+set updatetime=3000
+set shortmess+=c
+set signcolumn=yes
 
 " GVIM配置
 " 解决菜单乱码
@@ -59,4 +63,4 @@ source $VIMRUNTIME/menu.vim
 set guioptions-=T " 隐藏工具栏
 set guioptions+=b " 底部的 (水平) 滚动条总是存在
 set guioptions+=h " 限制水平滚动条的大小为光标所在行的长度
-set guifont=Fira\ Code\ Medium\ 16 " 设置字体
+set guifont=FuraCode\ NF\ 16 " 设置字体

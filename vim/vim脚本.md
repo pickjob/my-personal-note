@@ -38,22 +38,46 @@
 - 禁止加载
     ```vim
     if exists("g:loaded_typecorr")
-    finish
+        finish
     endif
     let g:loaded_typecorr = 1
     ```
-- 键映射
+- 键映射(map)
     - :map <F2> GoDate: <Esc>:read !date<CR>kJ (普通,可视模式及操作符等待模式)
     - :imap <F2> <CR>Date: <Esc>:read !date<CR>kJ (插入模式)
-    - :vmap (可视模式)
-    - :nmap (普通模式)
-    - :omap (操作符等待模式)
-    - :map! (插入和命令行模式)
-    - :cmap (命令行模式)
-    - nore (不再映射) un(不映射)
+    - :nmap(普通模式)
+    - :vmap(可视模式)
+    - :cmap(命令行模式)
+    - :omap(操作符等待模式)
+    - :map!(插入和命令行模式)
+    - nore(不再映射) un(不映射)
+    - 建表
+      - <k0> - <k9>: 数字0-9
+      - <S-...>: Shift + ...
+      - <C-...>: Control + ...
+      - <Alt-...>: Alt + ...
+      - <Esc>: Esc键
+      - <Up>:
+      - <Space>:
+      - <Tab>:
+      - <CR>: 回车
+      - <BS>: backspace退格键
+      - <F1> - <F12>
+    - 特殊参数
+      - <buffer>: 当前buffer
+      - <silent>: 不回显
+      - <special>: 有副作用
+      - <expr>: 参数
+      - <unique>: 唯一
+      - <Leader>: 
+    - <SID>
+    - <Plug>
 - 自动命令
     - :autocmd [group] {events} {file_pattern} [nested] {command}
     - events
         - BufReadPost
     - file_pattern
         - * ? [abc] . a{b,c}
+- :redir! > a.txt
+- verbose map
+- redir END

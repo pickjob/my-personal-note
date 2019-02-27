@@ -20,7 +20,6 @@ echo 'deb-src http://mirrors.ustc.edu.cn/debian/ stretch-backports main contrib 
 echo 'deb http://mirrors.ustc.edu.cn/debian-security/ stretch/updates main contrib non-free' >>  /etc/apt/sources.list.d/ustc.list
 echo 'deb-src http://mirrors.ustc.edu.cn/debian-security/ stretch/updates main contrib non-free' >> /etc/apt/sources.list.d/ustc.list
 apt update
-# upgrade
 apt upgrade -y
 # toolchain
 apt install -y build-essential \
@@ -28,12 +27,16 @@ apt install -y build-essential \
                ca-certificates \
                git \
                tmux \
+               bash-completion \
                curl \
                telnet \
+               netcat \
                python3-pip
 # library
 apt install -y gtk2-engines-murrine \
                libcanberra-gtk-module
+DEFAULT_USER_EXEC "git config --global user.email 'pickjob@126.com' && \
+                   git config --global user.name 'pickjob'"
 # directory
 DEFAULT_USER_EXEC 'mkdir --parents ~/code/personal && \
                    mkdir --parents ~/code/repository && \
@@ -42,11 +45,16 @@ DEFAULT_USER_EXEC 'mkdir --parents ~/code/personal && \
                    echo "# tools/bin" >> ~/.bashrc && \
                    echo "export PATH=~/tools/bin:\$PATH" >> ~/.bashrc ' && \
 echo 'directories has been created'
+# personal repository
+DEFAULT_USER_EXEC 'cd ~/code/personal && \
+                   git clone https://github.com/pickjob/my-personal-note.git && \
+                   git clone https://github.com/pickjob/java-starter.git && \
+                   git clone https://github.com/pickjob/spring-starter.git && \
+                   git clone https://github.com/pickjob/angular-starter.git && \
+                   git clone https://github.com/pickjob/vert.x-starter.git && \
+                   git clone https://github.com/pickjob/rust-starter.git ' && \
+echo 'personal repository has been installed'
 # vim
-# ln --symbolic --force `pwd`/vimrc ~/.vimrc
-# ln --symbolic --force `pwd`/vim-base.vim ~/.vim/base.vim
-# ln --symbolic --force `pwd`/vim-plug.vim ~/.vim/plug.vim
-# ln --symbolic --force `pwd`/vim-my.vim ~/.vim/my.vim
 apt install -y libncurses5-dev \
                python-dev \
                python3-dev \
@@ -70,7 +78,6 @@ DEFAULT_USER_EXEC 'cd ~/code/source && \
                    --with-features=huge \
                    --prefix=/home/china/tools && \
                    make install ' && \
-DEFAULT_USER_EXEC 'curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim ' && \
 echo 'vim has been installed successfully'
 # code
 apt install -y libgtk2.0-0 libxss1 libasound2 && \
@@ -83,13 +90,6 @@ DEFAULT_USER_EXEC 'echo "# X Server" >> ~/.bashrc && \
                    echo "export LIBGL_ALWAYS_INDIRECT=1" >> ~/.bashrc '  && \
 echo 'china ALL = (root) NOPASSWD: /etc/init.d/dbus' > /etc/sudoers.d/dbus && \
 echo 'code has been configured'
-# personal repository
-DEFAULT_USER_EXEC 'cd ~/code/personal && \
-                   git clone https://github.com/pickjob/angular-starter.git && \
-                   git clone https://github.com/pickjob/java-starter.git && \
-                   git clone https://github.com/pickjob/my-personal-note.git && \
-                   git clone https://github.com/pickjob/vert.x-starter.git ' && \
-echo 'personal repository has been installed'
 # node
 curl -sL https://deb.nodesource.com/setup_11.x | bash - && \
 apt update && \
@@ -97,13 +97,19 @@ apt install -y nodejs && \
 DEFAULT_USER_EXEC 'echo "prefix=~/code/repository/npm" > ~/.npmrc && \
                    echo "cache=~/code/repository/npm/cache" >> ~/.npmrc && \
                    echo "registry=http://npmreg.proxy.ustclug.org" >> ~/.npmrc && \
+                   echo "# npm" >> ~/.bashrc && \
                    echo "export PATH=~/code/repository/npm/bin:\$PATH" >> ~/.bashrc ' && \
 echo 'node has been install'
 # yarn
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
 echo "deb [arch=amd64] https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list
 apt update
-apt install -y yarn
+apt install -y yarn && \
+DEFAULT_USER_EXEC 'yarn config set prefix ~/code/repository/yarn && \
+                   yarn config set cache-folder ~/code/repository/yarn && \
+                   echo "# yarn" >> ~/.bashrc && \
+                   echo "export PATH=~/code/repository/yarn/bin:\$PATH" >> ~/.bashrc ' && \
+echo 'yarn has been install'
 # rust
 DEFAULT_USER_EXEC 'cd ~ && \
                    curl https://sh.rustup.rs --output rust-init.sh && \
@@ -111,3 +117,13 @@ DEFAULT_USER_EXEC 'cd ~ && \
                    echo "# rust" >> ~/.bashrc && \
                    echo "export PATH=~/.cargo/bin:\$PATH" >> ~/.bashrc ' && \
 echo 'rust has been installed'
+# X11
+apt install -y x11-xserver-utils \
+               x11-utils \
+               xfonts-utils \
+               x11-xfs-utils \
+               x11-session-uitls \
+               xdg-utils \
+               x11-xkb-utils \
+               xitmaps \
+               x11-apps
