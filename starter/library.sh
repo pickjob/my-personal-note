@@ -30,6 +30,7 @@ pip3 install pillow
 # pip3 install numpy scipy pandas keras gensim
 #
 # npm
+#   npm install -g npm to update
 #
 # typescript
 npm install -g typescript

@@ -1,0 +1,30 @@
+# Iterator学习
+- Iterator Adapters
+  - map filter
+  - filter_map flat_map
+  - scan
+  - take take_while
+  - skip skip_while
+  - peekable
+  - fuse
+  - rev
+  - inspect
+  - chain
+  - enumerate
+  - zip
+  - by_ref
+  - cloned
+  - cycle
+- Consuming Iterator
+  - count sum product
+  - max min
+  - max_by min_by
+  - max_by_key min_by_key
+  - any_all
+  - position rposition 
+  - flod
+  - nth
+  - last
+  - find
+  - collect
+  - partition

@@ -94,10 +94,14 @@
     SHOW VARIABLES;
     SHOW STATUS;
     ```
-- packages
-  - mysql-community-sever: mysqld
-  - mysql-community-client
-  - mysql-community-test
-  - mysql-community-bench
-  - mysql-workbench-community
-  - mysql-router
+- 常用配置
+  - 远程登入
+    - 该表
+      - update user set host = '%' where user = 'root';
+    - 授权
+      - CREATE USER 'china'@'%' IDENTIFIED WITH mysql_native_password BY 'chinese';
+      - GRANT ALL PRIVILEGES ON *.* TO 'china'@'%' WITH GRANT OPTION;
+      - FLUSH PRIVILEGES;
+  - 通用日志
+    - ubuntu
+      - 改文件/etc/apparmor.d/usr.sbin.mysqld

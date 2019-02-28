@@ -1,14 +1,26 @@
 # Rust学习
-- bin
-  - cargo
-    - --bin/lib
-    - build
-      - --release
-    - run
-    - update
-    - test
-    - clean
-  - rustc
-    - --create-type [bin|lib|rlib|dylib|cdylib|staticlib|proc-macro]
-    - -o FILENAME
-    - --verbose
+- 属性学习
+  - #[macro_*]
+    - macro_use
+    - macro_reexport
+    - macro_export
+  - #[derive(*)]
+    - Comparision: EQ, PartialEq, Ord, PartialOrd
+    - Clone
+    - Copy
+    - Hash
+    - Default
+    - Debug
+  - #[cft(test)]
+    - #[test]
+- cargo
+  - new project_name --bin/--lib
+  - build --release
+  - run
+  - update
+  - test
+  - clean
+  - init
+- Install / Uninstall
+  - curl https://sh.rustup.rs -sSf | sh
+  - rustup self uninstall
