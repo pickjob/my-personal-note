@@ -61,8 +61,8 @@
     emerge sys-kernel/linux-firmware sys-apps/systemd
     # 配置基本环境
     ln -sf /proc/self/mounts /etc/mtab && \
-    echo '/dev/sda1 /boot vfat defaults,noatime 0 2' >> /etc/fstab && \
-    echo '/dev/sda2 /     ext4 noatime          0 1' >> /etc/fstab
+    echo '/dev/sda1      /boot vfat defaults,noatime 0 2' >> /etc/fstab && \
+    echo '/dev/sda2      /     ext4 defaults,noatime 0 1' >> /etc/fstab
     emerge sys-boot/grub:2
     mount -o remount,rw /sys/firmware/efi/efivars
     grub-install --target=x86_64-efi --efi-directory=/boot
@@ -115,7 +115,14 @@
     eclean
 
     # 常用软件安装
-    emerge www-client/firefox
+    emerge www-client/firefox www-client/opera-developer app-i18n/fcitx app-i18n/fcitx-sunpinyin
+    dev-vcs/git dev-vcs/git-cola net-wireless/wpa_supplicant
+
+    export XMODIFIERS=@im=fcitx
+    export QT_IM_MODULE=fcitx
+    export GTK_IM_MODULE=fcitx
+    git config --global user.email "pickjob@126.com"
+    git config --global user.name "吴胜"
     ```
 - i3学习
   - 快捷键
