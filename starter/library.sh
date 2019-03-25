@@ -18,7 +18,7 @@ ln --symbolic --force `pwd`/vim/vim-plug.vim ~/.vim/plug.vim && \
 ln --symbolic --force `pwd`/vim/vim-my.vim ~/.vim/my.vim
 #
 # python
-pip3 install requests beautifulsoup4 openpyxl
+pip3 install --user requests beautifulsoup4 openpyxl
 #
 # npm
 echo "prefix=~/code/repository/npm" > ~/.npmrc && \
@@ -35,25 +35,20 @@ echo "# rust" >> ~/.bashrc && \
 echo "export PATH=~/.cargo/bin:\$PATH" >> ~/.bashrc
 rustup component add rls rust-analysis rust-src rustfmt
 
-
-
-
-
-
-docker image pull pickjob/pause:3.1
-docker tag pickjob/pause:3.1 k8s.gcr.io/pause:3.1
-docker image pull pickjob/k8s-dns-kube-dns-amd64:1.14.7
-docker tag pickjob/k8s-dns-kube-dns-amd64:1.14.7 gcr.io/google_containers/k8s-dns-kube-dns-amd64:1.14.7
-docker image pull pickjob/k8s-dns-dnsmasq-nanny-amd64:1.14.7
-docker tag pickjob/k8s-dns-dnsmasq-nanny-amd64:1.14.7 gcr.io/google_containers/k8s-dns-dnsmasq-nanny-amd64:1.14.7
-docker image pull pickjob/k8s-dns-sidecar-amd64:1.14.7
-docker tag pickjob/k8s-dns-sidecar-amd64:1.14.7 gcr.io/google_containers/k8s-dns-sidecar-amd64:1.14.7
-docker image pull pickjob/heapster-influxdb-amd64:v1.3.3
-docker tag pickjob/heapster-influxdb-amd64:v1.3.3 k8s.gcr.io/heapster-influxdb-amd64:v1.3.3
-docker image pull pickjob/heapster-grafana-amd64:v4.4.3
-docker tag pickjob/heapster-grafana-amd64:v4.4.3 k8s.gcr.io/heapster-grafana-amd64:v4.4.3
-docker image pull pickjob/kubernetes-dashboard-amd64:v1.8.3
-docker tag pickjob/kubernetes-dashboard-amd64:v1.8.3 k8s.gcr.io/kubernetes-dashboard-amd64:v1.8.3
-docker image pull pickjob/heapster-amd64:v1.5.2
-docker tag pickjob/heapster-amd64:v1.5.2 k8s.gcr.io/heapster-amd64:v1.5.2
+# docker image pull pickjob/pause:3.1
+# docker tag pickjob/pause:3.1 k8s.gcr.io/pause:3.1
+# docker image pull pickjob/k8s-dns-kube-dns-amd64:1.14.7
+# docker tag pickjob/k8s-dns-kube-dns-amd64:1.14.7 gcr.io/google_containers/k8s-dns-kube-dns-amd64:1.14.7
+# docker image pull pickjob/k8s-dns-dnsmasq-nanny-amd64:1.14.7
+# docker tag pickjob/k8s-dns-dnsmasq-nanny-amd64:1.14.7 gcr.io/google_containers/k8s-dns-dnsmasq-nanny-amd64:1.14.7
+# docker image pull pickjob/k8s-dns-sidecar-amd64:1.14.7
+# docker tag pickjob/k8s-dns-sidecar-amd64:1.14.7 gcr.io/google_containers/k8s-dns-sidecar-amd64:1.14.7
+# docker image pull pickjob/heapster-influxdb-amd64:v1.3.3
+# docker tag pickjob/heapster-influxdb-amd64:v1.3.3 k8s.gcr.io/heapster-influxdb-amd64:v1.3.3
+# docker image pull pickjob/heapster-grafana-amd64:v4.4.3
+# docker tag pickjob/heapster-grafana-amd64:v4.4.3 k8s.gcr.io/heapster-grafana-amd64:v4.4.3
+# docker image pull pickjob/kubernetes-dashboard-amd64:v1.8.3
+# docker tag pickjob/kubernetes-dashboard-amd64:v1.8.3 k8s.gcr.io/kubernetes-dashboard-amd64:v1.8.3
+# docker image pull pickjob/heapster-amd64:v1.5.2
+# docker tag pickjob/heapster-amd64:v1.5.2 k8s.gcr.io/heapster-amd64:v1.5.2
 

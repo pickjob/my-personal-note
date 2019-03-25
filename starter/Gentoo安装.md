@@ -57,7 +57,7 @@
     # GRUB_CMDLINE_LINUX="init=/usr/lib/systemd/systemd" /etc/default/grub
     grub-mkconfig -o /boot/grub/grub.cfg
     passwd
-    useradd --groups users --shell /bin/bash china 
+    useradd --groups wheels,users --shell /bin/bash china 
     echo 'china ALL = (ALL) ALL' > /etc/sudoers.d/china
     echo 'consolefont="lat9w-16"' > /etc/conf.d/consolefont
     passwd china
@@ -105,7 +105,15 @@
     echo 'export GTK_IM_MODULE=fcitx' >> ~/.xprofile
     echo 'fcitx &' >> ~/.xprofile
     echo 'guake &' >> ~/.xprofile
-    
+    # flatpak
+    echo '[flatpak-overlay]' > /etc/portage/repos.conf/flatpak.conf
+    echo 'priority = 50' >> /etc/portage/repos.conf/flatpak.conf
+    echo 'location = /usr/flatpak-overlay' >> /etc/portage/repos.conf/flatpak.conf
+    echo 'sync-type = git' >> /etc/portage/repos.conf/flatpak.conf
+    echo 'sync-uri = https://github.com/fosero/flatpak-overlay.git' >> /etc/portage/repos.conf/flatpak.conf
+    echo 'auto-sync = Yes' >> /etc/portage/repos.conf/flatpak.conf
+    emerge --sync
+    emerge sys-apps/flatpak
     reboot
     ```
 - 常用命令
@@ -120,5 +128,16 @@
 
     # 常用软件安装
     emerge www-client/firefox-bin www-client/opera-developer && \
-           dev-vcs/git dev-python/pip
+           dev-vcs/git dev-python/pip app-emulation/docker app-emulation/docker-compose
+    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    flatpak install flathub com.axosoft.GitKraken
+    flatpak install flathub com.syntevo.SmartGit
+    flatpak install flathub com.visualstudio.code
+    flatpak install flathub com.jetbrains.IntelliJ-IDEA-Community
+    flatpak install flathub org.apache.netbeans
+    flatpak install flathub com.getpostman.Postman
+    flatpak install flathub 
+    flatpak install flathub org.wireshark.Wireshark com.google.AndroidStudio io.dbeaver.DBeaverCommunity
+    flatpak install flathub com.syntevo.SmartSynchronize com.github.muriloventuroso.easyssh com.github.mdh34.quickdocs
+
     ```
