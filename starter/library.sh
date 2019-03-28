@@ -11,11 +11,11 @@ echo "# tools/bin" >> ~/.bashrc && \
 echo "export PATH=~/tools/bin:\$PATH" >> ~/.bashrc
 #
 # vim
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim && \
-ln --symbolic --force `pwd`/vim/vimrc ~/.vimrc && \
-ln --symbolic --force `pwd`/vim/vim-base.vim ~/.vim/base.vim && \
-ln --symbolic --force `pwd`/vim/vim-plug.vim ~/.vim/plug.vim && \
-ln --symbolic --force `pwd`/vim/vim-my.vim ~/.vim/my.vim
+# curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim && \
+# ln --symbolic --force `pwd`/vim/vimrc ~/.vimrc && \
+# ln --symbolic --force `pwd`/vim/vim-base.vim ~/.vim/base.vim && \
+# ln --symbolic --force `pwd`/vim/vim-plug.vim ~/.vim/plug.vim && \
+# ln --symbolic --force `pwd`/vim/vim-my.vim ~/.vim/my.vim
 #
 # python
 pip3 install --user requests beautifulsoup4 openpyxl
@@ -30,10 +30,12 @@ npm install -g typescript
 npm install -g @angular/cli
 #
 # rust
-curl https://sh.rustup.rs rust-init.sh | sh rust-init.sh -y && \
+curl https://sh.rustup.rs rust-init.sh | sh rust-init.sh -y
 echo "# rust" >> ~/.bashrc && \
 echo "export PATH=~/.cargo/bin:\$PATH" >> ~/.bashrc
 rustup component add rls rust-analysis rust-src rustfmt
+
+# "registry-mirrors": ["https://docker.mirrors.ustc.edu.cn/"]
 
 # docker image pull pickjob/pause:3.1
 # docker tag pickjob/pause:3.1 k8s.gcr.io/pause:3.1
