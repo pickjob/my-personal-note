@@ -10,7 +10,7 @@
     parted
     mklabel gpt && mkpart primary 1M 513M && name 1 EFI && set 1 boot on && mkpart primary 513M -1M && name 2 ROOT
     # 格式化磁盘并挂载
-    mkfs.fat -F 32 /dev/sda1 && mkfs.ext4 /dev/sda2 && mount /dev/sda2 /mnt/gentoo && mkdir --parent /mnt/gentoo/boot && mount /dev/sda1 /mnt/gentoo/boot
+    mkfs.fat -F 32 -n BOOT /dev/sda1 && mkfs.ext4 -n ROOT /dev/sda2 && mount /dev/sda2 /mnt/gentoo && mkdir --parent /mnt/gentoo/boot && mount /dev/sda1 /mnt/gentoo/boot
     tar -xvf stage3
     # 配置make.conf
     # -march=native /mnt/gentoo/etc/portage/make.conf 
@@ -48,25 +48,24 @@
     emerge sys-kernel/gentoo-sources sys-apps/pciutils app-portage/gentoolkit app-portage/portage-utils app-editors/vim
     make defconfig && make menuconfig
     make && make modules_install && make install
-    emerge sys-kernel/linux-firmware sys-boot/grub:2
+    emerge sys-kernel/linux-firmware sys-apps/systemd sys-boot/grub:2
     # 配置基本环境
     ln -sf /proc/self/mounts /etc/mtab && \
-    echo '/dev/sda1     /boot vfat defaults,noatime 0 2' >> /etc/fstab && \
-    echo '/dev/sda2     /     ext4 defaults,noatime 0 1' >> /etc/fstab
+    echo 'LABEL=BOOT     /boot vfat defaults,noatime 0 2' >> /etc/fstab && \
+    echo 'LABEL=ROOT     /     ext4 defaults,noatime 0 1' >> /etc/fstab
     mount -o remount,rw /sys/firmware/efi/efivars && grub-install --target=x86_64-efi --efi-directory=/boot
     # GRUB_CMDLINE_LINUX="init=/usr/lib/systemd/systemd" /etc/default/grub
     grub-mkconfig -o /boot/grub/grub.cfg
     passwd
-    useradd --groups wheels,users --shell /bin/bash china 
+    emerge app-admin/sudo app-shells/bash-completion
+    useradd --groups users --shell /bin/bash china
     echo 'china ALL = (ALL) ALL' > /etc/sudoers.d/china
-    echo 'consolefont="lat9w-16"' > /etc/conf.d/consolefont
     passwd china
     # 网络配置
     echo '[Match]' > /etc/systemd/network/dhcp.network && \
     echo 'Name=en*' >> /etc/systemd/network/dhcp.network && \
     echo '[Network]' >> /etc/systemd/network/dhcp.network && \
     echo 'DHCP=yes' >> /etc/systemd/network/dhcp.network
-    emerge app-admin/sudo app-shells/bash-completion
     exit
     reboot
     ```
@@ -75,8 +74,14 @@
     # 计算机基本设置
     systemd-machine-id-setup
     hostnamectl set-hostname GENTOO
-    localectl set-locale LANG="zh_CN.utf8"
+    echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen
+    echo 'en_US ISO-8859-1' >> /etc/locale.gen
+    echo 'zh_CN GB2312' >> /etc/locale.gen
+    echo 'zh_CN.UTF-8 UTF-8' >> /etc/locale.gen
+    locale-gen
+    localectl set-locale LANG=zh_CN.utf8
     timedatectl set-timezone 'Asia/Shanghai'
+    timedatectl set-local-rtc 1
     systemctl start systemd-networkd.service && systemctl enable systemd-networkd.service
     systemctl start systemd-resolved.service && systemctl enable systemd-resolved.service
     ln -snf /run/systemd/resolve/resolv.conf /etc/resolv.conf
@@ -84,36 +89,27 @@
     ./Nvidiaxxx.run
     eselect opengl set nvidia
     eselect opencl set nvidia
-    emerge x11-base/xorg-x11 x11-terms/guake
-    emerge kde-plasma/plasma-meta && \
-           kde-apps/kdeadmin-meta && \
-           kde-apps/kdecore-meta && \
-           kde-apps/kdegraphics-meta && \
-           kde-apps/kdeutils-meta
+    emerge x11-base/xorg-server media-fonts/fira-code \
+           media-fonts/source-pro media-fonts/noto-cjk \
+           x11-wm/i3 x11-misc/dmenu x11-misc/i3blocks \
+           x11-terms/guake x11-misc/pcmanfm
     # 无线网卡
-    emerge net-misc/dhcpcd-ui
-    echo 'ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=users' > wpa_supplicant-wlp4s0.conf && \
+    emerge net-wireless/wpa_supplicant net-misc/dhcpcd-ui
+    echo 'ctrl_interface=DIR=/var/run/wpa_supplicant' > wpa_supplicant-wlp4s0.conf && \
+    echo 'ctrl_interface_group=users' >> wpa_supplicant-wlp4s0.conf && \
     echo 'update_config=1' >> wpa_supplicant-wlp4s0.conf
     systemctl restart wpa_supplicant@wlp4s0 && systemctl enable wpa_supplicant@wlp4s0
     mkdir --parents /usr/lib/dhcpcd/dhcp-hooks/ && ln --symbolic /usr/share/dhcpcd/hooks/10-wpa_supplicant /usr/lib/dhcpcd/dhcp-hooks/
     systemctl restart dhcpcd && systemctl enable dhcpcd
     # 输入法
     emerge app-i18n/fcitx app-i18n/fcitx-configtool app-i18n/fcitx-sunpinyin
-    echo 'eval "$(dbus-launch --sh-syntax --exit-with-session)"' >> ~/.xprofile
-    echo 'export XMODIFIERS="@im=fcitx"' >> ~/.xprofile
-    echo 'export QT_IM_MODULE=fcitx' >> ~/.xprofile
-    echo 'export GTK_IM_MODULE=fcitx' >> ~/.xprofile
-    echo 'fcitx &' >> ~/.xprofile
-    echo 'guake &' >> ~/.xprofile
-    # flatpak
-    echo '[flatpak-overlay]' > /etc/portage/repos.conf/flatpak.conf
-    echo 'priority = 50' >> /etc/portage/repos.conf/flatpak.conf
-    echo 'location = /usr/flatpak-overlay' >> /etc/portage/repos.conf/flatpak.conf
-    echo 'sync-type = git' >> /etc/portage/repos.conf/flatpak.conf
-    echo 'sync-uri = https://github.com/fosero/flatpak-overlay.git' >> /etc/portage/repos.conf/flatpak.conf
-    echo 'auto-sync = Yes' >> /etc/portage/repos.conf/flatpak.conf
-    emerge --sync
-    emerge sys-apps/flatpak
+    echo 'eval "$(dbus-launch --sh-syntax --exit-with-session)"' >> ~/.xinitrc
+    echo 'export XMODIFIERS="@im=fcitx"' >> ~/.xinitrc
+    echo 'export QT_IM_MODULE=fcitx' >> ~/.xinitrc
+    echo 'export GTK_IM_MODULE=fcitx' >> ~/.xinitrc
+    echo 'fcitx &' >> ~/.xinitrc
+    echo 'guake &' >> ~/.xinitrc
+    echo 'exec i3' >> ~/.xinitrc
     reboot
     ```
 - 常用命令
@@ -127,17 +123,7 @@
     etc-update
 
     # 常用软件安装
-    emerge www-client/firefox-bin www-client/opera-developer && \
-           dev-vcs/git dev-python/pip app-emulation/docker app-emulation/docker-compose
-    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-    flatpak install flathub com.axosoft.GitKraken
-    flatpak install flathub com.syntevo.SmartGit
-    flatpak install flathub com.visualstudio.code
-    flatpak install flathub com.jetbrains.IntelliJ-IDEA-Community
-    flatpak install flathub org.apache.netbeans
-    flatpak install flathub com.getpostman.Postman
-    flatpak install flathub 
-    flatpak install flathub org.wireshark.Wireshark com.google.AndroidStudio io.dbeaver.DBeaverCommunity
-    flatpak install flathub com.syntevo.SmartSynchronize com.github.muriloventuroso.easyssh com.github.mdh34.quickdocs
-
+    emerge www-client/firefox-bin www-client/opera && \
+           dev-vcs/git dev-python/pip app-emulation/docker app-emulation/docker-compose \
+           sys-block/parted sys-fs/dosfstools
     ```
