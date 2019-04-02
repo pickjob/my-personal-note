@@ -1,0 +1,44 @@
+# JMH学习
+- 相关注解
+  - 基准测试单元
+    - @BenchmarkMode
+      - Mode.Throughput: 每一段时间(/s)执行的次数
+      - Mode.AverageTime: 每次操作平均耗时
+      - Mode.SampleTime: 随机进行采样执行时间
+      - Mode.SingleShotTime: 每次执行中计算耗时
+      - Mode.All: 所有模式
+    - @Fork: 分支进程,避免过多优化
+    - @Warmup
+      - iterations: 循环次数
+      - time: 一次循环执行
+      - timeUnit: 时间单位
+    - @Measurement
+      - iterations: 循环次数
+      - time: 一次循环执行
+      - timeUnit: 时间单位
+  - 基准测试类、数据
+    - @State: 状态参数,注入参数隔离
+      - Scope.Benchmark
+      - Scope.Thread
+      - Scope.Group
+    - @Setup: 基准测试前操作
+      - Level.Trial
+      - Level.Iteration
+      - Level.Invocation
+    - @TearDown: 基准测试前操作后
+      - Level.Trial
+      - Level.Iteration
+      - Level.Invocation
+    - @Param
+    - @AuxCounters
+  - 基准测试使用线程
+    - @Group
+    - @GroupThreads: 同时使用线程
+    - @Threads
+  - 基准测试方法
+    - @OperationsPerInvocation: 内部合并循环
+    - @Timeout
+    - @OutputTimeUnit: 单位时间输出
+    - @Benchmark: 基准测试方法
+- 类
+  - Blackhole.consume(): 防止被优化掉
