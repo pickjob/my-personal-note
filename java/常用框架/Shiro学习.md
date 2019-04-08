@@ -1,0 +1,42 @@
+# Shiro学习
+- Core
+  - Authentication (Subjects)
+    - Principals (Subjects idenifying attributes)
+    - Credentials
+  - AUthorization
+  - Session Management
+  - Cryptography
+- Authentication Sequence
+  - SecurityUtils.getSubject()
+  - Subject.login(AuthenticationToken)
+  - SecurityUtils.login(token)
+  - Authenticator.authenticate(token) (ModuleRealmAuthenticator)
+  - AuthenticationsStrategy
+    - AtLeastOneSuccessfulStrategy
+    - FirstSuccessfulStrategy
+    - AllSuccesssfulStrategy
+  - Subject.logout()
+- ModuleRealmAuthorizer
+- PermissionResolver
+- RolePermissionResolver
+- Realm
+- Authorization
+  - @RequireAuthentication
+  - @RequireGuest
+  - @RequirePermissions
+  - @RequireRoles
+  - @RequireUser
+- ShiroFilter
+  - EnvironmentLoaderListener
+  - DefaultFilters
+    - anon(AnonymousFilter)
+    - authc(FormAuthenticationFilter)
+    - authcBasic(BasicHttpAuthenticationFilter)
+    - logout(LogoutFilter)
+    - noSessionCreation(NoSessionCreationFilter)
+    - perms(PermissionsAuthorizationFilter)
+    - port(PortFilter)
+    - rest(HttpMethodPermissionFilter)
+    - roles(RolesAuthorizationFilter)
+    - ssl(SslFilter)
+    - user(UserFilter)

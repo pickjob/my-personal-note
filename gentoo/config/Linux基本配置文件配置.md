@@ -9,3 +9,4 @@
       - rw,suid,dev,exec,auto,nouser,async
   - dump使用的,用以决定这个分区是否需要dump。一般情况下,你可以把该字段设为0(零)
   - fsck使用的,用以决定系统非正常关机之后文件系统的检查顺序。根文件系统应该为1,而其它的应该为2（如果不需要文件系统自检的话可以设为0)
+- /proc/sys/kernel/pid_max

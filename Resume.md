@@ -3,19 +3,18 @@
 |          |                            |       |                 |
 |:--------:|:--------------------------:|:-----:|:---------------:|
 |    姓名    |             吴胜             |   性别  |        男        |
-|   出生年月   |           1992.10          |  开发经验 |   两年多(2015.12)  |
+|   出生年月   |           1992.10          |  开发经验 |   2015.12--至今  |
 |   毕业院校   |           南京农业大学           |   学历  |        本科       |
 |   英语水平   |             六级             | 计算机证书 | 二级(VB)、三级(网络技术) |
 |   联系电话   |         18626312598        |  联系邮箱 | pickjob@126.com |
 |   应聘岗位   |           Java开发           |   地点  |        上海       |
-| github地址 | https://github.com/pickjob |       |                 |
 |          |                            |       |                 |
 
 
 - ## 工作经历
 |          时间          |      公司      |   职务   |  工作地点 |
 |:--------------------:|:------------:|:------:|:-----:|
-|    2018.08 ---- 至今   | 上海创蓝文化传播有限公司 | Java开发 |   上海  |
+| 2018.08 ---- 至今 | 上海创蓝文化传播有限公司 | Java开发 |   上海  |
 | 2017.08 ---- 2018.07 | 摩尔精英网络科技有限公司 | Java开发 |   上海  |
 | 2016.09 ---- 2017.07 |  南京斯布乔科技有限公司 | Java开发 |   无锡  |
 | 2015.12 ---- 2016.07 |  上海捷奥软件有限公司  | Java开发 |   宜兴  |
@@ -23,16 +22,22 @@
 
 
 - ## 能力
-    - Java基础(NIO、Socket、JCF、RMI、JMX、JXAP、Java Concurrent Package)
-    - Java基本框架(SpringBoot、Hibernate、MyBatis、Shiro ...)
-    - 数据库(MySql、Redis、PostgreSql、DB2、SQLServer)
+    - Java基础(NIO、Socket、RMI、JMX、JXAP、Java Concurrent Package, JPA)
+    - Java基本框架(SpringBoot、Hibernate、MyBatis、Shiro、Netty ...)
+    - 熟知数据库(MySql、Redis、PostgreSql、DB2、SQLServer)，写过存储过程
     - 熟知Linux命令
-    - Web相关(Html、Javascript、CSS、Jquery、angular1)
-    - 其他(Nginx、ActiveMQ)
-    - 了解基本协议(CORS、Base64、简单认证、URL编码、Http协议...)
+    - Web相关(Html、Javascript、CSS、Jquery、AngularJS)
+    - 其他(Nginx、ActiveMQ、Tomcat、Jetty)
+    - 了解基本协议(CORS、Base64、简单认证、URL编码、Http协议、SMPP协议...)
     - 了解docker、k8s
 
 - ## 项目经验及职责
+    - 上海创蓝文化传播有限公司
+        - 项目
+            - 日发送量在数十万国际短信平台功能开发和维护
+              - 国际自主通后台开发
+              - 国际平台优化、调整
+              - 运营管理后台开发
     - 摩尔精英(2017.08-2018.07)
         - 项目
             - 摩尔云平台后台开发

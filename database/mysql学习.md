@@ -99,9 +99,11 @@
     - 该表
       - update user set host = '%' where user = 'root';
     - 授权
-      - CREATE USER 'china'@'%' IDENTIFIED WITH mysql_native_password BY 'chinese';
-      - GRANT ALL PRIVILEGES ON *.* TO 'china'@'%' WITH GRANT OPTION;
-      - FLUSH PRIVILEGES;
+      ```sql
+      CREATE USER 'china'@'%' IDENTIFIED WITH mysql_native_password BY 'chinese';
+      GRANT ALL PRIVILEGES ON *.* TO 'china'@'%' WITH GRANT OPTION;
+      FLUSH PRIVILEGES;
+      ```
   - 通用日志
     - ubuntu
       - 改文件/etc/apparmor.d/usr.sbin.mysqld

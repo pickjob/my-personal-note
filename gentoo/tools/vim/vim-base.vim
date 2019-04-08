@@ -53,14 +53,14 @@ set updatetime=3000
 set shortmess+=c
 set signcolumn=yes
 
-" GVIM配置
-" 解决菜单乱码
-set langmenu=zh_CN.UTF-8
-source $VIMRUNTIME/delmenu.vim
-source $VIMRUNTIME/menu.vim
-" language messages zh_CN.utf-8
-" set guioptions-=m 隐藏菜单
-set guioptions-=T " 隐藏工具栏
-set guioptions+=b " 底部的 (水平) 滚动条总是存在
-set guioptions+=h " 限制水平滚动条的大小为光标所在行的长度
-set guifont=FuraCode\ Nerd Font\ 16 " 设置字体
+" " GVIM配置
+" " 解决菜单乱码
+" set langmenu=zh_CN.UTF-8
+" source $VIMRUNTIME/delmenu.vim
+" source $VIMRUNTIME/menu.vim
+" " language messages zh_CN.utf-8
+" " set guioptions-=m 隐藏菜单
+" set guioptions-=T " 隐藏工具栏
+" set guioptions+=b " 底部的 (水平) 滚动条总是存在
+" set guioptions+=h " 限制水平滚动条的大小为光标所在行的长度
+" set guifont=FuraCode\ Nerd Font\ 16 " 设置字体

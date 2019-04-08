@@ -7,35 +7,32 @@ mkdir --parents ~/tools/bin && \
 # git
 git config --global user.email "pickjob@126.com"
 git config --global user.name "吴胜"
-echo "# tools/bin" >> ~/.bashrc && \
-echo "export PATH=~/tools/bin:\$PATH" >> ~/.bashrc
+#
+# fzf
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
 #
 # vim
-# curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim && \
-# ln --symbolic --force `pwd`/vim/vimrc ~/.vimrc && \
-# ln --symbolic --force `pwd`/vim/vim-base.vim ~/.vim/base.vim && \
-# ln --symbolic --force `pwd`/vim/vim-plug.vim ~/.vim/plug.vim && \
-# ln --symbolic --force `pwd`/vim/vim-my.vim ~/.vim/my.vim
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim && \
+ln --symbolic --force `pwd`/vim/vimrc ~/.vimrc && \
+ln --symbolic --force `pwd`/vim/vim-base.vim ~/.vim/base.vim && \
+ln --symbolic --force `pwd`/vim/vim-plug.vim ~/.vim/plug.vim && \
+ln --symbolic --force `pwd`/vim/vim-my.vim ~/.vim/my.vim && \
+ln --symbolic --force `pwd`/vim/coc-settings.json ~/.vim/coc-settings.json
 #
 # python
-pip3 install --user requests beautifulsoup4 openpyxl
+pip3 install --user requests beautifulsoup4 openpyxl pylint
 #
 # npm
-echo "prefix=~/code/repository/npm" > ~/.npmrc && \
-echo "cache=~/code/repository/npm/cache" >> ~/.npmrc && \
-echo "registry=http://npmreg.proxy.ustclug.org" >> ~/.npmrc && \
-echo "# npm" >> ~/.bashrc && \
-echo "export PATH=~/code/repository/npm/bin:\$PATH" >> ~/.bashrc
 npm install -g typescript
 npm install -g @angular/cli
 #
+# yarn
+curl -o- -L https://yarnpkg.com/install.sh | bash
+#
 # rust
 curl https://sh.rustup.rs rust-init.sh | sh rust-init.sh -y
-echo "# rust" >> ~/.bashrc && \
-echo "export PATH=~/.cargo/bin:\$PATH" >> ~/.bashrc
 rustup component add rls rust-analysis rust-src rustfmt
-
-# "registry-mirrors": ["https://docker.mirrors.ustc.edu.cn/"]
 
 # docker image pull pickjob/pause:3.1
 # docker tag pickjob/pause:3.1 k8s.gcr.io/pause:3.1

@@ -10,9 +10,9 @@ sourceDir = '/home/china/code/source'
 baseUrl = 'https://github.com'
 repositories = []
 
-def checkPages(githubRepository):
-    url = baseUrl + '/' + githubRepository + '?tab=repositories'
-    r = requests.get(url)
+def checkPages(githubRepositoryUrl):
+    print(githubRepositoryUrl)
+    r = requests.get(githubRepositoryUrl)
     soup = BeautifulSoup(r.text, 'html.parser')
     for a in soup.select('#user-repositories-list  ul li  a[itemprop="name codeRepository"]'):
         repositories.append(a['href'])
@@ -21,7 +21,8 @@ def checkPages(githubRepository):
     for nxPage in soup.select('a.next_page'):
         checkPages(baseUrl+nxPage['href'])
 
-checkPages(githubUser)
+url = baseUrl + '/' + githubUser + '?tab=repositories'
+checkPages(url)
 print('总计: ', len(repositories))
 sourceDir += '/' + githubUser + '/'
 
