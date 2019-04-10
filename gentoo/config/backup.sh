@@ -1,7 +1,6 @@
 #!/bin/bash
 
-cp --force ~/.i3/config i3config
-cp --force ~/.xinitrc  xinitrc
+cp --force ~/.xprofile  xprofile
 cp --force ~/.asoundrc asoundrc 
 cp --force ~/.npmrc npmrc
 cp --force ~/.bashrc bashrc

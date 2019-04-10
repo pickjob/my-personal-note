@@ -1,5 +1,5 @@
-eval "$(dbus-launch --sh-syntx --exit-with-session)"
-export XMODIFIERS="@im=fcitx"
+# eval "$(dbus-launch --sh-syntx --exit-with-session)"
+export XMODIFIERS=@im=fcitx
 export QT_IM_MODULE=fcitx
 export GTK_IM_MODULE=fcitx
 fcitx &
