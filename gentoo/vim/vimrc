@@ -1,3 +1,0 @@
-source ~/.vim/base.vim
-source ~/.vim/plug.vim
-source ~/.vim/my.vim
