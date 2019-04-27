@@ -76,7 +76,6 @@
     hostnamectl set-hostname GENTOO
     localectl set-locale LANG=zh_CN.utf8
     timedatectl set-timezone 'Asia/Shanghai'
-    timedatectl set-local-rtc 1
     systemctl start systemd-networkd.service && systemctl enable systemd-networkd.service
     systemctl start systemd-resolved.service && systemctl enable systemd-resolved.service
     ln -snf /run/systemd/resolve/resolv.conf /etc/resolv.conf
@@ -134,4 +133,14 @@
     # docker tag pickjob/kubernetes-dashboard-amd64:v1.8.3 k8s.gcr.io/kubernetes-dashboard-amd64:v1.8.3
     # docker image pull pickjob/heapster-amd64:v1.5.2
     # docker tag pickjob/heapster-amd64:v1.5.2 k8s.gcr.io/heapster-amd64:v1.5.2
+
+    ###
+    ### idea 插件
+    ###     GapStyle Color Schema
+    ###     Database Navigator
+    ###     GitToolBox
+    ###     Rainbow Bracket
+    ### code 插件
+    ###     Markdown All in One
+    ###     GitLens
     ```
