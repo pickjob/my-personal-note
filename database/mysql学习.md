@@ -1,13 +1,37 @@
 # mysql学习
 - 常用配置
   - 远程登入
-    - 改表
-      - update user set host = '%' where user = 'root';
-    - 授权
+    ```sql
+    -- 改表
+    update user set host = '%' where user = 'root'; 
+    -- 授权
+    CREATE USER 'china'@'%' IDENTIFIED WITH mysql_native_password BY 'chinese';
+    GRANT ALL PRIVILEGES ON *.* TO 'china'@'%' WITH GRANT OPTION;
+    FLUSH PRIVILEGES;
+    ```
+- 锁
+  - 锁粒度(有大到小)
+    - 表级锁(Table-Level)
+    - 页面锁(Page-Level)
+    - 行级锁(Row-Level)
+  - 存储引擎
+    - MyISAM(表级锁, 写串行, 不支持事物)
+      - 表共享读锁(Table Read Lock, 优先级低) (SELECT)
+      - 表独占写锁(Table Write Lock, 优先级高) (INSERT、UPDATE、DELETE)
+    - InnoDB(行级锁, 支持事物)
+      - 行级锁(索引实现)
+        - 共享锁(S, Share Lock)
+        - 排他锁(X, Exclusive Lock)
+        - 记录锁(Record Lock)
+      - 索引级
+        - 间隙锁(Gap Lock, 唯一索引, 范围条件)
+        - 临键锁(Next-key Lock, 非唯一索引锁)
+      - 表级锁
+        - 意向共享锁(IS, Intention Share Lock)
+        - 意向排他锁(IX, Intention Exclusive Lock)
+        - 自增锁(Auto-inc Lock)
       ```sql
-      CREATE USER 'china'@'%' IDENTIFIED WITH mysql_native_password BY 'chinese';
-      GRANT ALL PRIVILEGES ON *.* TO 'china'@'%' WITH GRANT OPTION;
-      FLUSH PRIVILEGES;
+      show status like 'innodb_row_lock%'
       ```
 - Data Type
   - Numeric
