@@ -140,6 +140,8 @@
     ###     Database Navigator
     ###     GitToolBox
     ###     Rainbow Bracket
+    ###     Rust
+    ###     Toml
     ### code 插件
     ###     Markdown All in One
     ###     GitLens

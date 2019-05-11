@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Dbeaver
+Exec=/home/china/tools/dbeaver/dbeaver
+Icon=/home/china/tools/dbeaver/dbeaver.png
+Type=Application
+Terminal=false
+MimeType=inode/directory
+Categories=Development
+Version=1.1

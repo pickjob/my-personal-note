@@ -1,21 +1,46 @@
 version: '3'
 services:
   proxy-nginx:
-    image: nginx
+    image: nginx:stable
+    container_name: proxy-nginx
     ports:
       - "80:80"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
       - ~/doc:/doc:ro
-  db-mysql:
-    image: mysql
+  db-redis:
+    image: redis:5.0-alpine
+    container_name: db-redis
+    command: redis-server /usr/local/etc/redis/redis.conf
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+  db-mysql-master:
+    image: mysql:8
+    container_name: db-mysql-master
     ports:
       - "3306:3306"
     volumes:
-      - ~/data/mysql:/var/lib/mysql:rw
+      - ./my-master.cnf:/etc/mysql/conf.d/my.cnf
+      - ~/data/mysql-master/data:/var/lib/mysql
+      - ~/data/mysql-master/logs:/logs
     environment:
       MYSQL_ROOT_PASSWORD: chinese
-      # MYSQL_USER: china
-      # MYSQL_PASSWORD: chinese
-      # MYSQL_DATABASE: school
-  
+      MYSQL_USER: china
+      MYSQL_PASSWORD: chinese
+      MYSQL_DATABASE: sample
+  db-mysql-slave:
+    image: mysql:8
+    container_name: db-mysql-slave
+    ports:
+      - "3000:3306"
+    volumes:
+      - ./my-slave.cnf:/etc/mysql/conf.d/my.cnf
+      - ~/data/mysql-slave/data:/var/lib/mysql
+      - ~/data/mysql-slave/logs:/logs
+    environment:
+      MYSQL_ROOT_PASSWORD: chinese
+      MYSQL_USER: china
+      MYSQL_PASSWORD: chinese
+      MYSQL_DATABASE: sample

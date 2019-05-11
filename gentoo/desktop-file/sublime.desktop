@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Sublime
+Exec=/home/china/tools/sublime_text_3/sublime_text %f
+Icon=/home/china/tools/sublime_text_3/Icon/256x256/sublime-text.png
+Type=Application
+Terminal=false
+MimeType=inode/directory
+Categories=Development
+Version=1.1
