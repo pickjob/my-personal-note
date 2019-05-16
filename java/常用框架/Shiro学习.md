@@ -1,25 +1,29 @@
 # Shiro学习
 - Core
-  - Authentication (Subjects)
-    - Principals (Subjects idenifying attributes)
-    - Credentials
-  - AUthorization
+  - Authentication
+    - Subject(an application user)
+    - Principals(a subjects identifying attributes)
+    - Credentials(secret data that are used to verify identities)
+    - Realms(a backend data source)
+    - Authentication Sequence
+      - SecurityUtils.getSubject()
+      - Subject.login(AuthenticationToken)
+      - SecurityUtils.login(token)
+      - Authenticator.authenticate(token) (ModuleRealmAuthenticator)
+      - AuthenticationsStrategy
+        - AtLeastOneSuccessfulStrategy
+        - FirstSuccessfulStrategy
+        - AllSuccesssfulStrategy
+      - Subject.logout()
+  - Authorization
+    - Permissions
+    - Roles
+    - Authorization Sequence
+      - Subject hasRole*, checkRole*, isPermitted*, or checkPermission*
+      - SecurityManager’s hasRole*, checkRole*, isPermitted*, or checkPermission*
+      - authorizer hasRole*, checkRole*, isPermitted*, or checkPermission* (ModularRealmAuthorizer)
   - Session Management
   - Cryptography
-- Authentication Sequence
-  - SecurityUtils.getSubject()
-  - Subject.login(AuthenticationToken)
-  - SecurityUtils.login(token)
-  - Authenticator.authenticate(token) (ModuleRealmAuthenticator)
-  - AuthenticationsStrategy
-    - AtLeastOneSuccessfulStrategy
-    - FirstSuccessfulStrategy
-    - AllSuccesssfulStrategy
-  - Subject.logout()
-- ModuleRealmAuthorizer
-- PermissionResolver
-- RolePermissionResolver
-- Realm
 - Authorization
   - @RequireAuthentication
   - @RequireGuest
@@ -40,3 +44,5 @@
     - roles(RolesAuthorizationFilter)
     - ssl(SslFilter)
     - user(UserFilter)
+- securityManager
+  - lifecycleBeanPostProcessor
