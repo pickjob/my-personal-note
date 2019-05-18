@@ -88,6 +88,13 @@
     # 内核重建
     emerge @module-rebuild
     # 升级
+    eselect kernel list
+    eselect kernel set *
+    cp /boot/gentoo* .config
+    make olddefconfig
+    make && make modules_install && make install
+    grub-mkconfig -o /boot/grub/grub.cfg
+
     emerge --update --deep --with-bdeps=y --newuse @world
     emerge --depclean
     revdep-rebuild
@@ -145,4 +152,7 @@
     ### code 插件
     ###     Markdown All in One
     ###     GitLens
+    ### eclipse 插件
+    ###     darkest dark
+    ###     dbeaver
     ```
