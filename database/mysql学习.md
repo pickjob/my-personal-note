@@ -1,13 +1,20 @@
 # mysql学习
-- 常用配置
-  - 远程登入
+- 常用SQL
     ```sql
-    -- 改表
-    update user set host = '%' where user = 'root'; 
-    -- 授权
-    CREATE USER 'china'@'%' IDENTIFIED WITH mysql_native_password BY 'chinese';
-    GRANT ALL PRIVILEGES ON *.* TO 'china'@'%' WITH GRANT OPTION;
-    FLUSH PRIVILEGES;
+    -- 远程登入
+      -- 改表
+      update user set host = '%' where user = 'root'; 
+      -- 授权
+      CREATE USER 'china'@'%' IDENTIFIED WITH mysql_native_password BY 'chinese';
+      GRANT ALL PRIVILEGES ON *.* TO 'china'@'%' WITH GRANT OPTION;
+      FLUSH PRIVILEGES;
+    -- 批量插入
+    INSERT INTO tbl_name(a, b, c) VALUES (v11, v12, v13), (v21, v22, v23), (v31, v32, v33);
+    -- 批量更新
+    replace into tbl_name(a, b, c) values (v11, v12, v13), (v21, v22, v23), (v31, v32, v33);
+    -- 死锁查询
+    show variables like 'innodb_lock_wait_timeout'
+    show status like 'Innodb_row_lock%'
     ```
 - 锁
   - 锁粒度(有大到小)
@@ -21,8 +28,7 @@
     - InnoDB(行级锁, 支持事物)
       - 行级锁(索引实现)
         - 共享锁(S, Share Lock)
-        - 排他锁(X, Exclusive Lock)
-        - 记录锁(Record Lock)
+        - 排他锁(X, Exclusive Lock) (INSERT、UPDATE、DELETE)
       - 索引级
         - 间隙锁(Gap Lock, 唯一索引, 范围条件)
         - 临键锁(Next-key Lock, 非唯一索引锁)
@@ -30,9 +36,6 @@
         - 意向共享锁(IS, Intention Share Lock)
         - 意向排他锁(IX, Intention Exclusive Lock)
         - 自增锁(Auto-inc Lock)
-      ```sql
-      show status like 'innodb_row_lock%'
-      ```
 - Data Type
   - Numeric
     - BIT[(M)]
