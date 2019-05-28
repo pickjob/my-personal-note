@@ -1,0 +1,23 @@
+# Prometheus学习
+- 命名规范
+  - <metric name>{<label name>=<label value>, ...}
+- METRIC TYPES
+  - counter (只增长重启重置为0)
+  - gauge (可涨可跌)
+  - histogram
+  - summary
+- PQL
+  - http_requests_total{job="prometheus",group="canary"}[5s]
+  - label operate
+    - =: Select labels that are exactly equal to the provided string
+    - !=: Select labels that are not equal to the provided string
+    - =~: Select labels that regex-match the provided string
+    - !~: Select labels that do not regex-match the provided string
+  - time duration
+    - s - seconds
+    - m - minutes
+    - h - hours
+    - d - days
+    - w - weeks
+    - y - years
+  - offset
