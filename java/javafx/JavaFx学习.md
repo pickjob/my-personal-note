@@ -9,4 +9,12 @@
       - javafx.scene.layout.Regon
         - javafx.scene.control.Controller
         - javafx.scene.layout.Pane
+          - javafx.scene.layout.BorderPane
+          - javafx.scene.layout.HBox
+          - javafx.scene.layout.VBox
+          - javafx.scene.layout.StackPane
+          - javafx.scene.layout.GridPane
+          - javafx.scene.layout.FlowPane
+          - javafx.scene.layout.TilePane
+          - javafx.scene.layout.AnchorPane
     - javafx.scene.Shape
