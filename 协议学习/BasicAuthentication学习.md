@@ -1,4 +1,4 @@
-# Basic HTTP Authentication Scheme
+# Basic HTTP Authentication Scheme 学习
 - 流程
     - 客户端请求受限资源
     - 服务端响应401 Unauthorized 并附带相应头 WWW-Authenticate: Basic realm="User Visible Realm"[ charset="UTF-8"]
