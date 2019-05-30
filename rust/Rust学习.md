@@ -23,4 +23,5 @@
   - init
 - Install / Uninstall
   - curl https://sh.rustup.rs -sSf | sh
+  - rustup update
   - rustup self uninstall

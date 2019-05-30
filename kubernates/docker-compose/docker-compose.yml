@@ -4,15 +4,39 @@ services:
     image: nginx:stable
     container_name: proxy-nginx
     ports:
-      - "80:80"
+      - 80:80
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
       - ~/doc:/doc:ro
+  conf-zk1:
+    image: zookeeper
+    container_name: conf-zk1
+    ports:
+      - 2181:2181
+    environment:
+      ZOO_MY_ID: 1
+      ZOO_SERVERS: server.1=0.0.0.0:2888:3888 server.2=conf-zk2:2888:3888 server.3=conf-zk3:2888:3888
+  conf-zk2:
+    image: zookeeper
+    container_name: conf-zk2
+    ports:
+      - 2182:2181
+    environment:
+      ZOO_MY_ID: 2
+      ZOO_SERVERS: server.1=conf-zk1:2888:3888 server.2=0.0.0.0:2888:3888 server.3=conf-zk3:2888:3888
+  conf-zk3:
+    image: zookeeper
+    container_name: conf-zk3
+    ports:
+      - 2183:2181
+    environment:
+      ZOO_MY_ID: 3
+      ZOO_SERVERS: server.1=conf-zk1:2888:3888 server.2=conf-zk2:2888:3888 server.3=0.0.0.0:2888:3888
   monitor-prometheus:
     image: prom/prometheus:v2.9.2
     container_name: monitor-prometheus
     ports:
-      - "9090:9090"
+      - 9090:9090
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
       - ./prometheus.rules.yml:/etc/prometheus/prometheus.rules.yml
@@ -21,14 +45,14 @@ services:
     container_name: db-redis
     command: redis-server /usr/local/etc/redis/redis.conf
     ports:
-      - "6379:6379"
+      - 6379:6379
     volumes:
       - ./redis.conf:/usr/local/etc/redis/redis.conf
   db-mysql-master:
     image: mysql:8
     container_name: db-mysql-master
     ports:
-      - "3306:3306"
+      - 3306:3306
     volumes:
       - ./my-master.cnf:/etc/mysql/conf.d/my.cnf
       - ~/data/mysql-master/data:/var/lib/mysql
@@ -42,7 +66,7 @@ services:
     image: mysql:8
     container_name: db-mysql-slave
     ports:
-      - "3000:3306"
+      - 3000:3306
     volumes:
       - ./my-slave.cnf:/etc/mysql/conf.d/my.cnf
       - ~/data/mysql-slave/data:/var/lib/mysql

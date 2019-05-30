@@ -25,4 +25,8 @@ scrape_configs:
     # scheme defaults to 'http'.
 
     static_configs:
-    - targets: ['monitor-prometheus:9090']
+      - targets: ['monitor-prometheus:9090']
+  
+  - job_name: 'aaa'
+    static_configs:
+      - targets: ['host.docker.internal']
