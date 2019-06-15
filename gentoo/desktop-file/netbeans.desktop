@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=netbeans
-Exec=/home/china/tools/netbeans/bin/netbeans
-Icon=/home/china/tools/netbeans/nb/netbeans.png
-Type=Application
-Terminal=true
-MimeType=inode/directory
-Categories=Development
-Version=1.1

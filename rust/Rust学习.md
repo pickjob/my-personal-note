@@ -1,27 +1,13 @@
 # Rust学习
-- 属性学习
-  - #[macro_*]
-    - macro_use
-    - macro_reexport
-    - macro_export
-  - #[derive(*)]
-    - Comparision: EQ, PartialEq, Ord, PartialOrd
-    - Clone
-    - Copy
-    - Hash
-    - Default
-    - Debug
-  - #[cft(test)]
-    - #[test]
-- cargo
-  - new project_name --bin/--lib
-  - build --release
-  - run
-  - update
-  - test
-  - clean
-  - init
-- Install / Uninstall
-  - curl https://sh.rustup.rs -sSf | sh
-  - rustup update
-  - rustup self uninstall
+- toolchain
+  ```bash
+  # rustup
+  curl https://sh.rustup.rs -sSf | sh
+  rustup component add rls rust-analysis rust-src rustfmt
+  rustup update
+  rustup self uninstall
+  # cargo
+  cargo new project_name --bin/--lib
+  cargo build --release
+  cargo run / clean / update / init
+  ```

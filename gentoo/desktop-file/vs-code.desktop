@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=Code
-Exec=/home/china/tools/VSCode-linux-x64/bin/code %f
-Icon=/home/china/tools/VSCode-linux-x64/resources/app/resources/linux/code.png
-Type=Application
-Terminal=false
-MimeType=inode/directory
-Categories=Development
-Version=1.1
