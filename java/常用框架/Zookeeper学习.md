@@ -1,0 +1,57 @@
+# Zookeeper学习
+- ZkNode
+  - ERSISTEN
+  - PERSISTENT_SEQUENTIAL
+  - EPHEMERAL
+  - EPHEMERAL_SEQUENTIAL
+  - CONTAINER
+  - PERSISTENT_WITH_TTL
+  - PERSISTENT_SEQUENTIAL_WITH_TTL
+- ACL
+  - READ( 1 << 0 = 1)
+  - WRITE( 1 << 1 = 2 )
+  - CREATE( 1 << 2 = 4 )
+  - DELETE ( 1 << 3 = 8 )
+  - ADMIN ( 1 << 4 = 16 )
+  - ALL ( READ | WRITE | CREATE | DELETE | ADMIN = 31)
+- Schema
+  - world(anyone)
+  - auth
+  - digest
+  - ip
+  - x509
+- watch(one-time trigger): EventType
+  - NodeCreated: exists
+  - NodeDeleted: exists, getData, getChildren
+  - NodeDataChanged: exists, getData
+  - NodeChildrenChanged: getChildren
+- cli
+  - zkCli.sh
+    - create [-s] [-e] path data acl
+    - ls path [watch]
+    - get path [watch]
+    - set path data [watch]
+    - delete path [version]
+  - zkServer.sh stop/start
+- Configuration
+  - 基本配置
+    - clientPort: 客户端监听端口
+    - dataDir/dataLogDir: 数据/日志目录
+    - tickTime: 心跳时间(ms)
+  - 高级配置
+    - initLimit: 允许多少个心跳时间内服务端启动
+    - syncLimit: 允许多少个心跳时间内follower同步
+    - snapCount: 配置相邻两次数据快照事物操作次数
+    - preAllocSize: 事物日志预分配磁盘大小
+    - minSessionTimeout/maxSessionTimeout
+    - maxClientCnxns: 允许最大客户端连接
+    - forceSync
+    - server.x: 集群主机配置
+    - group.x: 分组信息
+    - weight.x: 权重信息
+- 保证分布式一致性
+  - 顺序一致性
+  - 原子性
+  - 单一视图
+  - 可靠性
+  - 实时性
