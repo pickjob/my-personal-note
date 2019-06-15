@@ -13,4 +13,5 @@
     export QT_IM_MODULE=fcitx
     export XMODIFIERS="@im=fcitx"
     sudo pacman -S python-pip
+    sudo pacman -S docker docker-compose
     ```
