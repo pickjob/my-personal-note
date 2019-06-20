@@ -1,5 +1,3 @@
-USE sample;
-
 INSERT INTO offices(
 office_code,
 city,

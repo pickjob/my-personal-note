@@ -1,8 +1,3 @@
-DROP DATABASE IF EXISTS sample;
-CREATE DATABASE sample DEFAULT CHARACTER SET utf8mb4;
-
-USE sample;
-
 -- Customers: customer’s data
 -- Products: a list of scale model cars
 -- ProductLines: a list of product line categories

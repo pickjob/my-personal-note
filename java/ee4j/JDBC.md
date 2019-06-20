@@ -29,14 +29,7 @@
   - FilteredRowSet
 - JDBC URL
   - MySql
-    - URL:  jdbc:mysql://<host>[:3306<port>]/<dbName>?autoReconnect=true&amp;characterEncoding=UTF-8&amp;useUnicode=true
-    - class:  com.mysql.jdbc.Driver
-    - properties
-      - user / password
-      - characterEncoding
-      - allowMultiQueries
-      - serverTimezone
-      - zeroDateTimeBehavior=CONVERT_TO_NULL
+    - URL:  jdbc:mysql://<host>[:3306<port>]/<dbName>?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
   - SQL Server
     - URL:  jdbc:sqlserver://<host>[:1433<port>];databaseName=<dbName>
     - class:  com.microsoft.sqlserver.jdbc.SQLServerDriver
