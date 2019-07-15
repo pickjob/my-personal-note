@@ -152,3 +152,16 @@
     - "%H"	Host name
     - "%v"	Kernel release
     - "%%"	Single percent sign
+- Example
+    ```bash
+    // backup.systemd
+    [Unit]
+    Description=My Backup Service
+
+    [Service]
+    # type: simple forking oneshot dbus notify idle
+    Type=simple
+    User=china
+    WorkingDirectory=/home/china
+    ExecStart=/home/china/tools/bin/backup.sh
+    ```

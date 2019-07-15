@@ -12,9 +12,9 @@ pub trait Debug {
 }
 
 // 函数申明
-//      Fn: 获得引用 (&T)
-//      FnMut: 获得可变引用 (&mut T)
 //      FnOnce: 获得值 (T)
+//      FnMut: 获得可变引用 (&mut T)
+//      Fn: 获得引用 (&T)
 //      where FnOnce(arg1: type1, ...) -> R
 // std::ops::FnOnce
 pub trait FnOnce<Args> {

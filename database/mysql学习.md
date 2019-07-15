@@ -6,6 +6,13 @@
       INSERT INTO tbl_name(a, b, c) VALUES (v11, v12, v13), (v21, v22, v23), (v31, v32, v33);
       -- 批量更新
       REPLACE INTO tbl_name(a, b, c) VALUES (v11, v12, v13), (v21, v22, v23), (v31, v32, v33);
+      UPDATE yoiurtable
+          SET dingdan = CASE id 
+              WHEN 1 THEN 3 
+              WHEN 2 THEN 4 
+              WHEN 3 THEN 5 
+          END
+      WHERE id IN (1,2,3)
     -- 远程登入
       -- 改表
       UPDATE mysql.user SET host = '%' WHERE user = 'root'; 
@@ -21,6 +28,8 @@
       SHOW STATUS LIKE '%lock%';
       -- 死锁日志查询
       SHOW ENGINE INNODB STATUS;
+      SHOW PROCESSLIST;
+      KILL PID;
     ```
 - 锁
   - 锁粒度(有大到小)
@@ -45,27 +54,27 @@
         - 自增锁(Auto-inc Lock)
 - Data Type
   - Numeric
-    - BIT[(M)]
-    - TINYINT[(M)] [UNSIGNED] [ZEROFILL]
+    - BIT]
+    - TINYINT [UNSIGNED] [ZEROFILL]
     - BOOL BOOLEAN
-    - SMALLINT[(M)] [UNSIGNED] [ZEROFILL] (2bytes)
-    - MEDIUMINT[(M)] [UNSIGNED] [ZEROFILL] (3bytes)
-    - INT[(M)] / INTEGER[(M)] [UNSIGNED] [ZEROFILL] (4bytes)
-    - BIGINT[(M)] [UNSIGNED] [ZEROFILL] (8bytes)
+    - SMALLINT [UNSIGNED] [ZEROFILL] (2bytes)
+    - MEDIUMINT [UNSIGNED] [ZEROFILL] (3bytes)
+    - INT / INTEGER [UNSIGNED] [ZEROFILL] (4bytes)
+    - BIGINT [UNSIGNED] [ZEROFILL] (8bytes)
     - DECIMAL[(M[,D])] / DEC[(M[,D])] / NUMERIC[(M[,D])] [UNSIGNED] [ZEROFILL]
     - FLOAT[(M[,D])] [UNSIGNED] [ZEROFILL]
     - DOUBLE[(M[,D])] / DOUBLE_PRECISION[(M[,D])] [UNSIGNED] [ZEROFILL]
   - Date
     - DATE (1000-01-01 -- 9999-12-31)
-    - DATETIME[(fsp)] (1000-01-01 00:00:00.000000 -- 9999-12-31 23:59::59.999999)
-    - TIMESTAMP[(fsp)] (1970-01-01 00:00:00.000000 -- 2038-01-19 03:14:07.999999)
-    - TIME[(fsp)] (-838:59:59.000000 -- 838:59:59.000000)
+    - DATETIME(1000-01-01 00:00:00.000000 -- 9999-12-31 23:59::59.999999) (4 bytes)
+    - TIMESTAMP(1970-01-01 00:00:00.000000 -- 2038-01-19 03:14:07.999999)
+    - TIME(-838:59:59.000000 -- 838:59:59.000000)
     - YEAR[(4)]
   - String
-    - CHAR[(M)] [CHARACTER SET charset_name] [COLLATE collation_name]
-    - VARCHAR[(M)] [CHARACTER SET charset_name] [COLLATE collation_name]
-    - BINARY[(M)]
-    - TINYBLOB[(M)] / BLOB[(M)] / MEDIUMBLOB[(M)] / LONGBLOB
-    - TINYTEXT[(M)] / TEXT[(M)] / MEDIUMTEXT[(M)] / LONGTEXT
+    - CHAR [CHARACTER SET charset_name] [COLLATE collation_name]
+    - VARCHAR [CHARACTER SET charset_name] [COLLATE collation_name]
+    - BINARY
+    - TINYBLOB / BLOB / MEDIUMBLOB / LONGBLOB
+    - TINYTEXT(255B) / TEXT(64KB) / MEDIUMTEXT(16MB) / LONGTEXT(4GB)
     - ENUM('value1', 'value2', ...) [CHARACTER SET charset_name]
     - SET('value1', 'value2', ...) [CHARACTER SET charset_name]
