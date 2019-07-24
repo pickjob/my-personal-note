@@ -1,0 +1,78 @@
+"
+" vim-plug
+"
+" :PlugUpgrade - Upgrade vim-plug itself
+" :PlugInstall - Install plugins
+" :PlugUpdate  - Update plugins
+" :PlugClean   - Remove plugins
+"
+call plug#begin('~/.vim/plugged')
+Plug 'hzchirs/vim-material' " color scheme
+Plug 'luochen1990/rainbow' " rainbow
+Plug 'vim-airline/vim-airline' " status line
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-surround'
+Plug 'scrooloose/nerdcommenter'
+Plug 'jiangmiao/auto-pairs'
+Plug 'jesseleite/vim-agriculture'
+Plug 'rust-lang/rust.vim' " rust
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}} " coc
+Plug 'skywind3000/asyncrun.vim'
+call plug#end()
+"""""""""""""""""""""""""""""""""""""
+let mapleader=";"
+" 插件配置(最懒)
+"
+" vim-material
+"
+" let g:material_style = 'oceanic'
+let g:material_style = 'palenight'
+colorscheme vim-material
+"
+" rainbow
+"
+let g:rainbow_active = 1
+"
+" airline
+"
+let g:airline_theme = 'material'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
+let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
+"
+" coc
+"
+" CocInstall coc-css coc-html coc-xml coc-json coc-yaml coc-tsserver coc-angular coc-python coc-rls coc-snippets
+" use <c-space>for trigger completion
+inoremap <silent><expr> <c-space> coc#refresh()
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+"
+" vim-gitgutter
+"
+let g:gitgutter_highlight_lines = 1
+"
+" vim-surround
+" cs"' "" -> ''  cs'<q> '-><q></q>
+" ds"  delete ""
+"
+" nerdcommenter
+" <leader>cc
+"
+" auto-pairs
+"
+"
+" asyncrun.vim
+"
+" %:p     - File name of current buffer with full path
+" %:t     - File name of current buffer without path
+" %:p:h   - File path of current buffer without file name
+" %:e     - File extension of current buffer
+" %:t:r   - File name of current buffer without path and extension
+" %       - File name relativize to current directory
+" %:h:.   - File path relativize to current directory
+" <cwd>   - Current directory
+" <cword> - Current word under cursor
+" <cfile> - Current file name under cursor
+" <root>  - Project root directory
