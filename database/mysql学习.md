@@ -30,6 +30,12 @@
       SHOW ENGINE INNODB STATUS;
       SHOW PROCESSLIST;
       KILL PID;
+      
+      UNLOCK TABLES
+
+      UPDATE performance_schema.setup_consumers SET ENABLED = 'YES' WHERE NAME = 'global_instrumentation';
+      UPDATE performance_schema.setup_instruments SET ENABLED = 'YES' WHERE NAME = 'wait/lock/metadata/sql/mdl';
+      SELECT * FROM performance_schema.metadata_locks
     ```
 - 锁
   - 锁粒度(有大到小)
@@ -45,12 +51,12 @@
       - 表独占写锁(Table Write Lock, 优先级高) (INSERT、UPDATE、DELETE)
     - InnoDB(行级锁, 支持事物)
       - 行级级
-        - 主键锁(Record Lock, 记录) lock_mode X locks rec but not gap
-        - 间隙锁(Gap Lock, 索引区间[开区间])  lock_mode X locks gap before rec
-        - 临键锁(Next-key Lock, record lock + gap lock[左开右闭区间]) lock_mode X
+        - 主键锁(Record Lock, 记录) LOCK_REC_NOT_GAP lock_mode X locks rec but not gap 
+        - 间隙锁(Gap Lock, 索引区间[开区间])  LOCK_GAP lock_mode X locks gap before rec
+        - 临键锁(Next-key Lock, record lock + gap lock[左开右闭区间]) LOCK_ORDINARY lock_mode X
       - 表级锁
         - 意向共享锁(IS, Intention Share Lock)
-        - 意向排他锁(IX, Intention Exclusive Lock) lock_mode X locks gap before rec insert intention
+        - 意向排他锁(IX, Intention Exclusive Lock) LOCK_INSERT_INTENTION lock_mode X locks gap before rec insert intention
         - 自增锁(Auto-inc Lock)
 - Data Type
   - Numeric
