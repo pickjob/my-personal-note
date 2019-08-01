@@ -119,5 +119,5 @@ log_slave_updates
 auto_increment_offset=1
 auto_increment_increment=1
 # 二进制日志过期天数
-expire_logs_days=7
+binlog_expire_logs_seconds=3600
 log_bin_trust_function_creators=1
