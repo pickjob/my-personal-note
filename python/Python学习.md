@@ -1,5 +1,5 @@
 ```python
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # -*- coding: utf8 -*-
 # if elif / else
 if expr:
@@ -31,6 +31,12 @@ d = {x: x ** 2 for x in (2, 4, 6)}
 for k, v in d.items():
     print(k, v)
 # del
+name = 'Python'
+print(f'hello {name}')
+# json
+import json
+json.dumps([1, 'simple', 'list'])
+x = json.load(f)
 # file
 with open('workfile') as f:
     for line in f:

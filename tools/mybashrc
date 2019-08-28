@@ -1,0 +1,6 @@
+export GTK_IM_MODULE=ibus
+export QT_IM_MODULE=ibus
+export XMODIFIERS="@im=ibus"
+export PATH=/home/china/.cargo/bin:$PATH
+export PATH=/home/china/repository/npm/bin/:$PATH
+export PATH=/home/china/.local/bin:$PATH

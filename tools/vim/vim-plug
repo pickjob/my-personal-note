@@ -42,7 +42,7 @@ let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_
 "
 " coc
 "
-" CocInstall coc-css coc-html coc-xml coc-json coc-yaml coc-tsserver coc-angular coc-python coc-rls coc-snippets
+" CocInstall coc-highlight coc-css coc-html coc-xml coc-json coc-yaml coc-python coc-rls coc-snippets
 " use <c-space>for trigger completion
 inoremap <silent><expr> <c-space> coc#refresh()
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
@@ -58,7 +58,8 @@ let g:gitgutter_highlight_lines = 1
 " ds"  delete ""
 "
 " nerdcommenter
-" <leader>cc
+" <leader>cc 加注释
+" <leader>cu 去注释
 "
 " auto-pairs
 "
