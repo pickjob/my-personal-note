@@ -1,4 +1,4 @@
-# Java编译
+# Gradle学习
 - Gradle
     - gradle init --type java-library / java-application
         ```groovy

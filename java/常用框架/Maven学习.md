@@ -33,7 +33,7 @@
         - site (site:site)
         - post-site
         - site-deploy (site:deploy)
-- 长影命令及配置
+- 常用命令及配置
     ```bash
     # build
     mvn package
