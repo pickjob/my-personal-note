@@ -1,0 +1,15 @@
+# AES(Advanced Encryption Standard)学习
+- 密钥长度
+    - AES-128, 128bit密钥, 128bit分组, 10轮加密
+    - AES-192, 192bit密钥, 128bit分组, 12轮加密
+    - AES-256, 256bit密钥, 128bit分组, 14轮加密
+- 加密方式(MODE)
+    - ECB(Electronic Codebook Book): 分为若干相同长度段, 每一段加密(iv不需要)
+    - CBC(Cipher Block Chaining): 分为若干相同长度段, 每一小段与上一段米文段一或运算再加密
+    - CFB(Cipher FeedBack)
+    - OFB(Output FeedBack)
+- 初始化向量(Initialization Vector)
+    - 16 byte
+- 填充方式(PADDING)
+    - ZeroPadding
+    - PKCS#5 / PKCS#7
