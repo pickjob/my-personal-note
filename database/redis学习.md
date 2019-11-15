@@ -1,22 +1,44 @@
 # redis学习
 - 一些命令
     - Pub/Sub
-        - PSUBSCRIBE / PUNSUBSCRIBE channel pattern
-        - PUBLISH channel message 
-        - SUBSCRIBE / UNSUBSCRIBE channel pattern
-        - PUBSUB
-            - channels
-            - numsub
-            - numpat
+        - SUBSCRIBE channel / PSUBSCRIBE pattern
+        - PUBLISH channel message
+        - UNSUBSCRIBE channel / PUNSUBSCRIBE pattern
     - Transaction
         - MULTI
-        - WACTH key
-        - UNWATCH
         - DISCARD
         - EXEC
-    - 持久化
-        - RDB
-            - SAVE
-            - BGSAVE
-        - AOF
-            - BGREWRITEAOF
+    - Bits:
+        - SETBIT key offset value
+        - BITCOUNT key [start, end]
+        - GETBIT key offset
+    - Queues:
+        - LPUSH / LPUSHX key ele
+        - RPOP key / BRPOP key timeout
+        - RPUSH / RPUSHX key ele
+        - LPOP key / BLPOP key timeout
+        - RPOPLPUSH / BRPOPLPUSH source destination timeout : 一进一出，用于安全的队列或循环队列
+        - LINDEX key index
+        - LLEN key
+        - LRANGE key start stop
+        - LSET key index element
+        - LTRIM key start stop
+        - LREM key count ele
+    - Key-Value:
+        - GET / DEL / EXISTS key
+        - SET / SETNX / GETSET key value
+        - SETX key seconds value
+        - INCR / DECR key / DECRBY / INCRBY key increment
+        - PERSIST key
+        - RENAME / RENAMENX key newKey
+        - EXPIRE key seconds / EXPIREAT key timestamp
+    - Hash
+        - HGET / HDEL / HEXISTS key field
+        - HSET / HSETNX key field value
+        - HGETALL key
+        - HINCRBY key field increment
+        - HKEYS key
+        - HLEN key
+    - Search
+        - KEYS pattern: 禁用
+        - SCAN cursor [MATCH pattern] [COUNT count] [TYPE type]

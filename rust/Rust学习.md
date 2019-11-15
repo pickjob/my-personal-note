@@ -8,8 +8,24 @@
 //          dynamic: usize isize (4 / 8 bytes)
 //          float: f32 f64
 //          char
-let x = 'r';
-// array [T: N]
+fn main() {
+    println!("Hello World", i);
+}
+// 流程控制
+if expr1 {
+} else {
+}
+if let Some(y) = x { // if let => match
+} else {
+}
+for var in iterator {
+    code
+}
+while expression {
+    code
+}
+// 其他数据类型:
+//      array: [T: N]
 let arr: [i32; 3] = [1, 2, 3];
 for i in (1 .. 5) {
     println!("{}", i); // 1, 2, 3, 4
@@ -17,19 +33,19 @@ for i in (1 .. 5) {
 for i in (1 ..= 5) {
     println!("{}", i); // 1, 2, 3, 4, 5
 }
-// slice: &[T] &mut[T]
+//      slice: &[T] &mut[T]
 let arr = &mut [1, 2, 3];
 arr[1] = 7
-// str: 不可变长度字符串
-// string: 可变长度字符串
+//      str:    不可变长度字符串
+//      string: 可变长度字符串
+//      truple: (T, U, M, N)
 let truth: &'static str = "Rust 是一门优雅的语言";
-// truple: (T, U, M, N)
 // struct:
 struct People {
     name: &'static str,
     gender: u32
 }
-// enum
+//      enum
 enum Number {
     Zero,
     One,
