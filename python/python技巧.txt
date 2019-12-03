@@ -1,0 +1,430 @@
+.解压序列赋值给多个变量
+    .任何可迭代对象数量相等即可解压赋值
+    .不等的用*变成列表参数
+        items = [1,2,3,4,5,6]
+        head,*tail = items
+.命名切片
+    .slice()
+        items = [1,2,3,4,5]
+        a = slice(2,4)
+        items[a]
+    .indices(size)避免索引越界
+        a = slice(5,50,2)
+        s = 'HelloWorld'
+        a.indices(len(s))
+.函数
+    .接受任意个数参数(list) *
+        def avg(firs,*res):
+            return (first + sum(res))
+    .接受任意关键字参数(dic) **
+        def avg(name,value,**attrs):
+            keyvals = [' %s="%s"' % item for item in attrs.items()]
+    .强制关键字
+        def recv(maxsize,*,block):
+            pass
+        recv(1024,True) #TypeError
+        recv(1024,block=True) #ok
+    .默认参数(默认只能为不可变对象)
+        def spam(a,b=42):
+            return (a,b)
+    .定义匿名函数
+        names = ['Davaid Beazley','Brian Jones','Raymond Hettinger','Ned Batchelder']
+        sorted(names,key=lambda name: name.split()[-1].lower())
+.类
+    .字符串表示str() repr()
+        .__str__() __repr__()
+    .格式化format
+        .__format__()
+    .支持with语句
+        .__enter__() __exit__()
+    .减小内存
+        .__slots__()
+    .内部私有字段规范
+        ._xxxname
+    .属性
+        .使用@property
+        class Person:
+            def __init__(self,first_name):
+                self._first_name = first_name
+
+            @property
+            def first_name(self):
+                return self._first_name
+
+            @first_name.setter
+            def first_name(self,value):
+                if not instance(value,str):
+                    raise TypeError('Expected a string')
+                self._first_name = value
+
+            @first_name.deleter
+            def first_name(self):
+                raise AttributeError("Can't delete attribute")
+        .使用property()方法
+    .调用父类方法
+        .super()
+        .__mro__列表:所有基类的线性顺序列表
+            .子类会先于父类被检查
+            .多个父类会根据他们在列表中顺序被检查
+            .如果对下一个存在的两个合法的选择，选择第一个
+    .类的实例属性
+        .__get__() __set__() __delete__()
+    .子类修改父类属性
+        .@xx.getter
+        .@xx.setter
+        .@xx.deleter
+    .描述器(可用于修改子类属性,类级别)
+        # A descriptor
+        class String:
+            def __init__(self,name):
+                self.name = name
+            def __get__(self,instance,cls):
+                if instance is None:
+                    return self
+                return instance.__dict__[self.name]
+            def __set__(self,instance,value):
+                if not isinstance(value,str):
+                    raise TypeError('Excepted a string')
+                instance.__dict__[self.name] = value
+        # A class with a descriptor
+        class Person:
+            name = String('name')
+            def __init__(self,name):
+                self.name = name
+        # Extending a descriptor with a property
+        class SubPerson(Person):
+            @property
+            def name(self):
+                print('Getting name')
+                return super().name
+            @name.setter
+            def name(self,value):
+                print('Setting name to',value)
+                super(SubPerson,SuPerson).name.__set__(self,value)
+            @name.deleter
+            def name(self):
+                print('Deleting name')
+                super(SubPerson,SubPerson).name.__delete__(self)
+
+        # Descriptor for a type-checked attribute
+        class Typed:
+            def __init__(self,name,expected_type):
+                self.name = name
+                self.expected_type = expected_type
+            def __get__(self,instance,cls):
+                if instance is None:
+                    return self
+                else:
+                    return instance.__dict__[self.name]
+            def __set__(self,instance,value):
+                if not isinstance(value,self.expected_type):
+                    raise TypeError('Expected ' + str(self.expected_type))
+                instance.__dict__[self.name] = value
+            def __delete__(self,instance):
+                defl instance.__dict__[self.name]
+        # Class decorator that applies it to selected attributes
+        def typeassert(**kwargs):
+            def decorate(cls):
+                for name,expected_type in kwargs.items():
+                    # Attach a Typed descriptor to the class
+                    setattr(cls,name,Type(name,expected_type))
+                return cls
+            return decorate
+        #Example user
+        @typeassert(name=str,shares=int,price=float)
+        class Stock:
+            def __init__(self,name,shares,price):
+                self.name = name
+                self.shares = shares
+                self.price = price
+    .延迟属性
+        class lazyproperty:
+            def __init__(self,func):
+                self.func = func
+            def __get__(self,instance,cls):
+                if instance is None:
+                    return self
+                else:
+                    value = self.func(instance)
+                    setattr(instance,self.func__name__,value)
+                    return value
+        #Example
+        class Circle:
+            def __init__(self,radius):
+                self.radius = radius
+            @lazyproperty
+            def area(self):
+                print('Computing area')
+                return math.pi * self.radius ** 2
+            @lazyproperty
+            def perimeter(self):
+                print('Computing perimeter')
+                return 2 * math.pi * self.radius
+    .简化数据的初始化
+        class Structure1:
+            # Class variable that specifies expected fields
+            _fields = []
+            def __init__(self,*args):
+                if len(args) != len(self._fields):
+                    raise TypeError('Expected {} arguments'.format(len(self._fileds)))
+                # Set the arguments
+                for name,value in zip(self._fields,args):
+                    setattr(self,name,value)
+        #Example class definitions
+        class Stock(Structure1):
+            _fields = ['name','shares','price']
+    .数据模型类型约束
+        # Base class.Use a descriptor to set a value
+        class Descriptor:
+            def ___init__(self,name=None,**opts):
+                self.name = name
+                for key,value in opts.items():
+                    setattr(self,key,value)
+            def __set__(self,instance,value):
+                instance.__dict__[self.name] = value
+        # Descriptor for enforcing types
+        class Typed(Descriptor):
+            expected_type = type(None)
+            def __set__(self,instance,value):
+                if not isinstance(value,self.expected_type):
+                    raise TypeError('Expected ' + str(self.expected_type))
+                super().__set__(instance,value)
+        # Descriptor for enforcing values
+        class Unsigned(Descriptor):
+            def _set__(self,instnce,value):
+                if value < 0:
+                    raise valueError('Expected >=0)
+                super()._-set__(instance,value)
+        class MaxSized(Descriptor):
+            def __init__(self,name=None,**opts):
+                if 'size' not in opts:
+                    raise TypeError('missing size option')
+                supr().__init__(name,**opts)
+            def _set__(self,instance,value):
+                if len(value) >= self.size:
+                    raise ValueError('size must be < ' + str(self.size))
+                super().__set__(instance,value)
+        # Data Type
+        class Integer(Typed):
+            expected_type = int
+        class UnsignedInteger(Integer,Unsigned):
+            pass
+        class Float(Typed):
+            expected_type = float
+        class UnginedFloat(Float,nsinged):
+            pass
+        class String(Typed):
+            expected_type = str
+        class SizedString(String,MaxSized):
+            pass
+
+        # Another solution
+        # Decorator for applying type checking 
+        def Typed(expected_type,cls=None):
+            if cls is None:
+                return lambda cls:Type(expected_type,cls)
+            super_set = cls.__set__
+            def __set__(self,instance,value):
+                if not isinstance(value,expected_type):
+                    raise TypeError('expected ' + str(expected_type))
+                super_set(self,instance,value)
+            cls.__set__ = __set__
+            return cls
+        # Descorator for allowing sized values
+        def MaxSized(cls):
+            super_init = cls.__init__
+            def __init__(self,name=None,**opts):
+                if 'size' not in opts:
+                    raise TypeError('missing size option')
+                super_init(self,name,**opts)
+            cls.__init__ = __init__
+            super_set = cls.__set__
+            def __set__(self,instance,value):
+                if len(value) >= self.size:
+                    raise ValueError('size must be < ' + str(self.size))
+                super_set(self,instance,value)
+            cls.__set__ = __set__
+            return cls
+        # Specialized descriptor
+        @Type(int)
+        clss Integer(Descriptor):
+            pass
+        @Unsigned
+        class UnsignedInteger(Integer):
+            pass
+        @Type(float):
+        class Float(Descriptor):
+            pass
+        @Unsigned
+        class UnsignedFloat(Float):
+            pass
+        @Type(str)
+        class String(Descriptor):
+            pass
+        @MaxSized
+        class SizedString(String):
+            pass
+    .属性的代理
+        .__getattr__()(这个方法在访问不存在的属性时被调用)
+        .__setattr__()S
+        .__delattr__()
+    .类的多个构造器
+        class Date:
+            def __init__(self,year,month,day):
+                self.yaer = year
+                self.month = month
+                self.day = day
+            @classmethod
+            def today(cls):
+                t = time.localtimme()
+                return cls(t.tm_year,t.tm_mon,t.tm_mday)
+    .通过字符串调用方法
+        .getattr( obj,methodName)(*args,**kwargs)
+        .operator.methodclaller(mehtodName,*args,**kwargs)(obj)          
+    .让类支持比较操作
+        .tunctools.total_ordering
+        .定义__eq__() + __lt__() / __le__() / __gt__() / __ge__()
+            @total_ordering
+            class House:
+                def __init__(self,name,style):
+                    self.name = name
+                    self.style = style
+                    self.rooms = list()
+                @property
+                def living_space_footage(self):
+                    return sum(r.squar_feet for r in self.rooms)
+                def __eq(self,,other):
+                    return self.living_space_footage == other.living_space_footage
+                def __lt__(self,other):
+                    return self.living_space_footage < other.living_space_footage
+.元编程
+    .包装器(装饰模式),包装函数
+        def timethis(func):
+            '''
+            Decorator that reports the execution time
+            '''
+            @wraps(func):
+            def wrapper(*args,**kwargs):
+                start = time.time()
+                resutl = func(*args,**kwargs)
+                end = time.time()
+                print(func.__name__,end -start)
+                return result
+            return wrapper
+        @timethis
+        def countdown(n):
+            while n > 0:
+                n -= 1
+        .@wraps可以通过__wrap__直接访问原始函数
+    .装饰器
+        def logged(level,name=None,message=None):
+            def decorate(func):
+                logname = name if name else func.__module__
+                log = logging.getLogger(logname)
+                logmsg = message if message else func.__name__
+                @wraps(func)
+                def wrapper(*args,**kwargs):
+                    log.log(level,logmsg)
+                    return func(*args,*kwargs)
+                return wrapper
+            return decorate
+        # Expample use
+        @logged(logging.DEBUG)
+        def add(x,y):
+            return x + y
+    .装饰器强制函数类型检查
+        def typeassert(*ty_args,**ty_kwargs):
+            def decorate(func):
+                # If not in optimized mode,disable type checking
+                if not __debug__:
+                    return func
+                # Map function argument names to supplied types
+                sig = signature(func)
+                bound_types = sig.bind_partial(*ty_args,**ty_kwargs).arguments
+                @wraps(func)
+                def wrapper(*args,**kwargs):
+                    bound_values = sig.bind(*arg,**kwargs)
+                    # Enforce type assertions across supplied arguments
+                    for name ,value in bound_values.arguents.items():
+                        if name in bound_types:
+                            if not isinstance(value,bound_types[name]):
+                                raise TypeError('Argument {} must be {}'.format(name,bound_types[name]))
+                        return func(*args,**kwargs)
+                return wrapper
+            return decorate
+    .类里面定义装饰器
+        class A:
+            # Decorator as an instance method
+            def decorator(self,func):
+                @wraps(func)
+                def wrapper(*args,**kwargs):
+                    print('Decorator 1')
+                    return func(*args,**kwargs)
+                return wrapper
+            # Decorator as a class method
+            @classmethod
+            def decorator2(cls,func):
+                @wrap(func)
+                def wrapper(*args,**kwargs):
+                    print('Decorator 2')
+                    return func(*args,**kwargs)
+                return wrapper
+        # As an example
+        @a.decorator1
+        def spam():
+            pass
+        @A.decorator2
+        def grok():
+            pass
+        .将装饰器定义一个实例
+            .__call__(self,*args,**kwargs) __get__(self,instance,cls)
+        .元类
+            # Metaclass that uses an OrderedDict for class body
+            class OrderedMeta(type):
+                def __new__(cls,clsname,bases,clsdict):
+                    d = dict(clsdict)
+                    order = []
+                    for name,value in clsdict.items():
+                        if isinstance(value,Typed):
+                            value._name = name
+                            order.append(name)
+                    d['_order'] = order
+                    return type.__new__(cls,classname,bases,d)
+                @classmethod
+                def __prepare__(cls,clsname,bases):
+                    return OrderdDict()
+            .__prepare__在类和父类定义时执行
+    .上下文管理器
+        .@contextmanager
+            @contextmanager
+            def timethis(label):
+                start = time.time()
+                try:
+                    yield
+                finally:
+                    end = time.time()
+                    print('{}: {}'.format(label,end - start))
+        .__enter__(self) __exit__(self,exc_ty,exc_val,exc_tb)
+.模块和包
+    .每个目录下都有一个__init__.py
+     .引用
+        import *.*.*
+        import *.*.* as *
+        from *.*.8 import *
+        from .* import *
+        from ..* import *
+    .重新加载
+        imp.reload()
+    .运行目录或压缩文件
+        .直接运行顶层目录下__main__.py
+        .运行打包后目录下__main__.py
+    .读取包中数据
+        pkutil.get_data(__package__,'somdata.dat')
+    .将新目录添加到sys.path
+        .修改PTHONPATH变量
+        .创建一个*.pth文件，放在site-packages目录下
+            /som/dir
+            /other/dir
+    .通过字符串导入模块
+        .importlib.import_module()
+

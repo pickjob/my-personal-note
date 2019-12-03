@@ -1,4 +1,4 @@
-# JDBC
+# JDBC学习
 - Establishing Connections
   - DriverManager.getConnection
   - DataSource.getConnection
