@@ -27,10 +27,10 @@ while expression {
 // 其他数据类型:
 //      array: [T: N]
 let arr: [i32; 3] = [1, 2, 3];
-for i in (1 .. 5) {
+for i in 1..5 {
     println!("{}", i); // 1, 2, 3, 4
 }
-for i in (1 ..= 5) {
+for i in 1 ..= 5 {
     println!("{}", i); // 1, 2, 3, 4, 5
 }
 //      slice: &[T] &mut[T]
@@ -81,4 +81,8 @@ pub trait Copy : Clone {
 }
 #[Derive(Copy, Clone)]
 struct MyStruct;
+// 迭代器
+for s in vec.iter() {...} // &String
+for s in vec.iter_mut() {...} // &mut String
+for s in vec.into_iter() {...} // String
 ```

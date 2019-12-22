@@ -1,20 +1,29 @@
 version: '3'
 services:
+    nginx:
+        image: nginx:stable
+        container_name: nginx
+        ports:
+            - 80:80
+        volumes:
+            - ./nginx.conf:/etc/nginx/nginx.conf
+            - ~/doc/:/doc/:ro
+    redis:
+        image: redis:5.0-alpine
+        container_name: redis
+        command: redis-server /usr/local/etc/redis/redis.conf
+        ports:
+            - 6379:6379
+        volumes:
+            - ./redis.conf:/usr/local/etc/redis/redis.conf
+            - ~/data/redis/:/data/logs/
     p3x-redis-ui:
         container_name: p3x-redis-ui
         image: patrikx3/p3x-redis-ui:latest
         ports:
             - 7843:7843
         volumes:
-            - ~/.p3x-redis-ui-settings:/settings
-    redis:
-        image: redis:5.0-alpine
-        container_name: redis
-        command: redis-server /usr/local/etc/redis/redise.conf
-        ports:
-            - 6379:6379
-        volumes:
-            - ./redis.conf:/usr/local/etc/redis/redis.conf
+            - ~/.p3x-redis-ui-settings:/settings:rw
     # zookeeper:
     #     container_name: zookeeper
     #     image: wurstmeister/zookeeper
@@ -32,14 +41,6 @@ services:
     #         KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
     #     volumes:
     #         - /var/run/docker.sock:/var/run/docker.sock
-    # nginx:
-    #     image: nginx:stable
-    #     container_name: nginx
-    #     ports:
-    #         - 80:80
-    #     volumes:
-    #         - ./nginx.conf:/etc/nginx/nginx.conf
-    #         - ~/doc:/doc:ro
     # zk1:
     #     image: zookeeper
     #     container_name: zk1

@@ -16,7 +16,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'jiangmiao/auto-pairs'
 Plug 'jesseleite/vim-agriculture'
 Plug 'rust-lang/rust.vim' " rust
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}} " coc
+Plug 'neoclide/coc.nvim', {'branch': 'release'} " coc
 Plug 'skywind3000/asyncrun.vim'
 call plug#end()
 """""""""""""""""""""""""""""""""""""

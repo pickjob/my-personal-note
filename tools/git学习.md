@@ -16,7 +16,7 @@
   - git commit -m "[descirtptive message]" : 提交文件快照
 - Group changes
   - git branch : 列出所有分支
-  - git branck [branch-name] : 创建新的分支
+  - git branch [branch-name] : 创建新的分支
   - git checkout [branch-name] : 转换当前工作分支到指定分支
   - git merge [branch] : 指定分支和当前分支修改合并
   - git branch -d [branch-name] : 删除指定分支
