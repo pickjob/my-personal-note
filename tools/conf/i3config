@@ -9,8 +9,8 @@ font pango:Fira Code Medium 12
 floating_modifier $mod
 
 # start program
-bindsym $mod+r      exec --no-startup-id rofi -show run -theme material
-bindsym $mod+d      exec --no-startup-id rofi -show drun -theme material
+bindsym $mod+r      exec --no-startup-id rofi -show run -theme sidetab
+bindsym $mod+d      exec --no-startup-id rofi -show drun -theme sidetab
 bindsym $mod+Tab    exec --no-startup-id rofi -show window
 bindsym $mod+e      exec --no-startup-id pcmanfm
 bindsym Mod4+Return exec --no-startup-id xfce4-terminal

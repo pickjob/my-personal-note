@@ -4,7 +4,7 @@
     - git config --global user.name "吴胜"
 - code插件
     - One Dark Pro
-    - vscode-icons
+    - Material Icon Theme
     - Remote (SSH / WSL / Container / SSH Explorer)
     - Markdown All in One
     - GitLens
@@ -12,6 +12,7 @@
     - hexdump for VSCode
     - Color Highlight
     - Path Intellisense
+    - Debugger for Firefox
     - Python
     - Rust / Rust(rls) / Cargo / Better TOML / crates
     - Go
@@ -26,9 +27,10 @@
     - Swagger
     - Translation
     - CPU Usage Indicator
-- eclipse插件
-    - Darkest Dark Theme
-    - Eclipse Corrosion
+- Android Studio
+    - GapStyle Color Scheme
+    - GitToolBox
+    - Rainbow Bracket
 - rust
     ```bash
     # rustup
@@ -40,6 +42,8 @@
     cargo new project_name --bin/--lib
     cargo build --release
     cargo run / clean / update / init
+
+    cargo install cargo-tree
     ```
 - npm
     ```bash
@@ -113,7 +117,6 @@
     - flatpak install flathub com.google.AndroidStudio
     - flatpak install flathub com.jetbrains.IntelliJ-IDEA-Community
     - flatpak install flathub com.sublimetext.three
-    - flatpak install flathub com.github.alainm23.byte
 - Windows Store
     - Windows Terminal
     - 微信 For Windows
@@ -129,17 +132,13 @@
     - thunder
 - WSL
     ```bash
-    sudo apt install apt-transport-https
+    sudo apt install apt-transport-https nodejs npm
 
     # 默认注释了源码镜像以提高 apt update 速度，如有需要可自行取消注释
-    deb https://mirrors.tuna.tsinghua.edu.cn/debian/ buster main contrib non-free
-    deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ buster main contrib non-free
-    deb https://mirrors.tuna.tsinghua.edu.cn/debian/ buster-updates main contrib non-free
-    deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ buster-updates main contrib non-free
-    deb https://mirrors.tuna.tsinghua.edu.cn/debian/ buster-backports main contrib non-free
-    deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ buster-backports main contrib non-free
-    deb https://mirrors.tuna.tsinghua.edu.cn/debian-security buster/updates main contrib non-free
-    deb-src https://mirrors.tuna.tsinghua.edu.cn/debian-security buster/updates main contrib non-free
+    deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic main restricted universe multiverse
+    deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-updates main restricted universe multiverse
+    deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-backports main restricted universe multiverse
+    deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-security main restricted universe multiverse
     sudo apt install ripgrep golang node npm
     ```
 - Manjaro
@@ -148,7 +147,7 @@
     sudo pacman -Syy
     sudo pacman -Syu
     sudo pacman -S bash-completion zip unzip ripgrep sysstat openssh
-    sudo pacman -S gvim guake xfce4-terminal
+    sudo pacman -S gvim guake rofi xfce4-terminal
     sudo pacman -S ibus ibus-libpinyin otf-fira-code adobe-source-han-sans-cn-fonts
     sudo pacman -S git cmake gcc rustup nodejs npm jdk8-openjdk python-pip python-docutils go go-tools
     rustup toolchain install stable
@@ -156,7 +155,7 @@
     sudo pacman -S dbeaver netbeans eclipse-rust
     sudo tesseract tesseract-data
     sudo pacman -S wireshark-qt firefox
-    sudo pacman -S flatpak snap kchmviewer okular rhythmbox
+    sudo pacman -S flatpak kchmviewer okular rhythmbox
     sudo timedatectl set-local-rtc true
 
     # v2ray
@@ -169,6 +168,12 @@
     git clone https://aur.archlinux.org/teamviewer.git
     sudo systemctl enable teamviewerd
     ```
+- Mac
+    ```bash
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    brew node nginx
+    # brew services start nginx
+    ```
 - AOSP
     ```bash
     repo sync
@@ -176,4 +181,9 @@
     mkdir ~/tools/bin
     curl https://storage.googleapis.com/git-repo-downloads/repo > ~/tools/bin/repo
     chmod a+x ~/tools/bin/repo
+    ```
+- Linux
+    ```bash
+    # /etc/sysctl.conf
+    net.ipv4.tcp_fin_timeout = 30
     ```
