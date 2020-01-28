@@ -18,5 +18,7 @@ ln --force --symbolic `pwd`/vim-plug.vim ~/.vim/vim-plug.vim
 ln --force --symbolic `pwd`/coc-settings.json ~/.vim/coc-settings.json
 
 ln --force --symbolic `pwd`/npmrc ~/.npmrc
+mkdir -p .config/pip
+mkdir -p .config/rofi
 ln --force --symbolic `pwd`/pip.conf ~/.config/pip/pip.conf
 ln --force --symbolic `pwd`/sidetab.rasi ~/.config/rofi/sidetab.rasi

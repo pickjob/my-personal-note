@@ -1,0 +1,26 @@
+# HTTPS学习
+- 握手流程
+    - 客户端(Client Hello)
+        - random-client
+        - 支持的协议版本
+        - 支持的加密方式
+        - 支持的压缩方法
+    - 服务器(Server Hello)
+        - random-server
+        - 使用的协议版本
+        - 使用的加密方式
+        - 返回服务器证书
+    - 客户端(Cipher-spec)
+        - 验证证书有效期、域名、吊销状态
+        - 证书签名是上级私钥签名(Sha256RSA)得来, 上级公钥验签
+        - 递归校验
+    - 客户端返回
+        - 生成premaster secret
+        - 证书中公钥加密
+    - 服务端
+        - 使用私钥解密
+        - 使用 random-client random-server premaster secret 计算出 session Key MAC算法密钥 
+        - 使用session key 和 MAC 算法密钥加密传输
+    - 客户端
+        - 使用 random-client random-server premaster secret 计算出 session Key MAC算法密钥 
+        - 使用session key 和 MAC 算法密钥加密传输

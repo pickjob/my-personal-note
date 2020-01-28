@@ -13,8 +13,9 @@
     - Color Highlight
     - Path Intellisense
     - Debugger for Firefox
+    - VimL
     - Python
-    - Rust / Rust(rls) / Cargo / Better TOML / crates
+    - Rust / Rust(rls) / Cargo / Better TOML / Search crates.io
     - Go
 - idea插件
     - GapStyle Color Scheme

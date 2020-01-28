@@ -101,8 +101,16 @@ endif
 "       CTRL-D  CTRL-U(半屏Downwards/Upwards)  CTRL-F  CTRL-B(全屏Forwards/Backwards)
 "       v  V  CTRL-V  CTRL-L
 "   fold:
-"       zo  zc  zr  zm zO  zC  zR  zM
+"       zo  zc  zr  zm  zO  zC  zR  zM
 "       [z(跳转fold开始)  ]z(跳转fold结束)  zj(下一个fold)  zk(上一个fold)
+"   buffers:
+"       buffers  bfirst  bprevious  bnext  blast
+"       % current buffer
+"       # alternate buffer
+"       a buffer is loaded and display
+"       h buffer is loaded and hidden
+"       = buffer is read only
+"       + buffer has been modified
 "   ex-cmd:
 "       read  write  edit  saveas  quit
 "       cd  pwd  browse  redir  scriptnames
