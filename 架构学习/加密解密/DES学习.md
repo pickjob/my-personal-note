@@ -103,3 +103,21 @@
 - 填充方式(PADDING)
     - PKCS#5 / PKCS#7: 填充字节值即为需填冲数(PKCS5用于block size为8)
     - ZeroPadding: 填充0
+- Java示例
+    ```java
+    //  Cipher cipher = Cipher.getInstance("DES/ECB/PKCS5Padding");
+    Cipher cipher = Cipher.getInstance("DES/CBC/PKCS5Padding");
+    byte[] ivBytes = {0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7};
+    IvParameterSpec desIvParameterSpec = new IvParameterSpec(ivBytes);
+    DESKeySpec desKeySpec = new DESKeySpec(keyBytes);
+    SecretKeyFactory desSecretKeyFactory = SecretKeyFactory.getInstance("DES");
+    SecretKey desSecretKey = desSecretKeyFactory.generateSecret(desKeySpec);
+    // 加密
+    //  cipher.init(Cipher.ENCRYPT_MODE, desSecretKey);
+    cipher.init(Cipher.ENCRYPT_MODE, desSecretKey, desIvParameterSpec);
+    byte[] encryptData = cipher.doFinal(plainText.getBytes());
+    // 解密
+    //  cipher.init(Cipher.DECRYPT_MODE, desSecretKey);
+    cipher.init(Cipher.DECRYPT_MODE, desSecretKey, desIvParameterSpec);
+    byte[] decryptData = cipher.doFinal(encryptData);
+    ```

@@ -70,3 +70,9 @@
             - A - B - C - D - E
     - 组合结果
         - A - B - C - D (显示内存中数值，如预定义数值反向操作)
+- Java实例
+    ```java
+    MessageDigest sha256 = MessageDigest.getInstance("SHA-1");
+    sha256.update(orgin.getBytes());
+    byte[] hash = sha256.digest();
+    ```

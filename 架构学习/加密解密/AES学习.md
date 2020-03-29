@@ -13,3 +13,19 @@
 - 填充方式(PADDING)
     - ZeroPadding
     - PKCS#5 / PKCS#7
+- Java示例
+    ```java
+    //  Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+    Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+    byte[] ivBytes = {0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0xa, 0xb, 0xc, 0xd, 0xe, 0xf};
+    IvParameterSpec aesIvParameterSpec = new IvParameterSpec(ivBytes);
+    SecretKeySpec aesSecretKeySpec = new SecretKeySpec(keyBytes, "AES");
+    // 加密
+    //  cipher.init(Cipher.ENCRYPT_MODE, desSecretKey);
+    cipher.init(Cipher.ENCRYPT_MODE, aesSecretKeySpec, aesIvParameterSpec);
+    byte[] encryptData = cipher.doFinal(plainText.getBytes("UTF-8"));
+    // 解密
+    //  cipher.init(Cipher.DECRYPT_MODE, desSecretKey);
+    cipher.init(Cipher.DECRYPT_MODE, aesSecretKeySpec, aesIvParameterSpec);
+    byte[] decryptData = cipher.doFinal(encryptData);
+    ```

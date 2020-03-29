@@ -30,3 +30,12 @@ SHA-1                160             160(5*32)    512               80
 SHA-224/256          224/256         256(8*32)    521               64
 SHA-384/512          384/512         512(8*64)    1024              80
 SHA3-224/256/384/512 224/256/384/512 1600(5*5*64) 1152/1088/832/576 24
+- Java示例
+    ```java
+    KeyGenerator hmacSHA256KeyGenerator = KeyGenerator.getInstance("HmacSHA256");
+    hmacSHA256KeyGenerator.init(1024);
+    SecretKey hmacSHA256SecretKey = hmacSHA256KeyGenerator.generateKey();
+    Mac mac = Mac.getInstance("HmacSHA256");
+    mac.init(hmacSHA256SecretKey);
+    byte[] result = mac.doFinal("hello world".getBytes());
+    ```
