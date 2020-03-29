@@ -1,9 +1,9 @@
-# 类学习
+# class特殊方法
 - 类生命周期
-  - object.__new__(cls[, ...]): create instance
-  - object.__init__(self[, ...]): after create
+  - object.__new__(cls[, ...]): 创建实例调用
+  - object.__init__(self[, ...]): 初始化调用, 创建之后调用
   - object.__del__(self): destory
-- 类数学操作符重载
+- 类操作符重载
   - object.__lt__(self, other)
   - object.__le__(self, other)
   - object.__eq__(self, other)

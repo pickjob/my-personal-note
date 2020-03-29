@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+    <!-- localRepository
+        | The path to the local repository maven will use to store artifacts.
+        |
+        | Default: ${user.home}/.m2/repository
+    -->
+    <localRepository>${user.home}/code/repository/maven</localRepository>
+    <profiles>
+        <profile>
+            <id>repositoryProfile</id>
+            <repositories>
+                <repository>
+                    <id>aliyunCentral</id>
+                    <url>https://maven.aliyun.com/repository/central</url>
+                </repository>
+                <repository>
+                    <id>aliyunSpring</id>
+                    <url>https://maven.aliyun.com/repository/spring</url>
+                </repository>
+                <repository>
+                    <id>aliyunSpringPlugin</id>
+                    <url>https://maven.aliyun.com/repository/spring-plugin</url>
+                </repository>
+                <repository>
+                    <id>aliyunGoogle</id>
+                    <url>https://maven.aliyun.com/repository/google</url>
+                </repostory>
+                <repository>
+                    <id>aliyunJcenter</id>
+                    <url>https://maven.aliyun.com/repository/jcenter</url>
+                </repository>
+                <repository>
+                    <id>springLib</id>
+                    <url>https://repo.spring.io/libs-release</url>
+                </repository>
+                <repository>
+                    <id>apache</id>
+                    <url>https://repository.apache.org/content/repositories/releases</url>
+                </repository>
+                <repository>
+                    <id>jcenter</id>
+                    <url>https://jcenter.bintray.com</url>
+                </repository>
+                <repository>
+                    <id>central</id>
+                    <url>https://repo1.maven.org/maven2</url>
+                </repository>
+            </repositories>
+        </profile>
+    </profiles>
+    <activeProfiles>
+        <activeProfile>repositoryProfile</activeProfile>
+    </activeProfiles>
+</settings>

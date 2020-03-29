@@ -12,9 +12,9 @@ pub trait Debug {
 }
 
 // 函数申明
-//      FnOnce: 获得值 (T)
-//      FnMut: 获得可变引用 (&mut T)
-//      Fn: 获得引用 (&T)
+//      Fn: 不可变方式借用环境自由变量 (&T)
+//      FnMut: 可变方式借用环境自由变量 (&mut T)
+//      FnOnce: 捕获环境自由变量所有权 (self)
 //      where FnOnce(arg1: type1, ...) -> R
 // std::ops::FnOnce
 pub trait FnOnce<Args> {
@@ -119,4 +119,12 @@ pub trait ToOwned {
 //      std::ops::Mul: operator *
 //      std::ops::Div: operator /
 //      ...
+pub trait Add<Rhs = Self> {
+    type Output;
+    fn add(self, rhs: Rhs) -> Self::Output;
+}
+
+IntoIter: 转移所有权 self
+Iter: 获得不可变借用
+IterMut: 获得可变借用
 ```

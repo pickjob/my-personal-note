@@ -41,4 +41,7 @@ x = json.load(f)
 with open('workfile') as f:
     for line in f:
         print(line, end='')
+if __name__ == "__main__":
+    # execute only if run as a script
+    main()
 ```

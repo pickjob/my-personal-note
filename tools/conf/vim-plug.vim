@@ -29,6 +29,8 @@ Plug 'airblade/vim-gitgutter' " git
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " coc
 Plug 'rust-lang/rust.vim' " rust
 Plug 'skywind3000/asyncrun.vim'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install'  } " markdown
+Plug 'jremmen/vim-ripgrep'
 call plug#end()
 
 " Leader设置
@@ -68,27 +70,39 @@ let g:NERDTreeHighlightFoldersFullName=1
 "   <Leader>hp : hunk preview
 "
 " coc
-"   coc-marketplace
+"   CocInstall coc-marketplace
+"   CocList marketplace
 "
 " asyncrun.vim
 "   :AsyncRun [-cwd=<root>] cmd %:p
-let g:asyncrun_open=3
+let g:asyncrun_open=5
+"
+" markdown
+let g:mkdp_page_title = '「${name}」'
+" options for markdown render
+let g:mkdp_preview_options = {
+    \ 'mkit': {},
+    \ 'katex': {},
+    \ 'uml': {},
+    \ 'maid': {},
+    \ 'disable_sync_scroll': 0,
+    \ 'sync_scroll_type': 'middle',
+    \ 'hide_yaml_meta': 1,
+    \ 'sequence_diagrams': {},
+    \ 'flowchart_diagrams': {}
+    \ }
+
 
 augroup MY_AUTOCMD
     autocmd!
+    autocmd BufRead,BufNewFile *.rs,*.toml nmap <F9> :AsyncRun -cwd=<root> cargo run<CR>
+    imap     <C-V>		<Esc>"+gpi
+    cmap     <C-V>		<C-R>+
+    nmap     <Tab>      :bnext<CR>
     autocmd VimEnter * NERDTree
     autocmd VimEnter * wincmd h
     autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 augroup END
-
-" 自定义一些习惯快捷键
-if has("clipboard")
-    " Ctrl-C / Ctrl-V
-    " vnoremap <C-C>      "+y    选中即复制
-    imap     <C-V>		<Esc>"+gpi
-    cmap     <C-V>		<C-R>+
-endif
-
 
 " vim
 "   basic:

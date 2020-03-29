@@ -1,0 +1,37 @@
+# Android学习
+- AndroidManifest.xml
+    - <application>
+        - <activity>
+            - startActivity()
+            - startActivityForResult()
+        - <service>
+            - startService()
+        - <receiver>
+            - sendBroadcast()
+            - sendOrderedBroadcast()
+            - sendStickyBroadcast()
+        - <provider>
+            - query()
+    - <uses-permission>
+- 支持库
+    - Activity
+        - ActivityCompat
+        - FragmentActivity
+        - AppCompatActivity
+    - Fragment
+    - ContextCompat
+    - IntentCompat
+    - Loader
+    - Preference
+    - ContentResolverCompat
+- 布局
+    - LinearLayout
+    - RecyclerView
+    - CardView
+    - GridView
+- Control
+    - TextView
+    - EditText
+    - RadioButton
+    - CheckBox
+    - Button
