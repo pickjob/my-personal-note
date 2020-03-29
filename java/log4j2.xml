@@ -1,27 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration status="warn">
+<configuration monitorInterval="30">
+    <!--
+        -Dlog4j2.contextSelector=org.apache.logging.log4j.core.async.AsyncLoggerContextSelector
+    -->
+    <properties>
+        <property name="fileName">logs/application.log</property>
+        <property name="filePattern">logs/%d{yyyy-MM-dd}/application.log.gz</property>
+    </properties>
     <appenders>
-        <console name="console" target="SYSTEM_OUT">
+        <console name="console">
             <patternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %t [%p] %c{1.} - %msg%n"/>
         </console>
-        <!--
-            -DLog4jContextSelector=org.apache.logging.log4j.core.async.AsyncLoggerContextSelector
-            -DAsyncLogger.WaitStrategy=busyspin
-        -->
-        <rollingFile name="file" fileName="logs/application.log" filePattern="logs/%d{yyyy-MM-dd}/application.log.gz">
+        <rollingFile name="file" fileName="${fileName}" filePattern="${filePattern}">
             <patternLayout pattern="%d{HH:mm:ss} %t [%p] %c{1.} - %msg%n"/>
             <policies>
-                <timeBasedTriggeringPolicy />
+                <timeBasedTriggeringPolicy/>
             </policies>
         </rollingFile>
     </appenders>
     <loggers>
         <root level="info">
-            <appender-ref ref="console" />
-            <appender-ref ref="file" />
+            <appender-ref ref="console"/>
+            <appender-ref ref="file"/>
         </root>
-        <logger name="mybatis" level="debug" additivity="false" >
-            <appender-ref ref="mybatis" />
-        </logger>
+        <asyncLogger name="app.dao" level="debug" additivity="false">
+            <appender-ref ref="console"/>
+            <appender-ref ref="mybatis"/>
+        </asyncLogger>
     </loggers>
 </configuration>
