@@ -41,22 +41,22 @@
     }
     ```
 - propagation
-  - Inbound event propagation methods:
-    - ChannelHandlerContext.fireChannelRegistered()
-    - ChannelHandlerContext.fireChannelActive()
-    - ChannelHandlerContext.fireChannelRead(Object)
-    - ChannelHandlerContext.fireChannelReadComplete()
-    - ChannelHandlerContext.fireExceptionCaught(Throwable)
-    - ChannelHandlerContext.fireUserEventTriggered(Object)
-    - ChannelHandlerContext.fireChannelWritabilityChanged()
-    - ChannelHandlerContext.fireChannelInactive()
-    - ChannelHandlerContext.fireChannelUnregistered()
-  - Outbound event propagation methods:
-    - ChannelOutboundInvoker.bind(SocketAddress, ChannelPromise)
-    - ChannelOutboundInvoker.connect(SocketAddress, SocketAddress, ChannelPromise)
-    - ChannelOutboundInvoker.write(Object, ChannelPromise)
-    - ChannelHandlerContext.flush()
-    - ChannelHandlerContext.read()
-    - ChannelOutboundInvoker.disconnect(ChannelPromise)
-    - ChannelOutboundInvoker.close(ChannelPromise)
-    - ChannelOutboundInvoker.deregister(ChannelPromise)
+    - Inbound event propagation methods:
+        - ChannelHandlerContext.fireChannelRegistered()
+        - ChannelHandlerContext.fireChannelActive()
+        - ChannelHandlerContext.fireChannelRead(Object)
+        - ChannelHandlerContext.fireChannelReadComplete()
+        - ChannelHandlerContext.fireExceptionCaught(Throwable)
+        - ChannelHandlerContext.fireUserEventTriggered(Object)
+        - ChannelHandlerContext.fireChannelWritabilityChanged()
+        - ChannelHandlerContext.fireChannelInactive()
+        - ChannelHandlerContext.fireChannelUnregistered()
+    - Outbound event propagation methods:
+        - ChannelOutboundInvoker.bind(SocketAddress, ChannelPromise)
+        - ChannelOutboundInvoker.connect(SocketAddress, SocketAddress, ChannelPromise)
+        - ChannelOutboundInvoker.write(Object, ChannelPromise)
+        - ChannelHandlerContext.flush()
+        - ChannelHandlerContext.read()
+        - ChannelOutboundInvoker.disconnect(ChannelPromise)
+        - ChannelOutboundInvoker.close(ChannelPromise)
+        - ChannelOutboundInvoker.deregister(ChannelPromise)

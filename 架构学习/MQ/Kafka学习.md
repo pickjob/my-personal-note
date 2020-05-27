@@ -1,16 +1,16 @@
 # Kafka学习
 - Concept
-  - DelayedOperation
-    - DelayedProduce
-    - DelayedFetch
-    - DelayedJoin
-    - DelayedHeartbeat
-    - DelayedCreateTopics
-  - KafkaController
-  - Coordinator
-    - ConsumerCoordinator
-    - GroupCoordinator
-    - WorkCoordinator
+    - DelayedOperation
+        - DelayedProduce
+        - DelayedFetch
+        - DelayedJoin
+        - DelayedHeartbeat
+        - DelayedCreateTopics
+    - KafkaController
+    - Coordinator
+        - ConsumerCoordinator
+        - GroupCoordinator
+        - WorkCoordinator
 - 基本命令
     ```bash
     # start zookeeper

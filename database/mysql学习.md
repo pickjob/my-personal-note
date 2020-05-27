@@ -24,22 +24,30 @@
         FLUSH PRIVILEGES;
     -- 锁
         -- 隔离级别
-        select @@session.tx_isolation, @@global.tx_isolation;
+            -- READ UNCOMMITTED
+            -- READ COMMITTED
+            -- REPEATABLE READ next-key locks 短时间批量insert update 会出现死锁, 可降级为READ COMMITTED
+            -- SERIALIZABLE
+        -- 查看 / 设置事务
+            SELECT @@GLOBAL.TX_ISOLATION
+            SET GLOBAL TRANSACTION ISOLATION LEVEL READ COMMITTED;
         -- 锁参数、信息查询
-        SHOW VARIABLES LIKE '%lock%';
-        SHOW STATUS LIKE '%lock%';
-        -- 死锁日志查询
-        SHOW ENGINE INNODB STATUS;
-        SHOW PROCESSLIST;
-        KILL PID;
-        
-        UNLOCK TABLES
-
-        UPDATE performance_schema.setup_consumers SET ENABLED = 'YES' WHERE NAME = 'global_instrumentation';
-        UPDATE performance_schema.setup_instruments SET ENABLED = 'YES' WHERE NAME = 'wait/lock/metadata/sql/mdl';
-        SELECT * FROM performance_schema.metadata_locks
+            SHOW VARIABLES LIKE '%lock%';
+            SHOW VARIABLES like '%timeout%';
+            SHOW STATUS LIKE '%lock%';
+        -- 死锁查询
+            -- 查看当前语句
+                SHOW PROCESSLIST;
+            -- 杀死进程
+                KILL PID;
+            -- 展示当前正在使用的表
+                SHOW OPEN TABLES WHERE IN_USE > 0;
+            -- 释放锁
+                UNLOCK TABLES
+            -- INNODB查看最近死锁日志
+                SHOW ENGINE INNODB STATUS;
     -- mysql字符大小写不敏感
-        show collation where charset='utf8mb4';
+        SHOW COLLATION WHERE CHARSET='utf8mb4';
         -- 建表指定collation
         CREATE TABLE `table1` (
             `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
