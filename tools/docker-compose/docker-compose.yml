@@ -35,6 +35,7 @@ services:
             - ~/data/mysql/logs:/logs
             - ~/data/mysql/data:/var/lib/mysql
         environment:
+            LANG: C.UTF-8
             MYSQL_ROOT_PASSWORD: chinese
     mongo:
         image: mongo:4.1
