@@ -1,19 +1,19 @@
 # Unicode编码
 - Glossary
-  - Unicode
-  - UTF(Unicode Transformation Format)
-  - Unicode D800-DFFF无实际字符
+    - Unicode
+    - UTF(Unicode Transformation Format)
+    - Unicode D800-DFFF无实际字符
 - UTF-8
-  - 0 - 7F(128 codePoint) (ASCII一致)
-    - 00-7F 一个字节
-  - 80 - 7FF(1920 codePoint)
-    - C0-DF 80-BF 二个字节,第一个字节二进制110开头,第二个字节二进制10开头
-  - 800 - D7FF / E000 - FFFF(61440 codePoint)
-    - E0-EF 80-BF 80-BF 三个字节,第一个字节二进制1110开头,第二个字节二进制10开头,第三个字节二进制10开头
-  - 10000 - 10FFFF(1048576 codePoint)
-    - F0-F7 80-BF 80-BF 80-BF 四个字节,第一个字节二进制11110开头,第二个字节二进制10开头,第三个字节二进制10开头,第四个字节二进制10开头
+    - 0 - 7F(128 codePoint) (ASCII一致)
+        - 00-7F 一个字节
+    - 80 - 7FF(1920 codePoint)
+        - C0-DF 80-BF 二个字节,第一个字节二进制110开头,第二个字节二进制10开头
+    - 800 - D7FF / E000 - FFFF(61440 codePoint)
+        - E0-EF 80-BF 80-BF 三个字节,第一个字节二进制1110开头,第二个字节二进制10开头,第三个字节二进制10开头
+    - 10000 - 10FFFF(1048576 codePoint)
+        - F0-F7 80-BF 80-BF 80-BF 四个字节,第一个字节二进制11110开头,第二个字节二进制10开头,第三个字节二进制10开头,第四个字节二进制10开头
 - UTF-16
-  - 0 - D7FF / E000 - FFFF
-    - 0000-FFFF 2个字节
-  - 10000 - 10FFFF
-    - D800-DBFF DC00-DFFF 4个字节, 第一个字节二进制110110开头,第三个字节二进制110111开头
+    - 0 - D7FF / E000 - FFFF
+        - 0000-FFFF 2个字节
+    - 10000 - 10FFFF
+        - D800-DBFF DC00-DFFF 4个字节, 第一个字节二进制110110开头,第三个字节二进制110111开头

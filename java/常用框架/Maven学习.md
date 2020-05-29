@@ -1,65 +1,9 @@
 # maven学习
-- lifecycles & phase
+- maven
     - clean
-        - pre-clean
-        - clean (clean:clean)
-        - post-clean
-    - default
-        - validate
-        - initialize
-        - generate-sources
-        - process-sources
-        - generate-resources
-        - process-resources (resources:resources)
-        - compile (compiler:compile)
-        - process-classes
-        - generate-test-sources
-        - process-test-sources
-        - generate-test-resources
-        - process-test-resources
-        - test-compile
-        - process-test-classes
-        - test
-        - prepare-package
-        - package (ejb:ejb / ejb3:ejb3 / jar:jar / par:par / rar:rar / war:war)
-        - pre-integration-test
-        - integration-test
-        - post-integration-test
-        - verify
-        - install (install:install)
-        - deploy (deploy:deploy)
-    - sit
-        - pre-site
-        - site (site:site)
-        - post-site
-        - site-deploy (site:deploy)
+    - package (ejb:ejb / ejb3:ejb3 / jar:jar / par:par / rar:rar / war:war)
+    - install
 - 常用命令及配置
-    ```bash
-    # build
-    mvn package
-    # clean
-    mvn clean
-    # in one
-    mvn clean package install deploy
-    ```
-    - setting.xml(设置mirror)
-    ```xml
-    <mirrors>
-        <mirror>
-            <id>ali-central</id>
-            <name>aliyun central</name>
-            <url>https://maven.aliyun.com/repository/central</url>
-            <mirrorOf>central</mirrorOf>        
-        </mirror>
-        <mirror>
-            <id>ali-jcenter</id>
-            <name>aliyun jcenter</name>
-            <url>https://maven.aliyun.com/repository/jcenter</url>
-            <mirrorOf>central</mirrorOf>        
-        </mirror>
-    </mirrors>
-    ```
-    - pom.xml(指定repository)
     ```xml
     <repositories>  
         <repository>  
@@ -73,5 +17,18 @@
                 <enabled>false</enabled>  
             </snapshots>  
         </repository>  
-    </repositories>  
+    </repositories>
+    <!-- jetty:run-war -->
+    <plugin>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-maven-plugin</artifactId>
+        <version>9.4.27.v20200227</version>
+        <configuration>
+            <!-- <scanIntervalSeconds>10</scanIntervalSeconds> -->
+            <war>${project.basedir}/target/mycustom.war</war>
+            <webApp>
+                <contextPath>/mycustom</contextPath>
+            </webApp>
+        </configuration>
+    </plugin>
     ```

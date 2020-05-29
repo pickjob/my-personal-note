@@ -1,38 +1,38 @@
 # JDBC学习
 - Establishing Connections
-  - DriverManager.getConnection
-  - DataSource.getConnection
+    - DriverManager.getConnection
+    - DataSource.getConnection
 - Creating Statements
-  - Statement
-    - PreparedStatement
-      - PreparedStatement.addBatch
-      - PreparedStatement.executeBatch
-    - CallableStatement
+    - Statement
+        - PreparedStatement
+            - PreparedStatement.addBatch
+            - PreparedStatement.executeBatch
+        - CallableStatement
 - Executing Queries
-  - execute:ResultSet 
-  - executeQuery:ResultSet
-  - executeUpdate:integer
+    - execute:ResultSet 
+    - executeQuery:ResultSet
+    - executeUpdate:integer
 - Processing ResultSet Objects
-  - ResultSet.next
-  - ResultSet.getString
-  - ResultSet.getInt
+    - ResultSet.next
+    - ResultSet.getString
+    - ResultSet.getInt
 - Closing Connections
-  - Using Transactions
-    - con.setAutoCommit(false);
-    - con.commit();
-    - con.setAutoCommit(true);
+    - Using Transactions
+        - con.setAutoCommit(false);
+        - con.commit();
+        - con.setAutoCommit(true);
 - RowSet
-  - JdbcRowSet
-  - CachedRowSet
-  - WebRowSet
-  - JoinRowSet
-  - FilteredRowSet
+    - JdbcRowSet
+    - CachedRowSet
+    - WebRowSet
+    - JoinRowSet
+    - FilteredRowSet
 - JDBC URL
-  - MySql
-    - URL:  jdbc:mysql://<host>[:3306<port>]/<dbName>?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true
-  - SQL Server
-    - URL:  jdbc:sqlserver://<host>[:1433<port>];databaseName=<dbName>
-    - class:  com.microsoft.sqlserver.jdbc.SQLServerDriver
-  - Oracle
-    - URL:  jdbc:oracle:thin:@[<host>[:1521<port>]:<dbName>
-    - class:  oracle.jdbc.driver.OracleDriver
+    - MySql
+        - URL:  jdbc:mysql://<host>[:3306<port>]/<dbName>?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true
+    - SQL Server
+        - URL:  jdbc:sqlserver://<host>[:1433<port>];databaseName=<dbName>
+        - class:  com.microsoft.sqlserver.jdbc.SQLServerDriver
+    - Oracle
+        - URL:  jdbc:oracle:thin:@[<host>[:1521<port>]:<dbName>
+        - class:  oracle.jdbc.driver.OracleDriver
