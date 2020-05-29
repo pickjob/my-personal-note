@@ -1,45 +1,45 @@
 # Curator学习
 - Retry Policies
-  - RetryOneTime: 重新尝试一次
-  - RetryNTimes: 重新尝试N次
-  - RetryUntilElapsed: 直到过了重新尝试
-  - ExponentialBackoffRetry: 递增延迟重新尝试
+    - RetryOneTime: 重新尝试一次
+    - RetryNTimes: 重新尝试N次
+    - RetryUntilElapsed: 直到过了重新尝试
+    - ExponentialBackoffRetry: 递增延迟重新尝试
 - CuratorFramework: 基本操作(forPath结束)
-  - create()
-  - delete()
-  - checkExists()
-  - getData()
-  - setData()
-  - getChildren()
-  - transactionOp()
-  - transaction()
-  - getACL()
-  - setACL()
-  - getConfig()
-  - forEnsemble()
-  - reconfig()
+    - create()
+    - delete()
+    - checkExists()
+    - getData()
+    - setData()
+    - getChildren()
+    - transactionOp()
+    - transaction()
+    - getACL()
+    - setACL()
+    - getConfig()
+    - forEnsemble()
+    - reconfig()
 - Recipes: 高级功能
-  - Elections
-    - LeaderLatch
-    - LeaderSelector
-  - Locks
-    - InterProcessMutex
-    - InterProcessSemaphoreMutex
-    - InterProcessReadWriteLock
-    - InterProcessSemaphoreV2
-    - InterProcessMultiLock
-  - Barrier
-    - DistributedBarrier
-    - DistributedDoubleBarrier
-  - Counters
-    - SharedCount
-    - DistributedAtomicLong
-  - Nodes
-    - PersistentNode
-    - PersistentTtlNode
-    - GroupMember
-  - Queues
-    - QueueBuilder
-    - QueueConsumer
-    - QueueSerializer
-    - DistributedPriorityQueue
+    - Elections
+        - LeaderLatch
+        - LeaderSelector
+    - Locks
+        - InterProcessMutex
+        - InterProcessSemaphoreMutex
+        - InterProcessReadWriteLock
+        - InterProcessSemaphoreV2
+        - InterProcessMultiLock
+    - Barrier
+        - DistributedBarrier
+        - DistributedDoubleBarrier
+    - Counters
+        - SharedCount
+        - DistributedAtomicLong
+    - Nodes
+        - PersistentNode
+        - PersistentTtlNode
+        - GroupMember
+    - Queues
+        - QueueBuilder
+        - QueueConsumer
+        - QueueSerializer
+        - DistributedPriorityQueue

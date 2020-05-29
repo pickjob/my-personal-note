@@ -168,23 +168,23 @@
     });
     ```
 - Future
-  - CompositeFuture.all
-  - CompositeFuture.any
-  - CompositeFuture.join
-  - CompositeFuture.compose
+    - CompositeFuture.all
+    - CompositeFuture.any
+    - CompositeFuture.join
+    - CompositeFuture.compose
 - Verticle
-  - Stardand Verticle
-  - Stardand Verticle
-  - Multi-threaded Worker Verticle
+    - Stardand Verticle
+    - Stardand Verticle
+    - Multi-threaded Worker Verticle
 - Event Bus
-  - Address
-  - Handlers
-  - Publish / Subscribe messaging
-  - Point-to-Point and Request-Response messaging
-  - Best-effort delivery
+    - Address
+    - Handlers
+    - Publish / Subscribe messaging
+    - Point-to-Point and Request-Response messaging
+    - Best-effort delivery
 - Logging
-  - vertx.logger-delegate-factory-class-name
-    - io.vertx.core.loggine.
-      - Log4jLoDelegateFactory
-      - Log4j2LogDelegateFactory
-      - SLF4JLogDelegateFactory
+    - vertx.logger-delegate-factory-class-name
+        - io.vertx.core.loggine.
+            - Log4jLoDelegateFactory
+            - Log4j2LogDelegateFactory
+            - SLF4JLogDelegateFactory

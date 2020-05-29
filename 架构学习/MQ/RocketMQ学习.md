@@ -1,108 +1,108 @@
 # RocketMQ学习
 - 组件
-  - NameServer
-    - NAMESRV_ADDR
-    - -Drocketmq.namesrv.addr
-    - producer.setNamesrvAddr("ip:port")
-  - Broker
-    - ROLE
-      - ASYNC/SYNC_MASTER
-      - ASYNC/SYNC_SLAVE
-    - FlushDiskType
-      - ASYNC_FLUSH
-      - SYNC_FLUSH
-  - Producer (Group)
-    - Synchronously
-    - Asynchronously
-    - One-way
-  - Consumer (Group)
-    - Pull Consumer
-    - Push Consumer
-  - Message
-    - Construct
-      - Topic
-      - Tag
-      - Queue
-        - Broker
-          - SelectMessageQueueByHash
-          - SelectMessageQueueByMachineRoom
-          - SelectMessageQueueByRandom
-        - Client
-          - AllocateMessageQueueAveragely
-          - AllocateMessageQueueAveragelyByCircle
-          - AllocateMessageQueueByConfig
-          - AllocateMessageQueueByMachineRoom
-          - AllocateMessageQueueConsistentHash
-    - Others
-      - Order
-      - Broadcasting
-      - Schedule
-      - Batch
-      - Filter
-      - Transaction
-        - TransactionStatus.CommitTransaction
-        - TransactionStatus.RollbackTransaction
-        - TransactionStatus.Unkown
-- 命令
-  - mqnamesrv
-    - -c,--configFile <arg>
-    - -n,--namesrvAddr <arg>
-    - -p,--printConfigItem
-  - mqbroker
-    - -c,--configFile <arg>
-    - -m,--printImportantConfig
-    - -n,--namesrvAddr <arg>
-    - -p,--printConfigItem
-  - mqadmin
-    - Topic
-      - topicClusterList: get cluster info for topic
-      - topicList: Fetch all topic list from name server
-      - topicRoute: Examine topic route info
-      - topicStatus: Examine topic Status info
-      - updateTopic: Update or create topic
-      - updateTopicPerm: Update topic perm
-      - deleteTopic: Delete topic from broker and NameServer
-      - cleanUnusedTopic: Clean unused topic on broker
-    - Message
-      - printMsg: Print Message Detail
-      - printMsgByQueue: Print Message Detail
-      - sendMsgStatus: send msg to broker
-      - queryMsgById: Query Message by Id
-      - queryMsgByKey: Query Message by Key
-      - queryMsgByUniqueKey: Query Message by Unique key
-      - queryMsgByOffset: Query Message by offset
-      - sendMessage: Send a message
-      - consumeMessage: Consume message
-      - resetOffsetByTime: Reset consumer offset by timestamp(without client restart)
-      - updateOrderConf: Create or update or delete order conf
-      - checkMsgSendRT: check message send response time
-      - clusterRT: List All clusters Message Send RT
+    - NameServer
+        - NAMESRV_ADDR
+        - -Drocketmq.namesrv.addr
+        - producer.setNamesrvAddr("ip:port")
     - Broker
-      - getBrokerConfig: Get broker config by cluster or special broker
-      - updateBrokerConfig: Update broker's config
-      - brokerStatus: Fetch broker runtime status data
-      - brokerConsumeStats: Fetch broker consume stats data
-      - getNamesrvConfig: Get configs of name server
-      - updateNamesrvConfig: Update configs of name server
-    - Connection
-      - producerConnection: Query producer's socket connection and client version
-      - consumerConnection: Query consumer's socket connection, client version and subscription
-    - K/V
-      - updateKvConfig: Create or update KV config
-      - deleteKvConfig: Delete KV config
-    - Others
-      - statsAll: Topic and Consumer tps stats
-      - wipeWritePerm: Wipe write perm of broker in all name server
-      - consumerProgress: Query consumers's progress, speed
-      - consumerStatus: Query consumer's internal data structure
-      - updateSubGroup: Update or create subscription group
-      - deleteSubGroup: Delete subscription group from broker
-      - cloneGroupOffset: clone offset from other group
-      - clusterList: List all of clusters
-      - cleanExpiredCQ: Clean expired ConsumeQueue on broker.
-      - startMonitoring: Start Monitoring
-      - allocateMQ: Allocate MQ
-      - queryCq: Query cq command.
+        - ROLE
+            - ASYNC/SYNC_MASTER
+            - ASYNC/SYNC_SLAVE
+        - FlushDiskType
+            - ASYNC_FLUSH
+            - SYNC_FLUSH
+    - Producer (Group)
+        - Synchronously
+        - Asynchronously
+        - One-way
+    - Consumer (Group)
+        - Pull Consumer
+        - Push Consumer
+    - Message
+        - Construct
+            - Topic
+            - Tag
+            - Queue
+                - Broker
+                    - SelectMessageQueueByHash
+                    - SelectMessageQueueByMachineRoom
+                    - SelectMessageQueueByRandom
+                - Client
+                    - AllocateMessageQueueAveragely
+                    - AllocateMessageQueueAveragelyByCircle
+                    - AllocateMessageQueueByConfig
+                    - AllocateMessageQueueByMachineRoom
+                    - AllocateMessageQueueConsistentHash
+        - Others
+            - Order
+            - Broadcasting
+            - Schedule
+            - Batch
+            - Filter
+            - Transaction
+                - TransactionStatus.CommitTransaction
+                - TransactionStatus.RollbackTransaction
+                - TransactionStatus.Unkown
+- 命令
+    - mqnamesrv
+        - -c,--configFile <arg>
+        - -n,--namesrvAddr <arg>
+        - -p,--printConfigItem
+    - mqbroker
+        - -c,--configFile <arg>
+        - -m,--printImportantConfig
+        - -n,--namesrvAddr <arg>
+        - -p,--printConfigItem
+    - mqadmin
+        - Topic
+            - topicClusterList: get cluster info for topic
+            - topicList: Fetch all topic list from name server
+            - topicRoute: Examine topic route info
+            - topicStatus: Examine topic Status info
+            - updateTopic: Update or create topic
+            - updateTopicPerm: Update topic perm
+            - deleteTopic: Delete topic from broker and NameServer
+            - cleanUnusedTopic: Clean unused topic on broker
+        - Message
+            - printMsg: Print Message Detail
+            - printMsgByQueue: Print Message Detail
+            - sendMsgStatus: send msg to broker
+            - queryMsgById: Query Message by Id
+            - queryMsgByKey: Query Message by Key
+            - queryMsgByUniqueKey: Query Message by Unique key
+            - queryMsgByOffset: Query Message by offset
+            - sendMessage: Send a message
+            - consumeMessage: Consume message
+            - resetOffsetByTime: Reset consumer offset by timestamp(without client restart)
+            - updateOrderConf: Create or update or delete order conf
+            - checkMsgSendRT: check message send response time
+            - clusterRT: List All clusters Message Send RT
+        - Broker
+            - getBrokerConfig: Get broker config by cluster or special broker
+            - updateBrokerConfig: Update broker's config
+            - brokerStatus: Fetch broker runtime status data
+            - brokerConsumeStats: Fetch broker consume stats data
+            - getNamesrvConfig: Get configs of name server
+            - updateNamesrvConfig: Update configs of name server
+        - Connection
+            - producerConnection: Query producer's socket connection and client version
+            - consumerConnection: Query consumer's socket connection, client version and subscription
+        - K/V
+            - updateKvConfig: Create or update KV config
+            - deleteKvConfig: Delete KV config
+        - Others
+            - statsAll: Topic and Consumer tps stats
+            - wipeWritePerm: Wipe write perm of broker in all name server
+            - consumerProgress: Query consumers's progress, speed
+            - consumerStatus: Query consumer's internal data structure
+            - updateSubGroup: Update or create subscription group
+            - deleteSubGroup: Delete subscription group from broker
+            - cloneGroupOffset: clone offset from other group
+            - clusterList: List all of clusters
+            - cleanExpiredCQ: Clean expired ConsumeQueue on broker.
+            - startMonitoring: Start Monitoring
+            - allocateMQ: Allocate MQ
+            - queryCq: Query cq command.
 - 脚本
     ```bash
     # start.sh
