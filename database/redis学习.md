@@ -42,3 +42,20 @@
     - Search
         - KEYS pattern: 禁用
         - SCAN cursor [MATCH pattern] [COUNT count] [TYPE type]
+- 全局锁原理
+    -  SET key value EX seconds NX
+- 压测命令
+    - redis-benchmark
+    - -h <hostname>: Server hostname (default 127.0.0.1)
+    - -p <port>: Server port (default 6379)
+    - -s <socket>: Server socket (overrides host and port)
+    - -a <password>: Password for Redis Auth
+    - -c <clients>: Number of parallel connections (default 50)
+    - -n <requests>: Total number of requests (default 100000)
+    - -d <size>: Data size of SET/GET value in bytes (default 2)
+    - --dbnum <db>: SELECT the specified db number (default 0)
+    - -k <boolean>: 1=keep alive 0=reconnect (default 1)
+    - -P <numreq>: Pipeline <numreq> requests. Default 1 (no pipeline).
+    - -q: Quiet. Just show query/sec values
+    - --csv: Output in CSV format
+    - -l: Loop. Run the tests forever
