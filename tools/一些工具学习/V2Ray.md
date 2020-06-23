@@ -1,7 +1,7 @@
 # V2Ray配置
 - 安装
     ```bash
-
+    wget https://install.direct/go.sh
     ```
 - 配置
     ```json
