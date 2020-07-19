@@ -9,7 +9,7 @@ else
 for w in words:
     expr
 for i in range(5):
-    expr 
+    expr
 # loop break pass
 # *args unpackage list
 # **d unpackage dict
@@ -37,10 +37,27 @@ print(f'hello {name}')
 import json
 json.dumps([1, 'simple', 'list'])
 x = json.load(f)
-# file
+# file read
 with open('workfile') as f:
     for line in f:
         print(line, end='')
+# file write
+with open('workfile', 'rb+') as f:
+    f.write(b'0123456789abcdef')
+
+# String Format: f''
+print(f'The value of pi is approximately {math.pi:.3f}.')
+
+try:
+    x = int(input("Please enter a number: "))
+    break
+except Exception as inst:
+    print(type(inst)) 
+    print(inst.args)
+    print(inst)
+finally:
+    print('finally')
+
 if __name__ == "__main__":
     # execute only if run as a script
     main()
