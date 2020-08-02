@@ -20,13 +20,11 @@ rule_files:
 scrape_configs:
     # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
     - job_name: 'prometheus'
-
     # metrics_path defaults to '/metrics'
     # scheme defaults to 'http'.
-
     static_configs:
-        - targets: ['monitor-prometheus:9090']
-    
-    - job_name: 'aaa'
+        - targets: ['localhost:9090']
+    - job_name: 'nacos'
+    metrics_path: '/nacos/actuator/prometheus'
     static_configs:
-        - targets: ['host.docker.internal']
+        - targets: ['nacos:8848']

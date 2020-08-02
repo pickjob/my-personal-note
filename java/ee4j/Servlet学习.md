@@ -31,3 +31,9 @@
         - Host
         - Context
         - Wrapper
+- url-pattern
+    - "/": 拦截所有没被处理请求(允许使用内置Servlet)
+    - "/*": 拦截所有请求
+- ant-path-matcher
+    - "/*": 匹配所有子路径
+    - "/**": 匹配所有子目录子路径

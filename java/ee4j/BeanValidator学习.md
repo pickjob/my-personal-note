@@ -15,6 +15,11 @@
     - @Size
 - 自定义
     ```java
+    // ValidationUtils
+    public interface Validator {
+        boolean supports(Class<?> clazz);
+        void validate(Object target, Errors errors);
+    }
     // annotation
     @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
     @Retention(RUNTIME)

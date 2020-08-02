@@ -118,8 +118,6 @@
         - roles(RolesAuthorizationFilter)
         - ssl(SslFilter)
         - user(UserFilter)
-        - noSessionCreation
-        - OncePerRequestFilter
     - Jsp tag
         ```xml
         <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>

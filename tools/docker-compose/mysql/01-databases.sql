@@ -3,49 +3,83 @@ CREATE DATABASE IF NOT EXISTS `primary`;
 CREATE DATABASE IF NOT EXISTS `secondary`;
 -- 创建Quartz专用数据库
 CREATE DATABASE IF NOT EXISTS `quartz`;
+-- 创建nacos专用数据库
+CREATE DATABASE IF NOT EXISTS `nacos`;
 -- 创建用户并授权
 CREATE USER 'china'@'%' IDENTIFIED BY 'chinese';
 GRANT ALL PRIVILEGES ON *.* TO 'china'@'%' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 
 -- 创建必须表和数据
-use primary;
+USE primary;
 CREATE TABLE who_am_i(
-    id tinyint PRIMARY KEY AUTO_INCREMENT,
-    name varchar(20) NOT NULL COMMENT '当前数据库名称'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='确定当前数据库连接';
-CREATE TABLE schedule_job (
-    id bigint PRIMARY KEY AUTO_INCREMENT COMMENT '任务id',
-    target_bean varchar(200) NOT NULL COMMENT 'spring bean名称',
-    target_method varchar(200) NOT NULL COMMENT 'spring bean方法',
-    target_argument varchar(2000) DEFAULT NULL COMMENT '方法参数',
-    cron_expression varchar(100) DEFAULT NULL COMMENT 'cron表达式',
-    schedule_type tinyint NOT NULL COMMENT '定时任务类型: 1-spring 2-quartz',
-    schedule_status tinyint NOT NULL COMMENT '任务状态: 0-正常 1-暂停 2-删除',
-    remark varchar(255) DEFAULT NULL COMMENT '备注',
-    create_time datetime DEFAULT NULL COMMENT '创建时间'
+    id TINYINT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(20) NOT NULL COMMENT '当前数据库名称'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='当前数据库名表';
+CREATE TABLE user(
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    account VARCHAR(20) NOT NULL COMMENT '用户账户',
+    `password` VARCHAR(50) NOT NULL COMMENT '用户密码',
+    create_time DATETIME DEFAULT NULL COMMENT '创建时间'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户表';
+CREATE TABLE role(
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    code VARCHAR(20) NOT NULL COMMENT '角色代码',
+    name VARCHAR(20) NOT NULL COMMENT '角色名称',
+    create_time DATETIME DEFAULT NULL COMMENT '创建时间'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='角色表';
+CREATE TABLE permission(
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    code VARCHAR(20) NOT NULL COMMENT '权限代码',
+    name VARCHAR(20) NOT NULL COMMENT '权限名称',
+    create_time DATETIME DEFAULT NULL COMMENT '创建时间'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='权限表';
+CREATE TABLE schedule_job(
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    target_bean VARCHAR(200) NOT NULL COMMENT 'spring bean名称',
+    target_method VARCHAR(200) NOT NULL COMMENT 'spring bean方法',
+    target_argument VARCHAR(2000) DEFAULT NULL COMMENT '方法参数',
+    cron_expression VARCHAR(100) DEFAULT NULL COMMENT 'cron表达式',
+    schedule_type TINYINT NOT NULL COMMENT '定时任务类型: 1-spring 2-quartz',
+    schedule_status TINYINT NOT NULL COMMENT '任务状态: 0-正常 1-暂停 2-删除',
+    remark VARCHAR(255) DEFAULT NULL COMMENT '备注',
+    create_time DATETIME DEFAULT NULL COMMENT '创建时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='定时任务';
-INSERT INTO who_am_i (name) value ('primary');
-commit;
-use secondary;
+CREATE TABLE join_table(
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    table_a_name VARCHAR(50) NOT NULL COMMENT '表A名称',
+    table_a_id BIGINT NOT NULL COMMENT '表A对应ID',
+    table_b_name VARCHAR(50) NOT NULL COMMENT '表B名称',
+    table_b_id BIGINT NOT NULL COMMENT '表B对应ID',
+    INDEX(table_a_name, table_a_id, table_b_name, table_b_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='表与表关联中间表';
+INSERT INTO who_am_i (name) VALUE ('primary');
+INSERT INTO user(id, account, `password`, create_time) VALUE (1, 'china', 'chinese', '2020-06-29');
+INSERT INTO role(id, code, name, create_time) VALUE (1, 'general', '通用角色', '2020-06-29');
+INSERT INTO permission(id, code, name, create_time) VALUE (1, 'v1:token:authc', '权限-测试token', '2020-06-29');
+INSERT INTO join_table(table_a_name, table_a_id, table_b_name, table_b_id) VALUE ('user', 1, 'role', 1);
+INSERT INTO join_table(table_a_name, table_a_id, table_b_name, table_b_id) VALUE ('role', 1, 'permission', 1);
+COMMIT;
+
+USE secondary;
 CREATE TABLE who_am_i(
-    id tinyint PRIMARY KEY AUTO_INCREMENT,
-    name varchar(20) NOT NULL COMMENT '当前数据库名称'
-);
-INSERT INTO who_am_i (name) value ('secondary');
-commit;
+    id TINYINT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(20) NOT NULL COMMENT '当前数据库名称'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='当前数据库名表';
+INSERT INTO who_am_i (name) VALUE ('secondary');
+COMMIT;
 
 -- 创建Quartz表
-use quartz;
+USE quartz;
 CREATE TABLE who_am_i(
-    id tinyint PRIMARY KEY AUTO_INCREMENT,
-    name varchar(20) NOT NULL COMMENT '当前数据库名称'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='确定当前数据库连接';
+    id TINYINT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(20) NOT NULL COMMENT '当前数据库名称'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='当前数据库名表';
 CREATE TABLE QRTZ_JOB_DETAILS(
     SCHED_NAME VARCHAR(120) NOT NULL,
     JOB_NAME VARCHAR(190) NOT NULL,
     JOB_GROUP VARCHAR(190) NOT NULL,
-    DESCRIPTION VARCHAR(250) NULL,
+    `DESCRIPTION` VARCHAR(250) NULL,
     JOB_CLASS_NAME VARCHAR(250) NOT NULL,
     IS_DURABLE VARCHAR(1) NOT NULL,
     IS_NONCONCURRENT VARCHAR(1) NOT NULL,
@@ -60,10 +94,10 @@ CREATE TABLE QRTZ_TRIGGERS (
     TRIGGER_GROUP VARCHAR(190) NOT NULL,
     JOB_NAME VARCHAR(190) NOT NULL,
     JOB_GROUP VARCHAR(190) NOT NULL,
-    DESCRIPTION VARCHAR(250) NULL,
+    `DESCRIPTION` VARCHAR(250) NULL,
     NEXT_FIRE_TIME BIGINT(13) NULL,
     PREV_FIRE_TIME BIGINT(13) NULL,
-    PRIORITY INTEGER NULL,
+    `PRIORITY` INTEGER NULL,
     TRIGGER_STATE VARCHAR(16) NOT NULL,
     TRIGGER_TYPE VARCHAR(8) NOT NULL,
     START_TIME BIGINT(13) NOT NULL,
@@ -139,8 +173,8 @@ CREATE TABLE QRTZ_FIRED_TRIGGERS (
     INSTANCE_NAME VARCHAR(190) NOT NULL,
     FIRED_TIME BIGINT(13) NOT NULL,
     SCHED_TIME BIGINT(13) NOT NULL,
-    PRIORITY INTEGER NOT NULL,
-    STATE VARCHAR(16) NOT NULL,
+    `PRIORITY` INTEGER NOT NULL,
+    `STATE` VARCHAR(16) NOT NULL,
     JOB_NAME VARCHAR(190) NULL,
     JOB_GROUP VARCHAR(190) NULL,
     IS_NONCONCURRENT VARCHAR(1) NULL,
@@ -179,5 +213,5 @@ CREATE INDEX IDX_QRTZ_FT_J_G ON QRTZ_FIRED_TRIGGERS(SCHED_NAME, JOB_NAME, JOB_GR
 CREATE INDEX IDX_QRTZ_FT_JG ON QRTZ_FIRED_TRIGGERS(SCHED_NAME, JOB_GROUP);
 CREATE INDEX IDX_QRTZ_FT_T_G ON QRTZ_FIRED_TRIGGERS(SCHED_NAME, TRIGGER_NAME, TRIGGER_GROUP);
 CREATE INDEX IDX_QRTZ_FT_TG ON QRTZ_FIRED_TRIGGERS(SCHED_NAME, TRIGGER_GROUP);
-INSERT INTO who_am_i (name) value ('quartz');
-commit;
+INSERT INTO who_am_i (name) VALUE ('quartz');
+COMMIT;
