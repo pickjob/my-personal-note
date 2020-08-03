@@ -1,5 +1,5 @@
 #!/bin/bash
-sudo rm -rf ~/data/mysql
+sudo rm -rf ~/data
 mkdir -p ~/data/mysql/data
 mkdir -p ~/data/mysql/logs
 sudo chmod 777 -R ~/data/mysql/data

@@ -54,7 +54,7 @@
             - code
             - state
         - Access Token Request
-            - rant_type: authorization_code
+            - grant_type: authorization_code
             - code
             - redirect_uri
             - client_id
@@ -67,4 +67,27 @@
             - state
     - Implicit : 直接在浏览器中向认证服务器申请令牌
     - Resource Owner Password Credentials : 用户向客户端提供自己的用户名和密码
+            +----------+
+            | Resource |
+            |  Owner   |
+            |          |
+            +----------+
+                v
+                | Resource Owner
+                (A) Password Credentials
+                |
+                v
+            +---------+                                  +---------------+
+            |         |>--(B)---- Resource Owner ------->|               |
+            |         |         Password Credentials     | Authorization |
+            | Client  |                                  |      Server   |
+            |         |<--(C)---- Access Token ---------<|               |
+            |         |     (w/ Optional Refresh Token)  |               |
+            +---------+                                  +---------------+
+        - Authorization Request and Response
+        - Access Token Request
+            - grant_type: "password".
+            - username: REQUIRED. The resource owner username.
+            - password: REQUIRED. The resource owner password.
+            - scope: OPTIONAL.
     - Client Credential : 客户端以自己的名义, 而不是以用户的名义

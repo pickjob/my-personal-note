@@ -1,0 +1,20 @@
+{
+    "name": "ExtensionX",
+    "version": "1.0.0",
+    "description": "ExtensionX",
+    "permissions": [
+        "*://*/*",
+        "contextMenus", 
+        "webRequest",
+        "webRequestBlocking"
+    ],
+    "background": {
+        "scripts": ["context.js"]
+    },
+    "content_scripts": [{
+            "js": ["content.js"],
+            "matches": ["*://*/*"]
+        }
+    ],
+    "manifest_version": 2
+}

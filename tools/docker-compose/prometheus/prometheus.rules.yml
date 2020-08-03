@@ -2,4 +2,4 @@ groups:
     - name: rate_rules
         rules:
             - record: prometheus:promhttp_metric_handler_requests_total:avg_rate_5m
-            expr: avg(rate(promhttp_metric_handler_requests_total[5m]))
+                expr: avg(rate(promhttp_metric_handler_requests_total[5m]))

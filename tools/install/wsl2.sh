@@ -38,8 +38,8 @@ cmd_base=(bash-completion \
     git \
     python3 \
     python3-pip \
-    npm \
     node \
+    npm \
 )
 for package in ${cmd_base[*]}
 do
@@ -48,6 +48,16 @@ do
         sudo apt install -y $package
     fi
 done
+# rustup
+if type rustup > /dev/null 2>&1;
+then 
+    echo 'rustup 已存在'
+else
+    echo 'rustup 不存在'
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    rustup update
+    rustup component add rls rust-analysis rust-src rustfmt
+fi
 # 配置文件
 if [ ! -f ~/.vim/vimrc.vim ]
 then
@@ -64,6 +74,11 @@ fi
 if [ ! -f ~/.vim/autoload/plug.vim ]
 then
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+fi
+if [ ! -f ~/.cargo/config ]
+then
+    mkdir --parent ~/.cargo
+    ln --force --symbolic `pwd`/../config/rust.ini ~/.cargo/config
 fi
 # docker安装
 # echo 'china ALL=(ALL:ALL) NOPASSWD: /usr/sbin/service' > /etc/sudoers.d/service
