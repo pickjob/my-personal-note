@@ -73,4 +73,7 @@ def log(text):
         return wrapper
     return decorator
 @log('tag')
+
+# list comprehensions
+var = [out_exp for out_exp in input_list if out_exp]
 ```
