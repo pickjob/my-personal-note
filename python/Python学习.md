@@ -13,9 +13,13 @@ for w in words:
 for i in range(5):
     expr
 # loop break pass
+
 # *args unpackage list
+
 # **d unpackage dict
+
 # lambda lambda x: x + n
+
 # list
 squares = [1, 4, 9, 16, 25]
 squares.append(6 ** 2)
@@ -35,17 +39,6 @@ for k, v in d.items():
 # del
 name = 'Python'
 print(f'hello {name}')
-# json
-import json
-json.dumps([1, 'simple', 'list'])
-x = json.load(f)
-# file read
-with open('workfile') as f:
-    for line in f:
-        print(line, end='')
-# file write
-with open('workfile', 'rb+') as f:
-    f.write(b'0123456789abcdef')
 
 # String Format: f''
 print(f'The value of pi is approximately {math.pi:.3f}.')
@@ -63,4 +56,21 @@ finally:
 if __name__ == "__main__":
     # execute only if run as a script
     main()
+
+# decorator
+def log(func):
+    def wrapper(*args, **kw):
+        print('call %s():' % func.__name__)
+        return func(*args, **kw)
+    return wrapper
+@log
+def log(text):
+    @functools.wraps(func)
+    def decorator(func):
+        def wrapper(*args, **kw):
+            print('%s %s():' % (text, func.__name__))
+            return func(*args, **kw)
+        return wrapper
+    return decorator
+@log('tag')
 ```
