@@ -48,6 +48,9 @@ do
         sudo apt install -y $package
     fi
 done
+# git 信息配置
+git config --global user.email "pickjob@126.com"
+git config --global user.name "吴胜"
 # rustup
 if type rustup > /dev/null 2>&1;
 then 
