@@ -2,6 +2,7 @@
 # python library
 pip3 install --user python-language-server pylint autopep8
 pip3 install --user httpx beautifulsoup4 cryptography
+pip3 install --user glance
 # pip3 install --user pymongo
 
 # rust library

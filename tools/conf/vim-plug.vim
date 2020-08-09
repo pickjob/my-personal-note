@@ -6,31 +6,40 @@ if has("gui_running")
     set guioptions-=m
     set guioptions-=T
     set guioptions+=a
-    if has("gui_win32")
-        set guifont=FuraCode_Nerd_Font_Mono:h16
-        " set guifont=Fira_Code_Medium:h16
-        call plug#begin('$HOME/vimfiles/plugged')
-    elseif has("gui_gtk2")
+    if has("unix")
         set guifont=FuraCode\ Nerd\ Font\ Mono\ 16
-        call plug#begin('~/.vim/plugged')
-    elseif has("gui_macvim")
-        set guifont=FuraCode\ Nerd\ Font\ Mono:h16
+    elseif has("win32")
+        set guifont=FuraCode_Nerd_Font_Mono:h16
     endif
+endif
+
+if has("unix")
+    call plug#begin('~/.vim/plugged')
+elseif has("win32")
+    call plug#begin('$HOME/vimfiles/plugged')
 endif
 
 Plug 'hzchirs/vim-material' " color scheme
 Plug 'luochen1990/rainbow' " rainbow
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " fzf
 Plug 'vim-airline/vim-airline' " status line
 Plug 'preservim/nerdtree' " nerdtree
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'ryanoasis/vim-devicons'
 Plug 'preservim/nerdcommenter' " commenter
+Plug 'Raimondi/delimitMate'
+Plug 'tpope/vim-surround' " surround
 Plug 'airblade/vim-gitgutter' " git
-Plug 'neoclide/coc.nvim', {'branch': 'release'} " coc
-Plug 'rust-lang/rust.vim' " rust
-Plug 'skywind3000/asyncrun.vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install'  } " markdown
-Plug 'jremmen/vim-ripgrep'
+Plug 'rust-lang/rust.vim' " rust
+Plug 'neoclide/coc.nvim', {'branch': 'release'} " coc
+Plug 'skywind3000/asyncrun.vim'
+
+" Plug 'wellle/targets.vim'
+" Plug 'kana/vim-textobj-user'
+" Plug 'maxbrunsfeld/vim-yankstack'
+" Plug 'sjl/gundo.vim'
+
 call plug#end()
 
 " Leader设置
@@ -39,6 +48,7 @@ let mapleader=";"
 " vim-material
 "
 let g:material_style='palenight'
+set background=dark
 colorscheme vim-material
 "
 " rainbow
@@ -66,12 +76,34 @@ let g:NERDTreeHighlightFoldersFullName=1
 "   <leader>cc : 加注释
 "   <leader>cu : 去注释
 "
+" delimitMate
+"
+let delimitMate_autoclose=1
+"
+" surround
+"
+" cs"'    "Hello" ==> 'Hello'
+" cs'<q>  'Hello' ==> <q>Hello</q>
+" ds"     "Hello world!" ==> Hello world!
+" cs[{    [Hello] ==> { Hello }
+" ysiw[   Hello ==> [Hello]
+"
 " vim-gitgutter
 "   <Leader>hp : hunk preview
+"
+" vim-rust
+"
+let g:rust_fold=2
+let g:rustfmt_autosave=1
 "
 " coc
 "   CocInstall coc-marketplace
 "   CocList marketplace
+"   CocInstall coc-explorer
+"   CocInstall coc-rust-analyzer
+"   CocInstall coc-spell-checker
+"   CocInstall fzf-preview.vim
+"   CocInstall coc-fzf-preview
 "
 " asyncrun.vim
 "   :AsyncRun [-cwd=<root>] cmd %:p

@@ -11,6 +11,15 @@ function chk_if_exists() {
     fi
 }
 
+if [ `basename $(pwd)` = 'my-personal-note' ]
+then
+    base_path=`pwd`  
+    echo $base_path  
+else
+    echo 'basename not my-personal-note'
+    exit
+fi
+
 # https 支持
 sudo apt update -y
 if ! chk_if_exists 'apt list --installed' 'ca-certificates'
@@ -20,20 +29,22 @@ fi
 # 更新 apt sources 文件
 if [ ! -f /etc/apt/sources.list.d/tsinghua.list ]
 then
-    sudo cp --force ../conf/sources.list /etc/apt/sources.list
+    sudo cp --force $base_path/tools/conf/sources.list /etc/apt/sources.list
     sudo touch /etc/apt/sources.list.d/tsinghua.list
 fi
 sudo apt update -y
 sudo apt upgrade -y
 # 基本命令行工具
-cmd_base=(bash-completion \
-    build-essential \
+cmd_base=(build-essential \
     software-properties-common \
+    gnupg2 \
+    bash-completion \
     curl \
     wget \
-    gnupg2 \
+    htop \
     expect \
     ripgrep \
+    fd-find \
     vim \
     git \
     python3 \
@@ -51,41 +62,42 @@ done
 # git 信息配置
 git config --global user.email "pickjob@126.com"
 git config --global user.name "吴胜"
-# rustup
-if type rustup > /dev/null 2>&1;
-then 
-    echo 'rustup 已存在'
-else
-    echo 'rustup 不存在'
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-    rustup update
-    rustup component add rls rust-analysis rust-src rustfmt
-fi
+# rust
+# curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+# echo 'export PATH=~/.cargo/bin:$PATH'
+# ~/.cargo/bin/rustup update
+# ~/.cargo/bin/rustup component add rls rust-src rustfmt
+# curl -L https://github.com/rust-analyzer/rust-analyzer/releases/latest/download/rust-analyzer-linux -o ~/.local/bin/rust-analyzer
+# chmod +x ~/.local/bin/rust-analyzer
+#
 # 配置文件
-if [ ! -f ~/.vim/vimrc.vim ]
+#
+# vim配置
+if [ ! -f ~/.vimrc ]
 then
-    mkdir --parent ~/.vim
-    ln --force --symbolic `pwd`/../conf/vimrc ~/.vimrc
-    ln --force --symbolic `pwd`/../conf/vimrc.vim ~/.vim/vimrc.vim
-    ln --force --symbolic `pwd`/../conf/vim-plug.vim ~/.vim/vim-plug.vim
-    ln --force --symbolic `pwd`/../conf/coc-settings.json ~/.vim/coc-settings.json
-    ln --force --symbolic `pwd`/../conf/npmrc ~/.npmrc
+    mkdir --parent ~/.vim/autoload
+    cp --force $base_path/tools/conf/plug.vim ~/.vim/autoload/plug.vim
+    ln --force --symbolic $base_path/tools/conf/vimrc ~/.vimrc
+    ln --force --symbolic $base_path/tools/conf/vimrc.vim ~/.vim/vimrc.vim
+    ln --force --symbolic $base_path/tools/conf/vim-plug.vim ~/.vim/vim-plug.vim
+    ln --force --symbolic $base_path/tools/conf/coc-settings.json ~/.vim/coc-settings.json
+    ln --force --symbolic $base_path/tools/conf/npmrc ~/.npmrc
+fi
+# pip配置
+if [ ! -f ~/.config/pip/pip.conf ]
+then
     mkdir --parent ~/.config/pip
-    ln --force --symbolic `pwd`/../conf/pip.conf ~/.config/pip/pip.conf
+    ln --force --symbolic $base_path/tools/conf/pip.conf ~/.config/pip/pip.conf
 fi
-# vim-plug
-if [ ! -f ~/.vim/autoload/plug.vim ]
-then
-    curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-fi
+# cargo
 if [ ! -f ~/.cargo/config ]
 then
     mkdir --parent ~/.cargo
-    ln --force --symbolic `pwd`/../config/rust.ini ~/.cargo/config
+    ln --force --symbolic $base_path/tools/config/rust.ini ~/.cargo/config
 fi
 # docker安装
 # echo 'china ALL=(ALL:ALL) NOPASSWD: /usr/sbin/service' > /etc/sudoers.d/service
-# echo 'service docker status > /dev/null || service docker start' >> ~/.bashrc
+# echo 'service docker status > /dev/null || sudo service docker start' >> ~/.bashrc
 if ! chk_if_exists 'apt list --installed' docker-ce
 then
     sudo update-alternatives --set iptables /usr/sbin/iptables-legacy
@@ -94,8 +106,7 @@ then
     sudo add-apt-repository "deb [arch=amd64] https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/debian $(lsb_release -cs) stable"
     sudo apt update -y
     sudo apt install -y docker-ce docker-ce-cli docker-compose
-    sudo ln --force --symbolic `pwd`/../conf/daemon.json /etc/docker/daemon.json
+    sudo mkdir --parent /etc/docker
+    sudo ln --force --symbolic $base_path/tools/conf/daemon.json /etc/docker/daemon.json
     sudo gpasswd --add china docker
 fi
-# 通用开发依赖
-./library.sh

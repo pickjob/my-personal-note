@@ -102,10 +102,10 @@
                 - InputStream
                 - PongMessage
                 - POJO(Decoder.Text/Decoder.Binary/Decoder.TextStream/Decoder.BinaryStream)
-      - server
-        - @ServerEndpoint()
-            - value:部署的URI或URI模板
-            - encoders:编码器数组
-            - decoders:解码器数组
-            - subprotocols:websockets协议数组
-            - configurator:WebSocket配置类
+        - server
+            - @ServerEndpoint()
+                - value:部署的URI或URI模板
+                - encoders:编码器数组
+                - decoders:解码器数组
+                - subprotocols:websockets协议数组
+                - configurator:WebSocket配置类
