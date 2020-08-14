@@ -21,20 +21,25 @@ endif
 
 Plug 'hzchirs/vim-material' " color scheme
 Plug 'luochen1990/rainbow' " rainbow
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " fzf
 Plug 'vim-airline/vim-airline' " status line
 Plug 'preservim/nerdtree' " nerdtree
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'ryanoasis/vim-devicons'
 Plug 'preservim/nerdcommenter' " commenter
-Plug 'Raimondi/delimitMate'
+Plug 'honza/vim-snippets'
+
+" fzf:  general fuzzy finder written by go
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+" skim:  general fuzzy finder written by rust
+" Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install' }
+" Plug 'lotabout/skim.vim'
+Plug 'jiangmiao/auto-pairs' " auto-pairs
 Plug 'tpope/vim-surround' " surround
-Plug 'airblade/vim-gitgutter' " git
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install'  } " markdown
 Plug 'rust-lang/rust.vim' " rust
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " coc
 Plug 'skywind3000/asyncrun.vim'
-
 " Plug 'wellle/targets.vim'
 " Plug 'kana/vim-textobj-user'
 " Plug 'maxbrunsfeld/vim-yankstack'
@@ -58,11 +63,14 @@ let g:rainbow_active=1
 " airline
 "
 let g:airline_theme='material'
+let g:airline#extensions#coc#enabled=1
 let g:airline#extensions#tabline#enabled=1
 let g:airline_section_error='%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
 let g:airline_section_warning='%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
+let g:airline_section_c = '%t'
 "
 " nerdtree
+"
 let g:NERDTreeWinPos="right"
 let g:NERDTreeDirArrowExpandable='👉'
 let g:NERDTreeDirArrowCollapsible='👇'
@@ -76,9 +84,15 @@ let g:NERDTreeHighlightFoldersFullName=1
 "   <leader>cc : 加注释
 "   <leader>cu : 去注释
 "
-" delimitMate
+" fzf.vim
+"   :Files [PATH]
+"   :Rg [PATTERN]
+"   :Snippets
 "
-let delimitMate_autoclose=1
+" auto-pairs
+"
+let g:AutoPairsFlyMode = 0
+let g:AutoPairsShortcutBackInsert = '<M-b>'
 "
 " surround
 "
@@ -86,7 +100,9 @@ let delimitMate_autoclose=1
 " cs'<q>  'Hello' ==> <q>Hello</q>
 " ds"     "Hello world!" ==> Hello world!
 " cs[{    [Hello] ==> { Hello }
-" ysiw[   Hello ==> [Hello]
+" ysiw[   Hello ==> [ Hello ]
+" yss)    Hello world ==> (Hello world)
+" ysiw<em> Hello wrold ==> <em>Hello</em> world
 "
 " vim-gitgutter
 "   <Leader>hp : hunk preview
@@ -97,13 +113,26 @@ let g:rust_fold=2
 let g:rustfmt_autosave=1
 "
 " coc
-"   CocInstall coc-marketplace
-"   CocList marketplace
-"   CocInstall coc-explorer
-"   CocInstall coc-rust-analyzer
-"   CocInstall coc-spell-checker
-"   CocInstall fzf-preview.vim
-"   CocInstall coc-fzf-preview
+"   :CocInstall coc-marketplace (CocList marketplace)
+"   :CocInstall coc-bookmark coc-tasks(CocList tasks) coc-yank(CocList yank) coc-todolist coc-template(CocList template) coc-snippets
+"   :CocInstall coc-html coc-css coc-json coc-sh coc-sql(CocCommand sql.Format) coc-vimlsp coc-yaml coc-docker coc-rls coc-python
+"   :CocInstall coc-spell-checker coc-git
+" coc-bookmark
+nmap <Leader>bb <Plug>(coc-bookmark-toggle)
+nmap <Leader>bj <Plug>(coc-bookmark-next)
+nmap <Leader>bk <Plug>(coc-bookmark-prev)
+" coc-snippets
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+" coc-template
+inoremap <silent><expr> <Lead>tt <Plug>(coc-template-top)
 "
 " asyncrun.vim
 "   :AsyncRun [-cwd=<root>] cmd %:p
@@ -130,7 +159,7 @@ augroup MY_AUTOCMD
     autocmd BufRead,BufNewFile *.rs,*.toml nmap <F9> :AsyncRun -cwd=<root> cargo run<CR>
     imap     <C-V>		<Esc>"+gpi
     cmap     <C-V>		<C-R>+
-    nmap     <Tab>      :bnext<CR>
+    nmap     <C-T>      :bnext<CR>
     autocmd VimEnter * NERDTree
     autocmd VimEnter * wincmd h
     autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif

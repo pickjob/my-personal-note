@@ -9,7 +9,8 @@ pip3 install --user glance
 cargo install cargo-tree
 
 # npm library
-# npm install --global npm-check
+npm install --global npm-check
+npm install --global bash-language-server
 # # 基本环境
 # npm install --save-dev typescript @types/node
 # npm install --save-dev eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin
