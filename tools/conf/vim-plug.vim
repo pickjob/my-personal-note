@@ -40,9 +40,6 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install'  } " markdow
 Plug 'rust-lang/rust.vim' " rust
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " coc
 Plug 'skywind3000/asyncrun.vim'
-" Plug 'wellle/targets.vim'
-" Plug 'kana/vim-textobj-user'
-" Plug 'maxbrunsfeld/vim-yankstack'
 " Plug 'sjl/gundo.vim'
 
 call plug#end()
@@ -115,7 +112,7 @@ let g:rustfmt_autosave=1
 " coc
 "   :CocInstall coc-marketplace (CocList marketplace)
 "   :CocInstall coc-bookmark coc-tasks(CocList tasks) coc-yank(CocList yank) coc-todolist coc-template(CocList template) coc-snippets
-"   :CocInstall coc-html coc-css coc-json coc-sh coc-sql(CocCommand sql.Format) coc-vimlsp coc-yaml coc-docker coc-rls coc-python
+"   :CocInstall coc-html coc-css coc-format-json coc-sh coc-sql coc-vimlsp coc-yaml coc-docker coc-rls coc-python
 "   :CocInstall coc-spell-checker coc-git
 " coc-bookmark
 nmap <Leader>bb <Plug>(coc-bookmark-toggle)
@@ -133,6 +130,9 @@ inoremap <silent><expr> <TAB>
       \ coc#refresh()
 " coc-template
 inoremap <silent><expr> <Lead>tt <Plug>(coc-template-top)
+" format
+" :CocCommand formatJson --indent=4
+" :CocCommand sql.Format
 "
 " asyncrun.vim
 "   :AsyncRun [-cwd=<root>] cmd %:p

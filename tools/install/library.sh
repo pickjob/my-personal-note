@@ -6,8 +6,8 @@ pip3 install --user glance
 # pip3 install --user pymongo
 
 # rust library
-cargo install cargo-tree
-
+# dr Cargo.toml
+cargo install dependency-refresh
 # npm library
 npm install --global npm-check
 npm install --global bash-language-server
