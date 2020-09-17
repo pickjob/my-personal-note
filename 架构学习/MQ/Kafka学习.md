@@ -1,5 +1,13 @@
 # Kafka学习
 - Concept
+    - Broker: 一个broker至少存储一个topic一个partition
+    - Topic: 消息类别
+    - Partition: 消息数据分割成区, 同一个分区消息顺序一致, 消息追加时分配offset
+        - Leader
+        - Follower
+    - Producer
+    - Consumer
+    - Consumer Group: 不同消费组消费全量数据, 同一消费组消费不同数据(Rebalance)
     - DelayedOperation
         - DelayedProduce
         - DelayedFetch

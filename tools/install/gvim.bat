@@ -17,7 +17,7 @@ exit
 echo ADD_FILE_EXTS
 REG ADD HKCR\gvim\shell\open\command /f /t REG_SZ /d "\"%GVIM%\" \"%%1\""
 REG ADD HKCR\gvim\DefaultIcon /f /t REG_SZ /d "%GVIM%"
-set fileExts=.c .go .h .java .json .log .md .rs .sh .sql .toml .txt
+set fileExts=.c .cpp .conf .cs .go .h .java .json .log .md .py .properties .rs .sh .sql .toml .txt .xml .yaml .yml
 (for %%v in (%fileExts%) do (
     echo REG%%v
     REG DELETE HKCR\%%v /f
