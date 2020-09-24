@@ -1,0 +1,51 @@
+version: '3'
+services:
+    zookeeper:
+        image: zookeeper
+        container_name: zookeeper
+        ports:
+            - 2181:2181
+        networks:
+            - kafka
+    kafka:
+        container_name: kafka
+        image: wurstmeister/kafka
+        ports:
+            - 9092:9092
+        networks:
+            - kafka
+        environment:
+            KAFKA_ADVERTISED_HOST_NAME: kafka
+            KAFKA_CREATE_TOPICS: test:1:1
+            KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+        depends_on:
+            - zookeeper
+    # admin/admin
+    zkui:
+        container_name: zkui
+        image: qnib/zkui
+        ports:
+            - 9090:9090
+        networks:
+            - kafka
+        environment:
+            ZKUI_ZK_SERVER: zookeeper:2181
+        depends_on:
+            - zookeeper
+    kafdrop:
+        image: obsidiandynamics/kafdrop
+        container_name: kafdrop
+        ports:
+            - 9000:9000
+        networks:
+            - kafka
+        environment:
+            JVM_OPTS: -Xms32M -Xmx64M
+            KAFKA_BROKERCONNECT: kafka:9092
+        depends_on:
+            - kafka
+networks:
+    kafka:
+        driver: bridge

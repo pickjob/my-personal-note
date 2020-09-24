@@ -87,97 +87,85 @@ services:
             - ./elasticsearch/bootstrapPassword.txt:/run/secrets/bootstrapPassword.txt
         ports:
             - 9200:9200
-    # es1:
-    #     image: docker.elastic.co/elasticsearch/elasticsearch:7.9.1
-    #     container_name: es1
-    #     environment:
-    #         - node.name=es1
-    #         - cluster.name=es-docker-cluster
-    #         - discovery.seed_hosts=es2,es3
-    #         - cluster.initial_master_nodes=es1,es2,es3
-    #         - bootstrap.memory_lock=true
-    #         - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-    #     ulimits:
-    #         memlock:
-    #             soft: -1
-    #             hard: -1
-    #     volumes:
-    #         - ~/data/es1:/usr/share/elasticsearch/data
-    #     ports:
-    #         - 9200:9200
-    # es2:
-    #     image: docker.elastic.co/elasticsearch/elasticsearch:7.9.1
-    #     container_name: es2
-    #     environment:
-    #         - node.name=es2
-    #         - cluster.name=es-docker-cluster
-    #         - discovery.seed_hosts=es1,es3
-    #         - cluster.initial_master_nodes=es1,es2,es3
-    #         - bootstrap.memory_lock=true
-    #         - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-    #     ulimits:
-    #         memlock:
-    #             soft: -1
-    #             hard: -1
-    #     volumes:
-    #         - ~/data/es2:/usr/share/elasticsearch/data
-    # es3:
-    #     image: docker.elastic.co/elasticsearch/elasticsearch:7.9.1
-    #     container_name: es3
-    #     environment:
-    #         - node.name=es3
-    #         - cluster.name=es-docker-cluster
-    #         - discovery.seed_hosts=es1,es2
-    #         - cluster.initial_master_nodes=es1,es2,es3
-    #         - bootstrap.memory_lock=true
-    #         - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-    #     ulimits:
-    #         memlock:
-    #             soft: -1
-    #             hard: -1
-    #     volumes:
-    #         - ~/data/es1:/usr/share/elasticsearch/data
+    es1:
+        image: docker.elastic.co/elasticsearch/elasticsearch:7.9.1
+        container_name: es1
+        environment:
+            - node.name=es1
+            - cluster.name=es-docker-cluster
+            - discovery.seed_hosts=es2,es3
+            - cluster.initial_master_nodes=es1,es2,es3
+            - bootstrap.memory_lock=true
+            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+        ulimits:
+            memlock:
+                soft: -1
+                hard: -1
+        volumes:
+            - ~/data/es1:/usr/share/elasticsearch/data
+        ports:
+            - 9200:9200
+    es2:
+        image: docker.elastic.co/elasticsearch/elasticsearch:7.9.1
+        container_name: es2
+        environment:
+            - node.name=es2
+            - cluster.name=es-docker-cluster
+            - discovery.seed_hosts=es1,es3
+            - cluster.initial_master_nodes=es1,es2,es3
+            - bootstrap.memory_lock=true
+            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+        ulimits:
+            memlock:
+                soft: -1
+                hard: -1
+        volumes:
+            - ~/data/es2:/usr/share/elasticsearch/data
+    es3:
+        image: docker.elastic.co/elasticsearch/elasticsearch:7.9.1
+        container_name: es3
+        environment:
+            - node.name=es3
+            - cluster.name=es-docker-cluster
+            - discovery.seed_hosts=es1,es2
+            - cluster.initial_master_nodes=es1,es2,es3
+            - bootstrap.memory_lock=true
+            - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+        ulimits:
+            memlock:
+                soft: -1
+                hard: -1
+        volumes:
+            - ~/data/es1:/usr/share/elasticsearch/data
     zookeeper:
         image: zookeeper
         container_name: zk1
         ports:
             - 2181:2181
-    # zk1:
-    #     image: zookeeper
-    #     container_name: zk1
-    #     ports:
-    #         - 2181:2181
-    #     environment:
-    #         ZOO_MY_ID: 1
-    #         ZOO_SERVERS: server.1=0.0.0.0:2888:3888 server.2=zk2:2888:3888 server.3=zk3:2888:3888
-    # zk2:
-    #     image: zookeeper
-    #     container_name: zk2
-    #     ports:
-    #         - 2182:2181
-    #     environment:
-    #         ZOO_MY_ID: 2
-    #         ZOO_SERVERS: server.1=zk1:2888:3888 server.2=0.0.0.0:2888:3888 server.3=zk3:2888:3888
-    # zk3:
-    #     image: zookeeper
-    #     container_name: zk3
-    #     ports:
-    #         - 2183:2181
-    #     environment:
-    #         ZOO_MY_ID: 3
-    #         ZOO_SERVERS: server.1=zk1:2888:3888 server.2=zk2:2888:3888 server.3=0.0.0.0:2888:3888
-    kafka:
-        container_name: kafka
-        image: wurstmeister/kafka
-        depends_on: [ zookeeper ]
+    zk1:
+        image: zookeeper
+        container_name: zk1
         ports:
-            - 9092:9092
+            - 2181:2181
         environment:
-            KAFKA_ADVERTISED_HOST_NAME: kafka
-            KAFKA_CREATE_TOPICS: test:1:1
-            KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-        volumes:
-            - /var/run/docker.sock:/var/run/docker.sock
+            ZOO_MY_ID: 1
+            ZOO_SERVERS: server.1=0.0.0.0:2888:3888 server.2=zk2:2888:3888 server.3=zk3:2888:3888
+    zk2:
+        image: zookeeper
+        container_name: zk2
+        ports:
+            - 2182:2181
+        environment:
+            ZOO_MY_ID: 2
+            ZOO_SERVERS: server.1=zk1:2888:3888 server.2=0.0.0.0:2888:3888 server.3=zk3:2888:3888
+    zk3:
+        image: zookeeper
+        container_name: zk3
+        ports:
+            - 2183:2181
+        environment:
+            ZOO_MY_ID: 3
+            ZOO_SERVERS: server.1=zk1:2888:3888 server.2=zk2:2888:3888 server.3=0.0.0.0:2888:3888
     prometheus:
         image: prom/prometheus:v2.9.2
         container_name: prometheus
@@ -192,13 +180,13 @@ services:
         container_name: grafana
         ports:
             - 3000:3000
-    # p3x-redis-ui:
-    #     image: patrikx3/p3x-redis-ui
-    #     container_name: p3x-redis-ui
-    #     ports:
-    #         - 7843:7843
-    #     volumes:
-    #         - ~/.p3x-redis-ui-settings:/settings
+    p3x-redis-ui:
+        image: patrikx3/p3x-redis-ui
+        container_name: p3x-redis-ui
+        ports:
+            - 7843:7843
+        volumes:
+            - ~/.p3x-redis-ui-settings:/settings
     mongo-express:
         image: mongo-express:latest
         container_name: mongo-express
@@ -216,13 +204,3 @@ services:
             - elasticsearch
         ports:
             - 1358:1358
-    kafdrop:
-        image: obsidiandynamics/kafdrop
-        container_name: kafdrop
-        ports:
-            - 9000:9000
-        environment:
-            JVM_OPTS: -Xms32M -Xmx64M
-            KAFKA_BROKERCONNECT: kafka:9092
-        depends_on:
-            - kafka

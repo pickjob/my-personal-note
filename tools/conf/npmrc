@@ -1,3 +1,3 @@
-prefix=~/code/repository/npm
-cache=~/code/repository/npm/cache
+prefix=~/repository/npm/bin
+cache=~/repository/npm/cache
 registry=https://npmreg.proxy.ustclug.org

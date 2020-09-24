@@ -67,32 +67,32 @@ pub trait Clone {
 pub trait Copy: Clone { }
 
 // 类型转换:
-//      ToString / FromStr: Type T <==> String ( T.to_string() <==> "".parse::<T>() )
-//      From / Into: Type A <==> Type B
-//      AsRef / AsMut: [mut] ref Type A <==> [mut] ref Type B
-//      Borrow / BorrowMut / ToOwned: 获得引用(所有)
 // std::sting::ToString
 pub trait ToString {
     fn to_string(&self) -> String;
 }
 // std::str::FromStr
+//      : 实现FromStr即可调用 "".parse::<T>()
 pub trait FromStr {
     type Err;
     fn from_str(s: &str) -> Result<Self, Self::Err>;
 }
-// std::convert::From
+// std::convert::From <==> std::convert::Into
+// From / Into: Type A <==> Type B
+//      : From 和 Into 相同操作只需实现一个实现两个方法
 pub trait From<T> {
     fn from(T) -> Self;
 }
-// std::convert::Into
 pub trait Into<T> {
     fn into(self) -> T;
 }
+
+// AsRef / AsMut: 一类可得到引用接口
 // std::convert::AsRef
+// std::convert::AsMut
 pub trait AsRef<T> where T: ?Sized, {
     fn as_ref(&self) -> &T;
 }
-// std::convert::AsMut
 pub trait AsMut<T> where
     T: ?Sized, {
     fn as_mut(&mut self) -> &mut T;

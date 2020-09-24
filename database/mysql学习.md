@@ -57,8 +57,11 @@
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_bin;
         -- 查询的时候使用binary
         SELECT * FROM t_table WHERE BINARY name = '';
-    -- 查看建表语句
-        SHOW CREATE TABLE test;
+    -- 常用语句
+        -- 查看建表语句
+            SHOW CREATE TABLE test;
+        -- 配置GROUP_CONCAT最大长度
+            SET GLOBAL group_concat_max_len=512000;
     ```
 - 锁
     - 锁粒度(有大到小)

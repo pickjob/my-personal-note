@@ -39,13 +39,13 @@ cmd_base=(build-essential \
     software-properties-common \
     gnupg2 \
     bash-completion \
-    curl \
+    curl/stable \
     wget \
     htop \
     expect \
     ripgrep \
     fd-find \
-    vim \
+    vim/stable \
     git \
     python3 \
     python3-pip \

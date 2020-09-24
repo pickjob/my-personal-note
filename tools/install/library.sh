@@ -1,5 +1,6 @@
 #!/bin/bash
 # python library
+# set PYTHONHOME=C:\Users\WINE\tools\python-3.8.5
 pip3 install --user python-language-server pylint autopep8
 pip3 install --user httpx beautifulsoup4 cryptography
 pip3 install --user glance

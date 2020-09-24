@@ -7,22 +7,19 @@
 // For documentation on these settings, see: https://aka.ms/terminal-documentation
 {
     "$schema": "https://aka.ms/terminal-profiles-schema",
-
-    "defaultProfile": "{58ad8b0c-3ef8-5f4d-bc6f-13e4c00f2530}",
-
     // You can add more global application settings here.
     // To learn more about global settings, visit https://aka.ms/terminal-global-settings
-
     // If enabled, selections are automatically copied to your clipboard.
     "copyOnSelect": false,
 
     // If enabled, formatted data is also copied to your clipboard
     "copyFormatting": false,
-
     // A profile specifies a command to execute paired with information about how it should look and feel.
     // Each one of them will appear in the 'New Tab' dropdown,
     //   and can be invoked from the commandline with `wt.exe -p xxx`
     // To learn more about profiles, visit https://aka.ms/terminal-profile-settings
+    "defaultProfile": "{58ad8b0c-3ef8-5f4d-bc6f-13e4c00f2530}",
+    "disabledProfileSources": ["Windows.Terminal.Azure"],
     "profiles":
     {
         "defaults":
@@ -30,9 +27,7 @@
             // Put settings here that you want to apply to all profiles.
             "colorScheme": "Duotone Dark",
             "fontFace": "FuraCode Nerd Font Mono",
-            "fontSize": 12,
-            "useAcrylic": true,
-            "acrylicOpacity": "0.7"
+            "fontSize": 12
         },
         "list":
         [
@@ -56,7 +51,13 @@
                 "name": "命令提示符",
                 "commandline": "cmd.exe",
                 "hidden": false
-            }
+            },
+            {
+                "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
+                "hidden": false,
+                "name": "Ubuntu",
+                "source": "Windows.Terminal.Wsl"
+            }            
         ]
     },
 
@@ -82,7 +83,7 @@
         "brightWhite": "#eae5ff",
         "background": "#1f1d27",
         "foreground": "#b7a1ff"
-        }],
+      }],
 
     // Add custom keybindings to this array.
     // To unbind a key combination from your defaults.json, set the command to "unbound".
