@@ -1,51 +1,61 @@
 version: '3'
 services:
-    zookeeper:
+    zk:
+        hostname: zk
+        container_name: zk
         image: zookeeper
-        container_name: zookeeper
+        restart: always
         ports:
             - 2181:2181
         networks:
-            - kafka
+            - kafka-net
+        environment:
+            LANG: C.UTF-8
+            TZ: Asia/Shanghai
+            ZOO_MY_ID: 1
+    zoonavigator:
+        hostname: zoonavigator
+        container_name: zoonavigator
+        image: elkozmon/zoonavigator
+        restart: always
+        ports:
+            - 9010:9010
+        networks:
+            - kafka-net
+        environment:
+            HTTP_PORT: 9010
+        depends_on:
+            - zk
     kafka:
+        hostname: kafka
         container_name: kafka
         image: wurstmeister/kafka
+        restart: always
         ports:
             - 9092:9092
         networks:
-            - kafka
+            - kafka-net
         environment:
             KAFKA_ADVERTISED_HOST_NAME: kafka
             KAFKA_CREATE_TOPICS: test:1:1
-            KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+            KAFKA_ZOOKEEPER_CONNECT: zk:2181
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
         depends_on:
-            - zookeeper
-    # admin/admin
-    zkui:
-        container_name: zkui
-        image: qnib/zkui
-        ports:
-            - 9090:9090
-        networks:
-            - kafka
-        environment:
-            ZKUI_ZK_SERVER: zookeeper:2181
-        depends_on:
-            - zookeeper
+            - zk
     kafdrop:
-        image: obsidiandynamics/kafdrop
+        hostname: kafdrop
         container_name: kafdrop
+        image: obsidiandynamics/kafdrop
         ports:
             - 9000:9000
         networks:
-            - kafka
+            - kafka-net
         environment:
             JVM_OPTS: -Xms32M -Xmx64M
             KAFKA_BROKERCONNECT: kafka:9092
         depends_on:
             - kafka
 networks:
-    kafka:
+    kafka-net:
         driver: bridge
