@@ -1,0 +1,41 @@
+version: "3.5"
+services:
+    rocketmq_namesrv:
+        image: apacherocketmq/rocketmq
+        container_name: rocketmq_namesrv
+        hostname: rocketmq_namesrv
+        restart: always
+        ports:
+            - 9876:9876
+        networks:
+            - rocketmq_net
+        env_file:
+            - ./common.env
+            - ./zookeeper/zookeeper.env
+        volumes:
+            - ~/data/namesrv/logs:/home/rocketmq/logs
+        command: sh mqnamesrv
+    rocketmq_broker:
+        image: apacherocketmq/rocketmq
+        container_name: rocketmq_broker
+        hostname: rocketmq_broker
+        restart: always
+        ports:
+            - 10909:10909
+            - 10911:10911
+            - 10912:10912
+        networks:
+            - rocketmq_net
+        env_file:
+            - ./common.env
+            - ./zookeeper/zookeeper.env
+        volumes:
+            - ~/data/broker/logs:/home/rocketmq/logs
+            - ~/data/broker/store:/home/rocketmq/store
+            - ~/data/broker/conf/broker.conf:/home/rocketmq/rocketmq-4.5.0/conf/broker.conf
+        command: sh mqbroker -n namesrv:9876 -c ../conf/broker.conf
+        depends_on:
+            - namesrv
+networks:
+    rocketmq_net:
+        driver: bridge

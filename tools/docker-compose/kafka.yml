@@ -1,61 +1,85 @@
-version: '3'
+version: "3.5"
 services:
-    zk:
-        hostname: zk
-        container_name: zk
+    kafka_zk:
         image: zookeeper
+        container_name: kafka_zk
+        hostname: kafka_zk
         restart: always
         ports:
             - 2181:2181
         networks:
-            - kafka-net
-        environment:
-            LANG: C.UTF-8
-            TZ: Asia/Shanghai
-            ZOO_MY_ID: 1
-    zoonavigator:
-        hostname: zoonavigator
-        container_name: zoonavigator
+            - kafka_net
+        env_file:
+            - ./common.env
+            - ./zookeeper/zookeeper.env
+    kafka_zoonavigator:
         image: elkozmon/zoonavigator
+        container_name: kafka_zoonavigator
+        hostname: kafka_zoonavigator
         restart: always
         ports:
-            - 9010:9010
+            - 9000:9010
         networks:
-            - kafka-net
+            - kafka_net
+        env_file:
+            - ./common.env
         environment:
-            HTTP_PORT: 9010
+            - HTTP_PORT=9000
         depends_on:
-            - zk
-    kafka:
-        hostname: kafka
-        container_name: kafka
-        image: wurstmeister/kafka
+            - kafka_zk
+    kafka_kafka:
+        image: bitnami/kafka
+        container_name: kafka_kafka
+        hostname: kafka_kafka
         restart: always
         ports:
             - 9092:9092
         networks:
-            - kafka-net
+            - kafka_net
+        env_file:
+            - ./common.env
         environment:
-            KAFKA_ADVERTISED_HOST_NAME: kafka
-            KAFKA_CREATE_TOPICS: test:1:1
-            KAFKA_ZOOKEEPER_CONNECT: zk:2181
+            - ALLOW_PLAINTEXT_LISTENER=yes
+            # - KAFKA_CFG_BROKER_ID=1
+            - KAFKA_CFG_ZOOKEEPER_CONNECT=kafka_zk:2181
+            - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=true
+            - KAFKA_CFG_LOG_ROLL_MS=60000         # 日志滚动的周期时间 (log.roll.{hours,ms})
+            - KAFKA_CFG_LOG_RETENTION_MS=600000   # 日志保留时间 (log.retention.{hours,minutes,ms})
+            # - KAFKA_CFG_LOG_SEGMENT_DELETE_DELAY_MS= # 删除日志文件前的保留一段时间 (log.segment.delete.delay.ms)
+            - KAFKA_CFG_CLEANUP_POLICY=compact    # 过期segment处理算法，默认delete (cleanup.policy={compact,delete})
         volumes:
-            - /var/run/docker.sock:/var/run/docker.sock
+            - ~/data/kafka:/bitnami/kafka
         depends_on:
-            - zk
-    kafdrop:
-        hostname: kafdrop
-        container_name: kafdrop
+            - kafka_zk
+    kafka_kafdrop:
         image: obsidiandynamics/kafdrop
+        container_name: kafka_kafdrop
+        hostname: kafka_kafdrop
         ports:
-            - 9000:9000
+            - 9010:9000
         networks:
-            - kafka-net
+            - kafka_net
+        env_file:
+            - ./common.env
         environment:
-            JVM_OPTS: -Xms32M -Xmx64M
-            KAFKA_BROKERCONNECT: kafka:9092
+            - JVM_OPTS=-Xms32M -Xmx64M
+            - KAFKA_BROKERCONNECT=kafka_kafka:9092
         depends_on:
-            - kafka
+            - kafka_kafka
+    kafka_manager:
+        image: kafkamanager/kafka-manager
+        container_name: kafka_manager
+        hostname: kafka_manager
+        ports:
+            - 9020:9000
+        networks:
+            - kafka_net
+        env_file:
+            - ./common.env
+        environment:
+            - ZK_HOSTS=kafka_zk:2181
+        depends_on:
+            - kafka_kafka
 networks:
-    kafka-net:
+    kafka_net:
         driver: bridge

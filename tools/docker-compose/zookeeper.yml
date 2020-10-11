@@ -1,79 +1,80 @@
-version: '3'
+version: "3.5"
 services:
-    zk1:
-        hostname: zk1
-        container_name: zk1
+    zk_zk1:
         image: zookeeper
+        container_name: zk_zk1
+        hostname: zk_zk1
         restart: always
         ports:
             - 2181:2181
-            # admin /commands
-            - 8080:8080
+            - 8081:8080 # admin /commands
         networks:
             - zk-net
+        env_file:
+            - ./common.env
+            - ./zookeeper/zookeeper.env
         environment:
-            LANG: C.UTF-8
-            TZ: Asia/Shanghai
-            ZOO_MY_ID: 1
-            # ZOO_LOG_FILE: zookeeper.log # zkServer.sh 已写死
-            ZOO_LOG4J_PROP: INFO, CONSOLE, DailyRollingAppender
-            ZOO_SERVERS: server.1=zk1:2888:3888 server.2=zk2:2888:3888 server.3=zk3:2888:3888
+            - ZOO_MY_ID=1
+            - ZOO_LOG4J_PROP=INFO, CONSOLE, DailyRollingAppender
+            # - ZOO_LOG_FILE=zookeeper.log # zkServer.sh 已写死
         volumes:
             - ./zookeeper/zoo.cfg:/conf/zoo.cfg
             - ./zookeeper/log4j.properties:/conf/log4j.properties
             - ~/data/zk1/data:/data
             - ~/data/zk1/logs:/logs
-    zk2:
-        hostname: zk2
-        container_name: zk2
+    zk_zk2:
         image: zookeeper
+        container_name: zk_zk2
+        hostname: zk_zk2
         restart: always
         ports:
             - 2182:2181
+            - 8082:8080
         networks:
             - zk-net
+        env_file:
+            - ./common.env
+            - ./zookeeper/zookeeper.env
         environment:
-            LANG: C.UTF-8
-            TZ: Asia/Shanghai
-            ZOO_MY_ID: 2
-            ZOO_SERVERS: server.1=zk1:2888:3888 server.2=zk2:2888:3888 server.3=zk3:2888:3888
+            - ZOO_MY_ID=2
         volumes:
             - ./zookeeper/zoo.cfg:/conf/zoo.cfg
-    zk3:
-        hostname: zk3
-        container_name: zk3
+    zk_zk3:
         image: zookeeper
+        container_name: zk_zk3
+        hostname: zk_zk3
         restart: always
         ports:
             - 2183:2181
+            - 8083:8080
         networks:
             - zk-net
+        env_file:
+            - ./common.env
+            - ./zookeeper/zookeeper.env
         environment:
-            LANG: C.UTF-8
-            TZ: Asia/Shanghai
-            ZOO_MY_ID: 3
-            ZOO_SERVERS: server.1=zk1:2888:3888 server.2=zk2:2888:3888 server.3=zk3:2888:3888
+            - ZOO_MY_ID=3
         volumes:
             - ./zookeeper/zoo.cfg:/conf/zoo.cfg
-    zoonavigator:
-        hostname: zoonavigator
-        container_name: zoonavigator
+    zk_zoonavigator:
         image: elkozmon/zoonavigator
+        container_name: zk_zoonavigator
+        hostname: zk_zoonavigator
         restart: always
         ports:
             - 9000:9000
         networks:
             - zk-net
+        env_file:
+            - ./common.env
         environment:
-            LANG: C.UTF-8
-            TZ: Asia/Shanghai
-            HTTP_PORT: 9000
-            CONNECTION_ZK_NAME: zk-cluster
-            CONNECTION_ZK_CONN: zk1:2181
+            - HTTP_PORT=9000
+            - CONNECTION_ZK_NAME=zk-cluster
+            - CONNECTION_ZK_CONN=zk_zk1:2181
         depends_on:
-            - zk1
-            - zk2
-            - zk3
+            - zk_zk1
+            - zk_zk2
+            - zk_zk3
 networks:
     zk-net:
         driver: bridge
