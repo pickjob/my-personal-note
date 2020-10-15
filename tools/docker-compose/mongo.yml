@@ -1,0 +1,33 @@
+version: "3.5"
+services:
+    mongo_mongo:
+        image: mongo:4.1
+        container_name: mongo_mongo
+        hostname: mongo_mongo
+        restart: always
+        ports:
+            - 27017:27017
+        networks:
+            - mongo_net
+        env_file:
+            - ./common.env
+            - ./mongo/mongo.env
+        volumes:
+            - ./mongo:/docker-entrypoint-initdb.d
+    mongo_express:
+        image: mongo-express:latest
+        container_name: mongo_express
+        hostname: mongo_express
+        restart: always
+        ports:
+            - 8081:8081
+        networks:
+            - mongo_net
+        env_file:
+            - ./common.env
+            - ./mongo/mongo_express.env
+        depends_on:
+            - mongo_mongo
+networks:
+    mongo_net:
+        driver: bridge

@@ -1,0 +1,98 @@
+version: "3.5"
+services:
+    es_elasticsearch:
+        image: docker.elastic.co/elasticsearch/elasticsearch:7.9.1
+        container_name: es_elasticsearch
+        hostname: es_elasticsearch
+        restart: always
+        ports:
+            - 9200:9200
+        networks:
+            - es_net
+        env_file:
+            - ./common.env
+        environment:
+            - discovery.type=single-node
+            - bootstrap.memory_lock=true
+            - http.cors.enabled=true
+            - http.cors.allow-origin=http://wsl2:1358
+            - http.cors.allow-headers=X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization
+            - http.cors.allow-credentials=true
+            - ELASTIC_PASSWORD_FILE=/run/secrets/bootstrapPassword.txt
+            - ES_JAVA_OPTS=-Xms512m -Xmx512m
+        volumes:
+            - ./elasticsearch/bootstrapPassword.txt:/run/secrets/bootstrapPassword.txt
+            - ~/data/elasticsearch:/usr/share/elasticsearch/data
+    # es_es1:
+    #     image: docker.elastic.co/elasticsearch/elasticsearch:7.9.1
+    #     container_name: es_es1
+    #     hostname: es_es1
+    #     restart: always
+    #     ports:
+    #         - 9201:9200
+    #     networks:
+    #         - es_net
+    #     env_file:
+    #         - ./common.env
+    #     environment:
+    #         - node.name=es_es1
+    #         - cluster.name=es-docker-cluster
+    #         - discovery.seed_hosts=es_es2,es_es3
+    #         - cluster.initial_master_nodes=es_es1,es_es2,es_es3
+    #         - bootstrap.memory_lock=true
+    #         - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    # es_es2:
+    #     image: docker.elastic.co/elasticsearch/elasticsearch:7.9.1
+    #     container_name: es_es2
+    #     hostname: es_es2
+    #     restart: always
+    #     ports:
+    #         - 9202:9200
+    #     networks:
+    #         - es_net
+    #     env_file:
+    #         - ./common.env
+    #     environment:
+    #         - node.name=es_es2
+    #         - cluster.name=es-docker-cluster
+    #         - discovery.seed_hosts=es_es1,es_es3
+    #         - cluster.initial_master_nodes=es_es1,es_es2,es_es3
+    #         - bootstrap.memory_lock=true
+    #         - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    # es_es3:
+    #     image: docker.elastic.co/elasticsearch/elasticsearch:7.9.1
+    #     container_name: es_es3
+    #     hostname: es_es3
+    #     restart: always
+    #     ports:
+    #         - 9203:9200
+    #     networks:
+    #         - es_net
+    #     env_file:
+    #         - ./common.env
+    #     environment:
+    #         - node.name=es_es3
+    #         - cluster.name=es-docker-cluster
+    #         - discovery.seed_hosts=es_es1,es_es2
+    #         - cluster.initial_master_nodes=es_es1,es_es2,es_es3
+    #         - bootstrap.memory_lock=true
+    #         - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    es_dejavu:
+        image: appbaseio/dejavu
+        container_name: es_dejavu
+        hostname: es_dejavu
+        restart: always
+        ports:
+            - 1358:1358
+        networks:
+            - es_net
+        env_file:
+            - ./common.env
+        depends_on:
+            - es_elasticsearch
+            # - es_es1
+            # - es_es2
+            # - es_es3
+networks:
+    es_net:
+        driver: bridge

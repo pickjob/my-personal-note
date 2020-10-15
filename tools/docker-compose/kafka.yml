@@ -18,13 +18,14 @@ services:
         hostname: kafka_zoonavigator
         restart: always
         ports:
-            - 9000:9010
+            - 9000:9000
         networks:
             - kafka_net
         env_file:
             - ./common.env
         environment:
             - HTTP_PORT=9000
+            - CONNECTION_ZK_CONN=kafka_zk:2181
         depends_on:
             - kafka_zk
     kafka_kafka:
@@ -55,6 +56,7 @@ services:
         image: obsidiandynamics/kafdrop
         container_name: kafka_kafdrop
         hostname: kafka_kafdrop
+        restart: always
         ports:
             - 9010:9000
         networks:
@@ -70,6 +72,7 @@ services:
         image: kafkamanager/kafka-manager
         container_name: kafka_manager
         hostname: kafka_manager
+        restart: always
         ports:
             - 9020:9000
         networks:

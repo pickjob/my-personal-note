@@ -1,34 +1,25 @@
 # Kafka学习
 - Concept
-    - Broker: 一个broker至少存储一个topic一个partition
-    - Topic: 消息类别
-    - Partition: 消息数据分割成区, 同一个分区消息顺序一致, 消息追加时分配offset
-        - Leader
-        - Follower
-    - Producer
-    - Consumer
+    - Broker: 存储Topic和Partition并向外提供的服务
+    - Topic: 消息主题，分类Partition
+    - Partition: 消息Topic日志文件分区, 同一个分区消息顺序一致, 消息追加时分配offset
+    - Producer: 消息生产者
+    - Consumer: 消息消费者
     - Consumer Group: 不同消费组消费全量数据, 同一消费组消费不同数据(Rebalance)
-    - DelayedOperation
-        - DelayedProduce
-        - DelayedFetch
-        - DelayedJoin
-        - DelayedHeartbeat
-        - DelayedCreateTopics
-    - KafkaController
-    - Coordinator
-        - ConsumerCoordinator
-        - GroupCoordinator
-        - WorkCoordinator
-- 基本命令
-    ```bash
-    # start zookeeper
-    bin/zookeeper-server-start.sh config/zookeeper.properties &
-    # start kafka
-    bin/kafka-server-start.sh config/server.properties &
-    # create topic
-    bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test &
-    # produce messages
-    bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test &
-    # consume messages
-    bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --from-beginning &
-    ```
+    - AR(Assigned Replication): 集群中副本 = ISR + OSR
+    - ISR(In-Sync-Replication): 与Leader副本保持一定同步的副本
+    - OSR(Out-Sync-Replication): 与Leader副本同步之后过多副本
+    - HW(Hight Watermark): 高水位, 消费者只能拉取改偏移量之前消息
+    - LEO(Low End Offset): 日志最后偏移量
+- 重要参数
+    - 消费者
+        - auto.offset.reset
+            - latest(默认): 最新的
+            - earliest: 最早的
+            - none
+        - enable.auto.commit: 自动提交offset
+        - fetch.min.bytes / fetch.max.bytes / max.partition.fetch.bytes: 拉取最小、最大字节数
+        - connections.max.idle.ms: 关闭闲置链接时间
+        - request.timeout.ms: 请求超时时间
+        - reconnect.backoff.ms: 尝试连接指定主机前等待时间
+        - retry.backoff.ms: 重试间隔

@@ -1,0 +1,20 @@
+version: "3.5"
+services:
+    nginx_nginx:
+        image: nginx:stable
+        container_name: nginx_nginx
+        hostname: nginx_nginx
+        restart: always
+        ports:
+            - 80:80
+        networks:
+            - nginx_net
+        env_file:
+            - ./common.env
+        volumes:
+            - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+            - ~/data/doc/:/doc/
+            - ~/data/nginx/logs:/etc/nginx/logs
+networks:
+    nginx_net:
+        driver: bridge

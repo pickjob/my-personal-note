@@ -46,6 +46,8 @@
                 UNLOCK TABLES
             -- INNODB查看最近死锁日志
                 SHOW ENGINE INNODB STATUS;
+            -- group by 构造带主键的临时表, 设置临时表内存大小，导致是否使用磁盘
+                set tmp_table_size=16 * 1024;
     -- mysql字符大小写不敏感
         SHOW COLLATION WHERE CHARSET='utf8mb4';
         -- 建表指定collation
