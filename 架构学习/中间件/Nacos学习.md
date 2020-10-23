@@ -10,16 +10,26 @@
     # Service discovery
     curl -X GET 'http://127.0.0.1:8848/nacos/v1/ns/instance/list?serviceName=nacos.naming.serviceName'
     ```
-- Java
+- Spring Boot
+    ```properties
+    # application.properties
+    nacos.config.server-addr=wsl2:8848
+    nacos.discovery.server-addr=127.0.0.1:8848
+
+    # ${prefix}-${spring.profiles.active}.${file-extension}
+    spring.application.name=example
+    spring.cloud.nacos.config.server-addr=127.0.0.1:8848
+    spring.cloud.nacos.discovery.server-addr=127.0.0.1:8848
+    ```
     ```java
     // Configuration Center
-    @EnableNacosConfig(globalProperties = @NacosProperties(serverAddr = "127.0.0.1:8848"))
     @NacosPropertySource(dataId = "example", autoRefreshed = true)
+    // @EnableNacosConfig(globalProperties = @NacosProperties(serverAddr = "127.0.0.1:8848"))
     @Configuration
     public class NacosConfiguration {
     }
     // inject configuration
-    NacosValue(value = "${useLocalCache:false}", autoRefreshed = true)
+    @NacosValue(value = "${useLocalCache:false}", autoRefreshed = true)
     private boolean useLocalCache;
     // listener
     @NacosConfigListener(dataId = DATA_ID)
@@ -42,6 +52,7 @@
         assertEquals(Long.valueOf(1L), user.getId()); 
         assertEquals("mercyblitz", user.getName());
     }
+    @RefreshScope
     // Service Discovery
     @EnableNacosDiscovery(globalProperties = @NacosProperties(serverAddr = "127.0.0.1:8848"))
     @Configuration
@@ -50,6 +61,15 @@
     // inject service
     @NacosInjected
     private NamingService namingService;
+
+    // cloud
+    @EnableDiscoveryClient
+
+    @LoadBalanced
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
     ```
 - admin-ui
     - nacos:8848/nacos

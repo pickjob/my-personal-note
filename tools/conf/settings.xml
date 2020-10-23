@@ -7,7 +7,7 @@
         |
         | Default: ${user.home}/.m2/repository
     -->
-    <localRepository>${user.home}/code/repository/maven</localRepository>
+    <localRepository>${user.home}/repository/maven</localRepository>
     <mirrors>
         <mirror>
             <id>aliyunmaven</id>
