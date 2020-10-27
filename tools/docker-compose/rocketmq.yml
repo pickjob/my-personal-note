@@ -1,9 +1,9 @@
 version: "3.5"
 services:
-    rocketmq_namesrv:
+    rocketmq-namesrv:
         image: apacherocketmq/rocketmq:4.5.0
-        container_name: rocketmq_namesrv
-        hostname: rocketmq_namesrv
+        container_name: rocketmq-namesrv
+        hostname: rocketmq-namesrv
         restart: always
         ports:
             - 9876:9876
@@ -14,17 +14,17 @@ services:
         volumes:
             - ~/data/rocketmq/namesrv/logs:/home/rocketmq/logs
         command: sh mqnamesrv
-    rocketmq_broker:
+    rocketmq-broker:
         image: apacherocketmq/rocketmq:4.5.0
-        container_name: rocketmq_broker
-        hostname: rocketmq_broker
+        container_name: rocketmq-broker
+        hostname: rocketmq-broker
         restart: always
         ports:
             - 10909:10909
             - 10911:10911
             - 10912:10912
         networks:
-            - rocketmq_net
+            - rocketmq-net
         env_file:
             - ./common.env
             - ./rocketmq/rocketmq.env
@@ -34,22 +34,22 @@ services:
             - ~/data/rocketmq/broker/store:/home/rocketmq/store
         command: sh mqbroker -n rocketmq_namesrv:9876 -c ../conf/broker.conf
         depends_on:
-            - rocketmq_namesrv
-    rocketmq_console:
+            - rocketmq-namesrv
+    rocketmq-console:
         image: apacherocketmq/rocketmq-console:2.0.0
-        container_name: rocketmq_console
-        hostname: rocketmq_console
+        container_name: rocketmq-console
+        hostname: rocketmq-console
         restart: always
         ports:
             - 8080:8080
         networks:
-            - rocketmq_net
+            - rocketmq-net
         env_file:
             - ./common.env
         environment:
             - JAVA_OPTS=-Drocketmq.namesrv.addr=rocketmq_namesrv:9876 -Dcom.rocketmq.sendMessageWithVIPChannel=false
         depends_on:
-            - rocketmq_broker
+            - rocketmq-broker
 networks:
-    rocketmq_net:
+    rocketmq-net:
         driver: bridge

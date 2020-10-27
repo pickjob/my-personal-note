@@ -1,14 +1,14 @@
 version: "3.5"
 services:
-    mysql_mysql:
+    mysql-mysql:
         image: mysql:8
-        container_name: mysql_mysql
-        hostname: mysql_mysql
+        container_name: mysql-mysql
+        hostname: mysql-mysql
         restart: always
         ports:
             - 3306:3306
         networks:
-            - mysql_net
+            - mysql-net
         env_file:
             - ./common.env
         environment:
@@ -19,5 +19,5 @@ services:
             - ~/data/mysql/logs:/logs
             - ~/data/mysql/data:/var/lib/mysql 
 networks:
-    mysql_net:
+    mysql-net:
         driver: bridge

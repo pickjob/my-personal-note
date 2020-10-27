@@ -1,33 +1,33 @@
 version: "3.5"
 services:
-    redis_redis:
+    redis-redis:
         image: redis:5.0-alpine
-        container_name: redis_redis
-        hostname: redis_redis
+        container_name: redis-redis
+        hostname: redis-redis
         restart: always
         ports:
             - 6379:6379
         networks:
-            - redis_net
+            - redis-net
         env_file:
             - ./common.env
         volumes:
             - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
             - ~/data/redis/:/data/logs/
         command: redis-server /usr/local/etc/redis/redis.conf
-    redis_ui:
+    redis-ui:
         image: patrikx3/p3x-redis-ui
-        container_name: redis_ui
-        hostname: redis_ui
+        container_name: redis-ui
+        hostname: redis-ui
         restart: always
         ports:
             - 7843:7843
         networks:
-            - redis_net
+            - redis-net
         env_file:
             - ./common.env
         volumes:
             - ~/.p3x-redis-ui-settings:/settings
 networks:
-    redis_net:
+    redis-net:
         driver: bridge
