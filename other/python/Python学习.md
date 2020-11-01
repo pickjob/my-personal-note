@@ -76,4 +76,19 @@ def log(text):
 
 # list comprehensions
 var = [out_exp for out_exp in input_list if out_exp]
+
+// 上下文管理器
+// 类实现
+//  __enter__(self)
+//  __exit__(self, exc_ty, exc_val, exc_tb)
+@contextmanager
+def timethis(label):
+    start = time.time()
+    try:
+        yield
+    finally:
+        end = time.time()
+        print('{}: {}'.format(label,end - start))
+
+
 ```

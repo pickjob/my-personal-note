@@ -15,9 +15,6 @@ services:
             - MYSQL_ROOT_PASSWORD=chinese
         volumes:
             - ./mysql:/docker-entrypoint-initdb.d
-            - ./mysql/mysql.cnf:/etc/mysql/conf.d/my.cnf
-            - ~/data/mysql/logs:/logs
-            - ~/data/mysql/data:/var/lib/mysqls
     nacos-nacos:
         image: nacos/nacos-server:1.3.2
         container_name: nacos-nacos
