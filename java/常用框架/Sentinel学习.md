@@ -1,72 +1,56 @@
-# Sentinel学习
-```java
-// ttry-with-resources
-// 资源名可使用任意有业务语义的字符串，比如方法名、接口名或其它可唯一标识的字符串。
-try (Entry entry = SphU.entry("resourceName")) {
-  // 被保护的业务逻辑
-  // do something here...
-} catch (BlockException ex) {
-  // 资源访问阻止，被限流或被降级
-  // 在此处进行相应的处理操作
-}
-
-// if-else
-// 资源名可使用任意有业务语义的字符串
-if (SphO.entry("自定义资源名")) {
-  // 务必保证finally会被执行
-  try {
-    /**
-    * 被保护的业务逻辑
-    */
-  } finally {
-    SphO.exit();
-  }
-} else {
-  // 资源访问阻止，被限流或被降级
-  // 进行相应的处理操作
-}
-
-// annotation
-@SentinelResource(blockHandler = "blockHandlerForGetUser")
-
-```
-- FlowRule
-    - resource: 资源名
-    - count: 限流阈值
-    - grade: 1-QPS 0-并发线程
-    - limitApp: 针对调用来源
-    - strategy: 直接、链路、关联
-    - controlBehavior: 流控效果  直接拒绝 / WarmUp / 匀速 + 排队等待
-    - clusterMode
-- ParamFlowRule
-    - resource: 资源名
-    - count: 限流阈值
-    - grade: 1-QPS 0-并发线程
-    - durationInSec: 统计窗口时间长度
-    - controlBehavior: 留空效果 快速失败 匀速排队
-    - maxQueueingTimeMs: 最大排队等待时长
-    - paramIdx: 热点参数索引
-    - paramFlowitemList
-    - clusterMode
-    - clusterConfig
-- DegradeRule
-    - resource: 资源名
-    - grade: 熔断策略  慢调用比例 、异常比例、异常数
-    - count: 慢调用: 临界值  异常比例 、 异常数: 阈值
-    - timeWindow: 熔断时长 s
-    - minRequestAmount: 触发最小请求数
-    - statIntervalMs: 统计时长 ms
-    - slowRatioThreshold: 慢调用比例阈值
-- SystemRule
-    - highestSystemLoad
-    - avgRt
-    - maxThread
-    - qps
-    - highestCpuUsage
-- AuthorityRule
-    - resource
-    - limitApp
-    - stratey: AUTHORITY_WHITE AUTHORITY_BLACK
-- ParamFlowRule
-- Restful
-    - curl http://localhost:8719/cnode?id=<资源名称>
+# Sentinel学
+- 基本内容
+    - 核心内容
+        - 资源
+        - 规则
+    - 核心使用注解
+        - @SentinelResource("HelloWorld")
+        - ContextUtil.enter(resourceName, origin)
+- 规则
+    - FlowRule: 流量控制规则
+        - resource: 资源名
+        - count: 限流阈值
+        - grade: 1-QPS(默认) 0-并发线程
+        - limitApp: 针对调用来源(默认default, 不区分)
+        - strategy: 0-直接(默认) 1-关联 2-链路
+        - controlBehavior: 0-直接拒绝(默认) / 1-WarmUp / 2-RateLimiter / 3-WarmUp + ReateLimiter
+        - clusterMode: false(默认)
+    - DegradeRule: 熔断降级规则
+        - resource: 资源名
+        - grade: 0-慢调用比例 1-异常比例 3-异常数
+        - count
+        - timeWindow: 熔断时长 s
+        - minRequestAmount: 触发最小请求数(默认5)
+        - statIntervalMs: 统计时长 ms(默认1000ms)
+        - slowRatioThreshold: 慢调用比例阈值
+    - ParamFlowRule: 热点规则
+        - resource: 资源名
+        - count: 限流阈值
+        - grade: 1-QPS(默认) 0-并发线程
+        - durationInSec: 统计窗口时间长度(默认1s)
+        - controlBehavior: 0-直接拒绝(默认) / 1-WarmUp / 2-RateLimiter / 3-WarmUp + ReateLimiter
+        - maxQueueingTimeMs: 最大排队等待时长
+        - paramIdx: 热点参数索引
+        - paramFlowitemList
+        - clusterMode
+        - clusterConfig
+    - SystemRule: 默认都是-1不生效
+        - highestSystemLoad
+        - avgRt
+        - maxThread
+        - qps: 默认-1不生效
+        - highestCpuUsage: 0-1.0(默认-1不生效)
+    - AuthorityRule: 访问控制规则
+        - resource: 资源名
+        - limitApp: 对应的黑名单/白名单
+        - stratey: 0-AUTHORITY_WHITE(默认) 1-AUTHORITY_BLACK
+- 日志
+    - 目录
+        - ~/logs/csp(默认)
+        - spring.cloud.sentinel.log.dir(spring cloud)
+- 使用端口
+    - 8719
+        - 添加transport用来输出规则相关信息
+            - http://localhost:8719/getRules?type=<XXXX> 已加载规则
+            - http://localhost:8719/getParamRules 热点规则
+            - curl http://localhost:8719/cnode?id=<资源名称>

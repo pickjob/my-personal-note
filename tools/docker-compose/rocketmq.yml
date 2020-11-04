@@ -8,7 +8,7 @@ services:
         ports:
             - 9876:9876
         networks:
-            - rocketmq_net
+            - rocketmq-net
         env_file:
             - ./common.env
         volumes:
@@ -32,7 +32,7 @@ services:
             - ./rocketmq/broker-a.conf:/home/rocketmq/rocketmq-4.5.0/conf/broker.conf
             - ~/data/rocketmq/broker/logs:/home/rocketmq/logs
             - ~/data/rocketmq/broker/store:/home/rocketmq/store
-        command: sh mqbroker -n rocketmq_namesrv:9876 -c ../conf/broker.conf
+        command: sh mqbroker -n rocketmq-namesrv:9876 -c ../conf/broker.conf
         depends_on:
             - rocketmq-namesrv
     rocketmq-console:
@@ -47,7 +47,7 @@ services:
         env_file:
             - ./common.env
         environment:
-            - JAVA_OPTS=-Drocketmq.namesrv.addr=rocketmq_namesrv:9876 -Dcom.rocketmq.sendMessageWithVIPChannel=false
+            - JAVA_OPTS=-Drocketmq.namesrv.addr=rocketmq-namesrv:9876 -Dcom.rocketmq.sendMessageWithVIPChannel=false
         depends_on:
             - rocketmq-broker
 networks:
