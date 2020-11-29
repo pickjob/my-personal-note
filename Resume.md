@@ -15,12 +15,13 @@
 | 2020.07 -- 至今     | 无锡远迈信息技术有限公司 |  Java开发 |  无锡  |
 | 2018.08 -- 2020.06 | 上海创蓝文化传播有限公司  | Java开发 |   上海  |
 | 2017.08 -- 2018.07 | 摩尔精英网络科技有限公司  | Java开发 |   上海  |
-| 2015.09 -- 2017.07 |  南京斯布乔科技有限公司  | Java开发 |   无锡  |
+| 2015.09 -- 2017.07 |  斯布乔科技有限公司  | Java开发 |   无锡  |
 |     |     |      |         |
 
 - ## 工作项目职责及经验
     - 无锡远迈信息技术有限公司(2020.07-至今)
         - 真好运平台开发维护
+            - 熟知Spring Cloud运用
     - 上海创蓝文化传播有限公司(2018.08-2020.06)
         - 闪验平台后端开发,维护(日调用流水过百万)
             - 高并发缓存、队列、消息的深入使用
@@ -51,7 +52,7 @@
             - 邮件系统大搭建, 配套开发(APACHE JAMES)
 - ## 工作技能
     - Java基础(NIO、Socket、RMI、JMX、JXAP、Java Concurrent Package)
-    - Java基本框架(SpringBoot、Hibernate、MyBatis、Shiro、Netty ...)
+    - Java基本框架(Spring全家桶、Hibernate、MyBatis、Shiro、Netty ...)
     - 熟知数据库(MySql、Redis、PostgreSql、DB2、SQLServer)，存储过程
     - 熟知Linux命令(vim、grep、git、tail、bash)
     - Web相关(Html、Javascript、CSS、Jquery)

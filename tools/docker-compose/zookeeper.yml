@@ -70,7 +70,7 @@ services:
         environment:
             - HTTP_PORT=9000
             - CONNECTION_ZK_NAME=zk-cluster
-            - CONNECTION_ZK_CONN=zk_zk1:2181
+            - CONNECTION_ZK_CONN=zk-zk1:2181
         depends_on:
             - zk-zk1
             - zk-zk2

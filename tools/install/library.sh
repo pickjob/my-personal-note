@@ -25,3 +25,6 @@ npm install --global bash-language-server
 # npm install --save puppeteer-core --save-dev @types/puppeteer-core
 # # gulp
 # npm install --save-dev gulp --save-dev gulp-clean gulp-uglify gulp-rename gulp-preprocess
+
+# Win10
+# Book Bazaar Reader
