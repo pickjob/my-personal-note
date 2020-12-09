@@ -44,6 +44,13 @@
         - SCAN cursor [MATCH pattern] [COUNT count] [TYPE type]
 - 全局锁原理
     -  SET key value EX seconds NX
+- 备份
+    - 命令
+        - save: 前台阻塞, 不再提供服务, 只进行快照持久化
+        - bgsave: 后台异步非阻塞, fork创建子进程完成快照的持久化
+    - 方式
+        - RDB: 在指定的时间间隔内将内存中的数据集快照写入磁盘
+        - AOF: 以日志的形式记录服务器所处理的每一个写、删除操作，查询操作不会记录
 - 压测命令
     - redis-benchmark
     - -h <hostname>: Server hostname (default 127.0.0.1)

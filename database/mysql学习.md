@@ -112,3 +112,10 @@
         - TINYTEXT(255B) / TEXT(64KB) / MEDIUMTEXT(16MB) / LONGTEXT(4GB)
         - ENUM('value1', 'value2', ...) [CHARACTER SET charset_name]
         - SET('value1', 'value2', ...) [CHARACTER SET charset_name]
+- 数据库范式
+    - 1NF: 属性不可分
+    - 2NF: 属性完全依赖于主键(消除部分子函数依赖)
+    - 3NF: 属性不依赖于其它非主属性(消除传递依赖)
+    - BCNF(巴斯-科德范式): 在1NF基础上，任何非主属性不能对主键子集依赖(在3NF基础上消除对主码子集的依赖)
+    - 4NF: 要求把同一表内的多对多关系删除
+    - 5NF(完美范式): 从最终结构重新建立原始结构
