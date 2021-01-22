@@ -12,10 +12,10 @@ pub trait Debug {
 }
 
 // 函数申明
-//      Fn: 不可变方式借用环境自由变量 (&T)
-//      FnMut: 可变方式借用环境自由变量 (&mut T)
 //      FnOnce: 捕获环境自由变量所有权 (self)
-//      where FnOnce(arg1: type1, ...) -> R
+//      FnMut: 可变方式借用环境自由变量 (&mut T)
+//      Fn: 不可变方式借用环境自由变量 (&T)
+//      where F: FnOnce(arg1: type1, ...) -> R
 // std::ops::FnOnce
 pub trait FnOnce<Args> {
     type Output;
@@ -30,15 +30,13 @@ pub trait Fn<Args>: FnMut<Args> {
     extern "rust-call" fn call_once(self, args: Args) -> Self::Output;
 }
 
-// 内存删除 drop(something)
-// std::ops::Drop
+// Function: std::mem::drop(): 释放实现了Drop Trait对象
+// std::ops::Drop: 析构逻辑处理, 不要手动调用
 pub trait Drop {
-    // Stuct: Outer -> Inner
-    // Variable: second -> first
     fn drop(&mut self);
 }
 
-// 解引用 *type
+// 解引用 *type, 编译器自动解引用 &&ref ==> &ref
 // std::ops::Deref
 pub trait Deref {
     type Target: ?Sized;
@@ -55,8 +53,7 @@ pub trait Default {
     fn default() -> Self;
 }
 
-// Clone 需显示调用
-// Copy 赋值可以复制值
+// Copy: 实现COPY语义, 一定要同步实现Clone
 // #[derive(Debug, Copy, Clone)]
 // std::clone::Clone
 pub trait Clone {
@@ -71,15 +68,13 @@ pub trait Copy: Clone { }
 pub trait ToString {
     fn to_string(&self) -> String;
 }
-// std::str::FromStr
-//      : 实现FromStr即可调用 "".parse::<T>()
+// std::str::FromStr: 实现FromStr即可调用 "".parse::<T>()
 pub trait FromStr {
     type Err;
     fn from_str(s: &str) -> Result<Self, Self::Err>;
 }
 // std::convert::From <==> std::convert::Into
-// From / Into: Type A <==> Type B
-//      : From 和 Into 相同操作只需实现一个实现两个方法
+// From / Into: Type A <==> Type B: From 和 Into 相同操作只需实现一个实现两个方法
 pub trait From<T> {
     fn from(T) -> Self;
 }
@@ -93,8 +88,7 @@ pub trait Into<T> {
 pub trait AsRef<T> where T: ?Sized, {
     fn as_ref(&self) -> &T;
 }
-pub trait AsMut<T> where
-    T: ?Sized, {
+pub trait AsMut<T> where T: ?Sized, {
     fn as_mut(&mut self) -> &mut T;
 }
 // std::borrow::Borrow
@@ -124,7 +118,14 @@ pub trait Add<Rhs = Self> {
     fn add(self, rhs: Rhs) -> Self::Output;
 }
 
-IntoIter: 转移所有权 self
-Iter: 获得不可变借用
-IterMut: 获得可变借用
+// 索引操作:
+//      std::ops::Index
+//      std::ops::IndexMut
+pub trait Index<Idx> where Idx: ?Sized, {
+    type Output: ?Sized;
+    fn index(&self, index: Idx) -> &Self::Output;
+}
+pub trait IndexMut<Idx>: Index<Idx> where Idx: ?Sized, {
+    fn index_mut(&mut self, index: Idx) -> &mut Self::Output;
+}
 ```

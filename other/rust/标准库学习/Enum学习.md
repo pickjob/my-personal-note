@@ -1,7 +1,7 @@
 # 重要Enum学习
 ```rust
 // std::result::Result
-enum Result<T, E> {
+pub enum Result<T, E> {
    Ok(T),
    Err(E),
 }
@@ -9,5 +9,15 @@ enum Result<T, E> {
 pub enum Option<T> {
     None,
     Some(T),
+}
+
+
+// 用法
+if let Ok(val) = result {
+    ...
+}
+match result {
+    Ok(val) => ...,
+    Err(err) => ...,
 }
 ```

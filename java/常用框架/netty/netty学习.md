@@ -1,4 +1,6 @@
 # netty学习
+- Zero Copy
+    - CompositeByteBuf: 减少JVM中不必要的内存复制(组合已存在内存, jdk必须重新复制)
 - ChannelHandler(责任链模式)
     ```java
     public interface ChannelHandler {

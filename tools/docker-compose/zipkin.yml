@@ -1,0 +1,46 @@
+version: "3.5"
+services:
+    zipkin-mysql:
+        image: openzipkin/zipkin-mysql
+        container_name: zipkin-mysql
+        hostname: zipkin-mysql
+        restart: always
+        ports:
+            - 3306:3306
+        networks:
+            - zipkin-net
+        env_file:
+            - ./common.env
+    zipkin-dependencies:
+        image: openzipkin/zipkin-dependencies
+        container_name: zipkin-dependencies
+        hostname: zipkin-dependencies
+        restart: always
+        entrypoint: crond -f
+        networks:
+            - zipkin-net
+        environment:
+            - ZIPKIN_LOG_LEVEL=DEBUG
+            - MYSQL_HOST=zipkin-mysql
+            - MYSQL_USER=zipkin
+            - MYSQL_PASS=zipkin
+            - MYSQL_DB=zipkin
+        depends_on:
+            - zipkin-mysql
+    zipkin-zipkin:
+        image: openzipkin/zipkin
+        container_name: zipkin-zipkin
+        hostname: zipkin-zipkin
+        restart: always
+        ports:
+            - 9411:9411
+        networks:
+            - zipkin-net
+        env_file:
+            - ./common.env
+            - ./zipkin/zipkin.env
+        depends_on:
+            - zipkin-mysql
+networks:
+    zipkin-net:
+        driver: bridge

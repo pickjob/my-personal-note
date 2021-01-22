@@ -26,12 +26,6 @@ if ! chk_if_exists 'apt list --installed' 'ca-certificates'
 then
     sudo apt install -y apt-transport-https ca-certificates
 fi
-# 更新 apt sources 文件
-if [ ! -f /etc/apt/sources.list.d/tsinghua.list ]
-then
-    sudo cp --force $base_path/tools/conf/sources.list /etc/apt/sources.list
-    sudo touch /etc/apt/sources.list.d/tsinghua.list
-fi
 sudo apt update -y
 sudo apt upgrade -y
 # 基本命令行工具
@@ -43,7 +37,6 @@ cmd_base=(build-essential \
     wget \
     htop \
     expect \
-    ripgrep \
     fd-find \
     vim/stable \
     git \
@@ -59,42 +52,13 @@ do
         sudo apt install -y $package
     fi
 done
-# git 信息配置
-git config --global user.email "pickjob@126.com"
-git config --global user.name "吴胜"
+
 # rust
 # curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-# echo 'export PATH=~/.cargo/bin:$PATH'
+# echo 'export PATH=~/.cargo/bin:$PATH' > .bashrc
 # ~/.cargo/bin/rustup update
 # ~/.cargo/bin/rustup component add rls rust-src rustfmt
-# curl -L https://github.com/rust-analyzer/rust-analyzer/releases/latest/download/rust-analyzer-linux -o ~/.local/bin/rust-analyzer
-# chmod +x ~/.local/bin/rust-analyzer
-#
-# 配置文件
-#
-# vim配置
-if [ ! -f ~/.vimrc ]
-then
-    mkdir --parent ~/.vim/autoload
-    cp --force $base_path/tools/conf/plug.vim ~/.vim/autoload/plug.vim
-    ln --force --symbolic $base_path/tools/conf/vimrc ~/.vimrc
-    ln --force --symbolic $base_path/tools/conf/vimrc.vim ~/.vim/vimrc.vim
-    ln --force --symbolic $base_path/tools/conf/vim-plug.vim ~/.vim/vim-plug.vim
-    ln --force --symbolic $base_path/tools/conf/coc-settings.json ~/.vim/coc-settings.json
-    ln --force --symbolic $base_path/tools/conf/npmrc ~/.npmrc
-fi
-# pip配置
-if [ ! -f ~/.config/pip/pip.conf ]
-then
-    mkdir --parent ~/.config/pip
-    ln --force --symbolic $base_path/tools/conf/pip.conf ~/.config/pip/pip.conf
-fi
-# cargo
-if [ ! -f ~/.cargo/config ]
-then
-    mkdir --parent ~/.cargo
-    ln --force --symbolic $base_path/tools/config/rust.ini ~/.cargo/config
-fi
+
 # docker安装
 # echo 'china ALL=(ALL:ALL) NOPASSWD: /usr/sbin/service' > /etc/sudoers.d/service
 # echo 'service docker status > /dev/null || sudo service docker start' >> ~/.bashrc
@@ -106,7 +70,4 @@ then
     sudo add-apt-repository "deb [arch=amd64] https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/debian $(lsb_release -cs) stable"
     sudo apt update -y
     sudo apt install -y docker-ce docker-ce-cli docker-compose
-    sudo mkdir --parent /etc/docker
-    sudo ln --force --symbolic $base_path/tools/conf/daemon.json /etc/docker/daemon.json
-    sudo gpasswd --add china docker
 fi

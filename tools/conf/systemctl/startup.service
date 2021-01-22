@@ -1,9 +1,12 @@
 [Unit]
-Description=My Backup Service
+Description=My Startup Service
 
 [Service]
 # type: simple forking oneshot dbus notify idle
 Type=simple
 User=china
 WorkingDirectory=/home/china
-ExecStart=/home/china/tools/bin/backup.sh
+ExecStart=~/repository/bin/startup.sh
+
+[Install]
+WantedBy=default.target

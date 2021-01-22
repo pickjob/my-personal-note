@@ -37,7 +37,7 @@ GOTO STEP_2
 
 :ADD_IDEA_DIRECTORY
 ECHO ADD_IDEA_DIRECTORY
-REG ADD HKCU\SOFTWARE\Classes\Directory\shell\IDEA /f /t REG_SZ /d "使用IDEA打开"
+REG ADD HKCU\SOFTWARE\Classes\Directory\shell\IDEA /f /t REG_SZ /d "Open With Idea"
 REG ADD HKCU\SOFTWARE\Classes\Directory\shell\IDEA /f /t REG_EXPAND_SZ -v "Icon" /d "%IDEA%"
 REG ADD HKCU\SOFTWARE\Classes\Directory\shell\IDEA\command /f /t REG_EXPAND_SZ /d "\"%IDEA%\" \"%%1\""
 PAUSE
