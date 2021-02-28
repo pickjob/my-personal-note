@@ -1,6 +1,6 @@
 [cargo-new]
-name = "吴胜"
 email = "pickjob@126.com"
+name = "吴胜"
 vcs = "git"
 
 [source.crates-io]
@@ -18,3 +18,7 @@ registry = "git://mirrors.ustc.edu.cn/crates.io-index"
 # rustcc社区
 [source.rustcc]
 registry = "git://crates.rustcc.cn/crates.io-index"
+
+[target.x86_64-pc-windows-gnu]
+ar = "C:\\msys64\\mingw64\\bin\\ar.exe"
+linker = "C:\\msys64\\mingw64\\bin\\gcc.exe"

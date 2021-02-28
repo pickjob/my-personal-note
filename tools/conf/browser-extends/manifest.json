@@ -1,0 +1,28 @@
+{
+    "manifest_version": 2,
+    "name": "ExtensionX",
+    "version": "1.0.0",
+    "author": "pickjob@126.com",
+    "description": "ExtensionX",
+    "permissions": [
+        "<all_urls>",
+        "tabs",
+        "webRequest",
+        "webRequestBlocking"
+    ],
+    "background": {
+        "scripts": [
+            "background.js"
+        ]
+    },
+    "content_scripts": [
+        {
+            "js": [
+                "content.js"
+            ],
+            "matches": [
+                "<all_urls>"
+            ]
+        }
+    ]
+}

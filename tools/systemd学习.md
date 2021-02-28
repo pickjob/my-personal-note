@@ -86,11 +86,11 @@
             - dbus：当前服务通过D-Bus启动
             - notify：当前服务启动完毕，会通知Systemd，再继续往下执行
             - idle：若有其他任务执行完毕，当前服务才会运行
-        - ExecStart：启动当前服务的命令
-        - ExecStartPre / ExecStartPost
-        - ExecReload：重启当前服务时执行的命令
-        - ExecStop / ExecStopPost
-        - Restart：定义何种情况 Systemd 会自动重启当前服务
+        -  ExecStart：启动当前服务的命令
+        -  ExecStartPre / ExecStartPost
+        -  ExecReload：重启当前服务时执行的命令
+        -  ExecStop / ExecStopPost
+        -  Restart：定义何种情况 Systemd 会自动重启当前服务
             -  no
             -  always
             -  on-success
@@ -108,14 +108,14 @@
         - OnActiveSec, OnBootSec, OnStartupSec, OnUnitActiveSec, OnUnitInactiveSec
         - OnCalendar
             - Thu,Fri 2012-*-1,5 11:12:13
-            - minutely → *-*-* *:*:00
-            - hourly → *-*-* *:00:00
-            - daily → *-*-* 00:00:00
-            - monthly → *-*-01 00:00:00
-            - weekly → Mon *-*-* 00:00:00
-            - yearly → *-01-01 00:00:00
-            - quarterly → *-01,04,07,10-01 00:00:00
-            - semiannually → *-01,07-01 00:00:00
+            -  minutely → *-*-* *:*:00
+            -  hourly → *-*-* *:00:00
+            -  daily → *-*-* 00:00:00
+            -  monthly → *-*-01 00:00:00
+            -  weekly → Mon *-*-* 00:00:00
+            -  yearly → *-01-01 00:00:00
+            -  quarterly → *-01,04,07,10-01 00:00:00
+            -  semiannually → *-01,07-01 00:00:00
         - AccuracySec
         - Unit
         - Persistent : true / false
@@ -152,3 +152,16 @@
     - "%H"	Host name
     - "%v"	Kernel release
     - "%%"	Single percent sign
+- Example
+    ```bash
+    // backup.systemd
+    [Unit]
+    Description=My Backup Service
+
+    [Service]
+    # type: simple forking oneshot dbus notify idle
+    Type=simple
+    User=china
+    WorkingDirectory=/home/china
+    ExecStart=/home/china/tools/bin/backup.sh
+    ```

@@ -1,0 +1,89 @@
+{
+    "$schema": "https://aka.ms/terminal-profiles-schema",
+    "copyOnSelect": true,
+    "copyFormatting": true,
+    "defaultProfile": "{C34B643C-4A5A-75D4-DC03-2E3700D4215F}",
+    "disabledProfileSources": [
+        "Windows.Terminal.Azure"
+    ],
+    "alwaysOnTop": true,
+    "profiles": {
+        "defaults": {
+            "colorScheme": "Duotone Dark",
+            "fontFace": "FuraCode NF",
+            "fontSize": 14,
+            // "useAcrylic": true,
+            "acrylicOpacity": 0.6,
+            "backgroundImage": "D:\\tools\\wallpaper.png",
+            "backgroundImageStretchMode": "fill",
+            "backgroundImageOpacity": 0.2,
+        },
+        "list": [
+            {
+                "guid": "{C34B643C-4A5A-75D4-DC03-2E3700D4215F}",
+                "name": "Mingw64",
+                "commandline": "C:\\msys64\\msys2_shell.cmd -defterm -no-start -use-full-path -mingw64",
+                "icon": "C:\\msys64\\mingw64.ico"
+            },
+            {
+                "guid": "{58ad8b0c-3ef8-5f4d-bc6f-13e4c00f2530}",
+                "name": "Debian",
+                "source": "Windows.Terminal.Wsl",
+                "startingDirectory": "//wsl$/Debian/home/china"
+            },
+            {
+                "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+                "name": "命令提示符",
+                "commandline": "cmd.exe",
+            },
+        ]
+    },
+    "schemes": [
+        {
+            "name": "Duotone Dark",
+            "black": "#1f1d27",
+            "red": "#d9393e",
+            "green": "#2dcd73",
+            "yellow": "#d9b76e",
+            "blue": "#ffc284",
+            "purple": "#de8d40",
+            "cyan": "#2488ff",
+            "white": "#b7a1ff",
+            "brightBlack": "#353147",
+            "brightRed": "#d9393e",
+            "brightGreen": "#2dcd73",
+            "brightYellow": "#d9b76e",
+            "brightBlue": "#ffc284",
+            "brightPurple": "#de8d40",
+            "brightCyan": "#2488ff",
+            "brightWhite": "#eae5ff",
+            "background": "#1f1d27",
+            "foreground": "#b7a1ff"
+        }
+    ],
+    "keybindings": [
+        {
+            "command": {
+                "action": "copy",
+                "singleLine": false
+            },
+            "keys": "ctrl+c"
+        },
+        {
+            "command": "paste",
+            "keys": "ctrl+v"
+        },
+        {
+            "command": "newTab",
+            "keys": "ctrl+t"
+        },
+        {
+            "command": {
+                "action": "splitPane",
+                "split": "auto",
+                "splitMode": "duplicate"
+            },
+            "keys": "alt+shift+d"
+        },
+    ]
+}

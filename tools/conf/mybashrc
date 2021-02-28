@@ -1,12 +1,21 @@
-export GTK_IM_MODULE=ibus
-export QT_IM_MODULE=ibus
-export XMODIFIERS=@im=ibus
-ibus-daemon -d -x -r -n kde
+# gradle
+export GRADLE_HOME=~/repository/gradle
 
+# rust
+export RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup
+export RUSTUP_HOME=~/repository/rustup
 export CARGO_HOME=~/repository/cargo
-export PYTHONUSERBASE=~/repository/python
-
-
-export PATH=~/repository/npm/bin/:$PATH
-export PATH=~/repository/python/bin/:$PATH
 export PATH=~/repository/cargo/bin:$PATH
+
+# python
+export PYTHONUSERBASE=~/repository/python
+export PATH=~/repository/python/bin/:$PATH
+
+# golang
+export GO111MODULE=on
+export GOPROXY=https://goproxy.cn
+export GOPATH=~/repository/golang
+export PATH=~/repository/golang/bin/:$PATH
+
+# npm
+export PATH=~/repository/npm/bin/:$PATH

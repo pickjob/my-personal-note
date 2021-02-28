@@ -7,9 +7,9 @@ if has("gui_running")
     set guioptions-=T
     set guioptions+=a
     if has("unix")
-        set guifont=FuraCode\ Nerd\ Font\ Mono\ 16
+        set guifont=FuraCode\ NF\ 16
     elseif has("win32")
-        set guifont=FuraCode_Nerd_Font_Mono:h16
+        set guifont=FuraCode_NF:h16
     endif
 endif
 

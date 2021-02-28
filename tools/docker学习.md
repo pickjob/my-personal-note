@@ -6,14 +6,6 @@
     - network : Manage networks
     - volume : Manage volumes
     - system : Manage Docker
-    ##  不常用选项
-    - node : Manage Swarm nodes
-    - config : Manage Docker configs
-    - plugin : Manage plugins
-    - secret : Manage Docker secrets
-    - service : Manage services
-    - stack : Manage Docker stacks
-    - swarm : Manage Swarm
 - Dockerfile
     - FROM
         - FROM <image>
@@ -51,12 +43,11 @@
         - ARG <name>[=<default value>]
     - ONBUILD
     - STOPSIGNAL
-    - Example
-        ```dockerfile
-        FROM openjdk:jdk-stretch
-        ARG JAR_FILE
-        COPY ${JAR_FILE} /java/app.jar
-        WORKDIR /java
-        EXPOSE 8080
-        ENTRYPOINT ["java", "-jar", "/java/app.jar"]
-        ```
+```dockerfile
+FROM openjdk:jdk-stretch
+ARG JAR_FILE
+COPY ${JAR_FILE} /java/app.jar
+WORKDIR /java
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "/java/app.jar"]
+```
