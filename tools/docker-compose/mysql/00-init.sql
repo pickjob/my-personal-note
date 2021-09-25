@@ -1,0 +1,4 @@
+-- 创建用户并授权
+CREATE USER 'china' @'%' IDENTIFIED BY 'chinese';
+GRANT ALL PRIVILEGES ON *.* TO 'china' @'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;

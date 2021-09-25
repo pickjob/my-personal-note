@@ -1,0 +1,38 @@
+# Linux Desktop Entry
+- 后缀名
+    - .desktop
+- 位置
+    - $HOME/.local/share/applications
+    - /usr/local/share/applications/
+    - /usr/share/applications
+- [Desktop Entry]
+    - Name(REQ)
+    - Comment
+    - GenericName (OPT)
+    - Type (REQ)
+        - Application : 应用程序
+        - Link : 一个URL
+        - Directory
+    - TryExec
+    - Exec: 执行的命令
+        - %f: A single file name
+        - %F: A list of files
+    - Icon
+    - Path: the working directory
+    - MimeType:
+        - inode/directory
+    - Categories
+        - AudioVideo
+        - Audio
+        - Video
+        - Development
+            - IDE
+            - Translation
+        - Education 
+        - Game
+        - Graphics
+        - Network
+        - Office	 
+        - Settings
+        - System	 
+        - Utility

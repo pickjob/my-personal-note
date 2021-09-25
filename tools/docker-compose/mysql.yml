@@ -16,8 +16,8 @@ services:
         volumes:
             - ./mysql:/docker-entrypoint-initdb.d
             - ./mysql/mysql.cnf:/etc/mysql/conf.d/my.cnf
-            - ~/data/mysql/logs:/logs
-            - ~/data/mysql/data:/var/lib/mysql 
+            - ~/repository/docker/mysql/logs:/logs
+            - ~/repository/docker/mysql/data:/var/lib/mysql 
 networks:
     mysql-net:
         driver: bridge

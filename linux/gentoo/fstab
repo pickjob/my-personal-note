@@ -1,0 +1,4 @@
+/dev/sda1    /boot    vfat    defaults,noatime    0    2
+/dev/sda2    /        ext4    defaults,noatime    0    1
+/dev/sdb3    /win     ntfs-3g    uid=china,gid=wheel,dmask=022,fmask=133   0    0
+tmpfs        /tmp     tmpfs   size=8G,uid=portage,gid=portage,mode=775,nosuid,nodev,noatime   0   0

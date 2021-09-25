@@ -1,9 +1,0 @@
-[Unit]
-Description=Backup on moon
-
-[Timer]
-Unit=backup.service
-OnCalendar=*-*-* 12:00:00
-
-[Install]
-WantedBy=default.target

@@ -1,0 +1,9 @@
+[Unit]
+Description=Eample Timer on Moon
+
+[Timer]
+Unit=example.service
+OnCalendar=*-*-* 12:00:00
+
+[Install]
+WantedBy=default.target

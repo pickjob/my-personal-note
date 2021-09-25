@@ -1,5 +1,31 @@
 # redis学习
-- 一些命令
+- 数据类型
+    - string
+    - list
+    - hash
+    - set
+    - zset
+    - Stream
+        - MessageId
+            - timestampInMills-sequence
+        - Content
+            - HASH: Key-Value
+        - Command
+            - XADD
+                - XADD Stream-Key * Key Value
+            - XDEL
+                - XDEL Stream-Key MessageId
+            - XRANGE
+                - XRANGE Stream-Key - +
+            - XLEN
+            - DEL
+            - XREAD
+            - XGROUP
+                - XGROUP CREATE Stream-Key Customer-Group 0-0 ($)
+            - XREADGROUP GROUP Customer-Group count N streams Stream-Key
+            - XINFO
+                - XINFO Stream-Key
+- 其他
     - Pub/Sub
         - SUBSCRIBE channel / PSUBSCRIBE pattern
         - PUBLISH channel message
@@ -39,6 +65,7 @@
         - HINCRBY key field increment
         - HKEYS key
         - HLEN key
+        - redis-cli [-h `host`] [-p `port`] [-a `auth`] monitor > redislog.txt
     - Search
         - KEYS pattern: 禁用
         - SCAN cursor [MATCH pattern] [COUNT count] [TYPE type]

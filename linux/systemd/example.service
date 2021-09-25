@@ -1,0 +1,9 @@
+[Unit]
+Description=My Example Service
+
+[Service]
+# type: simple forking oneshot dbus notify idle
+Type=simple
+User=china
+WorkingDirectory=/home/china
+ExecStart=~/repository/bin/example.sh

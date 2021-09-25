@@ -20,8 +20,8 @@ services:
         volumes:
             - ./zookeeper/zoo.cfg:/conf/zoo.cfg
             - ./zookeeper/log4j.properties:/conf/log4j.properties
-            - ~/data/zk1/data:/data
-            - ~/data/zk1/logs:/logs
+            - ~/repository/docker/zk1/data:/data
+            - ~/repository/docker/zk1/logs:/logs
     zk-zk2:
         image: zookeeper
         container_name: zk-zk2

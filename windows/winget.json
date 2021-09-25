@@ -1,0 +1,18 @@
+{
+    "$schema": "https://aka.ms/winget-settings.schema.json",
+    "visual": {
+        "progressBar": "rainbow"
+    },
+    "source": {
+        "autoUpdateIntervalInMinutes": 10
+    },
+    "installBehavior": {
+        "preferences": {
+            "scope": "machine"
+        }
+    },
+    "experimentalFeatures": {
+        "experimentalCmd": true,
+        "experimentalArg": true
+    }
+}

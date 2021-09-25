@@ -1,0 +1,16 @@
+# Padding学习
+- Bit Padding
+    - 一位1其余0: 1bit + 0bits
+- TBC(Trailing Bit Complement) Padding
+    - 0结尾: + 0x0
+    - 1结尾: + 0xFFFF
+- PKCS#5 and PKCS#7 Padding
+    - 缺n个:  + n * n
+- ISO 7816-4 Padding
+    - 0x80 + 0x0
+- ISO 10126-2 Padding
+    - random byte + padding size
+- ANSI X9.23 Padding
+    - 0x0 + padding size
+- Zero Byte Padding
+    - 0x0

@@ -13,8 +13,8 @@ services:
             - ./common.env
         volumes:
             - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-            - ~/data/doc/:/doc/
-            - ~/data/nginx/logs:/etc/nginx/logs
+            - ~/repository/docker/doc/:/doc/
+            - ~/repository/docker/nginx/logs:/etc/nginx/logs
 networks:
     nginx-net:
         driver: bridge

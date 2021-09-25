@@ -1,0 +1,187 @@
+- 地址
+    - VA: 虚拟内存地址(Virtual Address)
+    - RVA: 相对虚拟内存地址(Reverse Virtual Address)
+    - FOA: 文件偏移地址(File Offset Address)
+    - 特殊地址
+- 对齐
+    - 内存对齐: 32bit-4KB(1000H) 64bit-8KB(2000H)
+    - 文件对齐: 512B(200H)
+    - 资源数据对齐: 4B
+- 给定RVA计算FOA
+    - FOA = SECTION_FILE_BASE + (RVA - SECTION_RVA)
+- PE文件结构
+    - DOS MZ Header(64Bytes)
+        - IMAGE_DOS_HEADER
+            - 000H    WORD      e_magic: "MZ"
+            - 002H    WORD      e_cblp
+            - 004H    WORD      e_cp
+            - 006H    WORD      e_crlc
+            - 008H    WORD      e_cparhdr
+            - 00aH    WORD      e_minalloc
+            - 00cH    WORD      e_maxalloc
+            - 00eH    WORD      e_ss
+            - 010H    WORD      e_sp
+            - 012H    WORD      e_csum
+            - 014H    WORD      e_ip
+            - 016H    WORD      e_cs
+            - 018H    WORD      e_lfarlc
+            - 01aH    WORD      e_ovno
+            - 01cH    WORD * 4  e_res
+            - 024H    WORD      e_oemid: OEM标识符
+            - 026H    WORD      e_oeminfo: OEM信息
+            - 028H    WORD * 10 e_res2
+            - 03cH    DWORD     e_lfanew: PE头相对于文件的偏移地址
+    - DOS Stub
+        - This program cannot be run in DOS mode.
+    - PE Header(456Bytes)
+        - IMAGE_NT_HEADERS(248Bytes / 254Bytes)
+            - Signature(4Bytes)
+                - 000H    DWORD             Signature: "PE\0\0"
+            - IMAGE_FILE_HEADER(20Bytes)
+                - 004H    WORD              Machine:
+                    - IMAGE_FILE_MACHINE_I386  0x014c x86
+                    - IMAGE_FILE_MACHINE_IA64  0x0200 Intel Itanium
+                    - IMAGE_FILE_MACHINE_AMD64 0x8664 x64 
+                - 006H    WORD              NumberOfSections: PE中节数量, Windows限制最大96
+                - 008H    DWORD             TimeDateStamp: 文件创建日期
+                - 00cH    DWORD             PointerToSymbolTable
+                - 010H    DWORD             NumberOfSymbols
+                - 014H    WORD              SizeOfOptionalHeader: 扩展头结构的长度(224Bytes 32bit / 240Bytes 64bit)
+                - 016H    WORD              Characteristics: 文件属性
+                    - IMAGE_FILE_RELOCS_STRIPPED        0x0001  文件中不存在定位信息
+                    - IMAGE_FILE_EXECUTABLE_IMAGE       0x0002  文件可执行
+                    - IMAGE_FILE_LINE_NUMS_STRIPPED     0x0004  不存在行信息
+                    - IMAGE_FILE_LOCAL_SYMS_STRIPPED    0x0008  不存在符号信息
+                    - IMAGE_FILE_AGGRESIVE_WS_TRIM      0x0010
+                    - IMAGE_FILE_LARGE_ADDRESS_AWARE    0x0020  应用程序可处理大于2GB地址
+                    - 
+                    - IMAGE_FILE_BYTES_REVERSED_LO      0x0080
+                    - IMAGE_FILE_32BIT_MACHINE          0x0100  只在32bit上运行
+                    - IMAGE_FILE_DEBUG_STRIPPED         0x0200  不包含调试信息
+                    - IMAGE_FILE_REMOVABLE_RUN_FROM_SWAP0x0400  不能从可移动盘上运行
+                    - IMAGE_FILE_NET_RUN_FROM_SWAP      0x0800  不能从网络上运行
+                    - IMAGE_FILE_SYSTEM                 0x1000  系统文件(驱动), 不能直接运行
+                    - IMAGE_FILE_DLL                    0x2000  DLL文件
+                    - IMAGE_FILE_UP_SYSTEM_ONLY         0x4000  文件不能在多处理器上运行
+                    - IMAGE_FILE_BYTES_REVERSED_HI      0x8000
+            - IMAGE_OPTIONAL_HEADER32(96Bytes 32bit / 112Byte 64bit + 8Bytes * 16)
+                - 018H    WORD              Magic
+                    - 010BH-PE32
+                    - 020BH-PE32+
+                    - 0107H-ROM
+                - 01aH    Byte              MajorLinkerVersion: 链接器的主版本号
+                - 01bH    Byte              MinorLinkerVersion: 链接器的次版本号
+                - 01cH    DWORD             SizeOfCode: 代码节总大小(.text)
+                - 020H    DWORD             SizeOfInitializedData: 已初始化数据节总大小(.data)
+                - 024H    DWORD             SizeOfUninitializedData: 未初始化数据节总大小(.bass)
+                - 028H    DWORD             AddressOfEntryPoint: 程序执行入口 RVA
+                - 02cH    DWORD             BaseOfCode: 代码节(.text)起始 RVA
+                - 030H    DWORD             BaseOfData: 数据节(.data)起始 RVA (64bit 无此字段)
+                - 034H    DWORD / QWORD     ImageBase: 程序的建议装载地址, 64K的倍数
+                    - DLL-10000000H
+                    - EXE-00400000H
+                - 038H    DWORD             SectionAlignment: 内存中节对齐粒度
+                    - 01000H(4KByte) 32bit
+                - 03cH    DWORD             FileAlignment: 文件中节对齐粒度
+                    - 00200H(512Byte)
+                - 040H    WORD              MajorOperatingSystemVersion: 系统的主版本号
+                - 042H    WORD              MinorOperatingSystemVersion: 主系统的次版本号
+                - 044H    WORD              MajorImageVersion: 镜像的主版本号
+                - 046H    WORD              MinorImageVersion: 镜像的次版本号
+                - 048H    WORD              MajorSubsystemVersion: 子系统的主版本号
+                - 04aH    WORD              MinorSubsystemVersion: 子系统的次版本号
+                - 04cH    DWORD             Win32VersionValue: 0
+                - 050H    DWORD             SizeOfImage: 内存中整个PE镜像尺寸
+                - 054H    DWORD             SizeOfHeaders: 所有头 + 节表大小
+                - 058H    DWORD             CheckSum
+                - 05cH    WORD              Subsystem: 子系统类型
+                    - IMAGE_SUBSYSTEM_UNKNOWN           0       未知子系统
+                    - IMAGE_SUBSYSTEM_NATIVE            1       设备驱动
+                    - IMAGE_SUBSYSTEM_WINDOWS_GUI       2       GUI
+                    - IMAGE_SUBSYSTEM_WINDOWS_CUI       3       CUI
+                    - IMAGE_SUBSYSTEM_POSIX_CUI         7
+                    - IMAGE_SUBSYSTEM_WINDOWS_CE_GUI    9       Windows CE
+                    - IMAGE_SUBSYSTEM_EFI_APPLICATION   10      可扩展固件接口(Extensible Firmware Interface)应用程序 
+                    - IMAGE_SUBSYSTEM_EFI_BOOT_SERVICE_DRIVER11 带引导EFI驱动程序
+                    - IMAGE_SUBSYSTEM_EFI_RUNTIME_DRIVER12      带运行时EFI驱动
+                    - IMAGE_SUBSYSTEM_EFI_ROM           13      EFI ROM镜像
+                    - IMAGE_SUBSYSTEM_XBOX              14      Xbox system
+                    - IMAGE_SUBSYSTEM_WINDOWS_BOOT_APPLICATION  16  Boot application
+                - 05eH    WORD              DllCharacteristics: DLL文件特征
+                    - 0x0001 Reserved
+                    - 0x0002 Reserved
+                    - 0x0004 Reserved
+                    - 0x0008 Reserved
+                    - IMAGE_DLLCHARACTERISTICS_DYNAMIC_BASE     0x0040      加载时重定位
+                    - IMAGE_DLLCHARACTERISTICS_FORCE_INTEGRITY  0x0080      强制代码完整性校验
+                    - IMAGE_DLLCHARACTERISTICS_NX_COMPAT        0x0100
+                    - IMAGE_DLLCHARACTERISTICS_NO_SEH           0x0400      不适用SEH
+                    - IMAGE_DLLCHARACTERISTICS_NO_BIND          0x0800      不绑定镜像 
+                    - 0x1000 Reserved
+                    - IMAGE_DLLCHARACTERISTICS_WDM_DRIVER       0x2000      WDM驱动
+                    - 0x4000 Reserved
+                    - IMAGE_DLLCHARACTERISTICS_TERMINAL_SERVER_AWARE    0x8000 终端服务器
+                - 060H    DWORD / QWORD     SizeOfStackReserve: 初始化时栈大小(默认1MB 0x100000)
+                - 064H    DWORD / QWORD     SizeOfStackCommit: 初始化时栈提交大小(默认4KB 0x1000z)
+                - 068H    DWORD / QWORD     SizeOfHeapReserve: 初始化时保留队大小(默认1MB)
+                - 06cH    DWORD / QWORD     SizeOfHeapCommit: 初始化时堆提交大小(默认4KB)
+                - 070H    DWORD             LoaderFlags: 0
+                - 074H    DWORD             NumberOfRvaAndSizes: DataDirectory数量, 16
+                - IMAGE_DATA_DIRECTORY * 16 DataDirectory: 数据目录
+                    - DWORD     VirtualAddress: 数据起始RVA
+                    - DWORD     isize: 数据块大小
+                    - 00    8Bytes    Export Table            导出表的地址和大小, .edata
+                    - 01    8Bytes    Import Table            导入目录表的地址和大小, .idata
+                    - 02    8Bytes    Resource Table          资源表的地址和大小, .rsrc
+                    - 03    8Bytes    Exception Table         异常表的地址和大小, .pdata
+                    - 04    8Bytes    Certificate Table       属性证书表的地址和大小
+                    - 05    8Bytes    Base Relocation Table   基址重定位表的地址和大小, .reloc
+                    - 06    8Bytes    Debug Information       调试数据起始地址和大小
+                    - 07    8Bytes    Architecture            保留, 0
+                    - 08    8Bytes    Global Ptr              全局指针寄存器中的一个值的RVA, Size 0
+                    - 09    8Bytes    TLS Table               线程局部存储(TLS)表的地址和大小
+                    - 10    8Bytes    Load Config Table       加载配置表的地址和大小
+                    - 11    8Bytes    Bound Import Table      绑定导入查找表的地址和大小
+                    - 12    8Bytes    Import Address Table    导入地址表的地址和大小
+                    - 13    8Bytes    Delay Import Descriptor 延迟导入描述符的地址和大小
+                    - 14    8Bytes    CLR Runtime Header      CLR运行时头部的地址和大小
+                    - 15    8Bytes    Reserved
+    - Section Table(40Bytes * n)
+        - IMAGE_SECTION_HEADER
+            - 000H      1Bytes * 8      Name: 节区名, \0结尾 ASCII字符
+            - 008H      DWORD           PhysicalAddress/VirtualSize: 节区尺寸
+            - 00cH      DWROD           VirtualAddress: 节区RVA
+            - 010H      DWORD           SizeOfRawData: 文件中文件对齐尺寸
+            - 014H      DWORD           PointerToRawData: 文件中偏移
+            - 018H      DWORD           PointerToRelocations: obj文件中使用
+            - 01cH      DWORD           PointerToLinenumbers
+            - 020H      WORD            NumberOfRelocations
+            - 022H      WORD            NumberOfLinenumbers
+            - 024H      DWORD           Characteristics: 节区属性
+                - 0x00000000 Reserved
+                - 0x00000001 Reserved
+                - 0x00000002 Reserved
+                - 0x00000004 Reserved
+                - IMAGE_SCN_TYPE_NO_PAD             0x00000008
+                - 0x00000010 Reserved
+                - IMAGE_SCN_CNT_CODE                0x00000020      包含代码
+                - IMAGE_SCN_CNT_INITIALIZED_DATA    0x00000040      包含初始化数据 
+                - IMAGE_SCN_CNT_UNINITIALIZED_DATA  0x00000080      包含未初始化数据
+                - MAGE_SCN_LNK_OTHER                0x00000100      Reserved
+                - IMAGE_SCN_LNK_INFO                0x00000200
+                - 0x00000400 Reserved
+                - 0x00002000 Reserved
+                - IMAGE_SCN_NO_DEFER_SPEC_EXC       0x00004000      Reset speculative exceptions handling bits in the TLB entries for this section.
+                - IMAGE_SCN_GPREL0x00008000 The section contains data referenced through the global pointer
+                - 0x00010000 Reserved
+                - IMAGE_SCN_MEM_PURGEABLE           0x00020000      Reserved
+                - IMAGE_SCN_MEM_LOCKED              0x00040000      Reserved 
+                - IMAGE_SCN_MEM_PRELOAD             0x00080000      Reserved
+                - IMAGE_SCN_MEM_DISCARDABLE         0x02000000      可被丢弃
+                - IMAGE_SCN_MEM_NOT_CACHED          0x04000000      节中数据不缓存
+                - IMAGE_SCN_MEM_NOT_PAGED           0x08000000      节中数据不交换到磁盘中
+                - IMAGE_SCN_MEM_SHARED              0x10000000      内存中可共享
+                - IMAGE_SCN_MEM_EXECUTE             0x20000000      可执行
+                - IMAGE_SCN_MEM_READ                0x40000000      可读
+                - IMAGE_SCN_MEM_WRITE               0x80000000      可写
+    - Section Data

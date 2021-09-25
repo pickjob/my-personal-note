@@ -1,5 +1,0 @@
-LABEL=EFI    /boot    vfat    defaults,noatime    0    2
-LABEL=DATA   /        ext4    defaults,noatime    0    1
-/dev/sdb3    /home/china/Desktop/win-sys   ntfs-3g    uid=china,gid=wheel,dmaks=022,fmask=133   0    0
-/dev/sdb4    /home/china/Desktop/win-data  ntfs-3g    uid=china,gid=wheel,dmask=022,fmask=133   0    0
-tmpfs        /tmp     tmpfs   size=8G,uid=portage,gid=portage,mode=775,noatime   0   0
