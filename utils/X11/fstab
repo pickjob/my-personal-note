@@ -1,0 +1,13 @@
+# /etc/fstab
+#       <device system>    <dir>    <type>    <options>    <dump>    <pass>
+#             <device system>: LABEL=DATA UUID=xxx /dev/sda
+#             <type>: ext4 fat tmpfs
+#             <dump>: 0(忽略) 1 2
+#             <pass>: fsick 检查 0(忽略) 1(最高) 2(其他)
+#       Examples:
+#         LABEL=boot        /boot        vfat        defaults,noatime    1 2
+#         LABEL=ROOT        /            ext4        defaults,noatime    1 2
+#         UUID=58e72203     /win         ntfs-3g     uid=china,gid=wheel,dmaks=022,fmask=133   0    0
+#         LABEL=swap        none         swap        sw        0 0
+#         /dev/cdrom        /mnt/cdrom   auto        noauto,ro    0 0
+#         tmpfs             /tmp         tmpfs       size=8G,uid=portage,gid=portage,mode=775,nosuid,nodev,noatime   0   0

@@ -1,0 +1,47 @@
+# 
+# zplug
+#       install
+#       update
+# 
+source ~/.zplug/init.zsh
+# 
+# prompt
+# 
+# auto-ls
+zplug "desyncr/auto-ls"
+# almostontop
+zplug "Valiev/almostontop"
+# spaceship
+zplug "spaceship-prompt/spaceship-prompt"
+# syntax
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
+# 
+# completions
+# 
+zplug "zsh-users/zsh-completions"
+zplug "zsh-users/zsh-autosuggestions"
+zplug "gentoo/gentoo-zsh-completions"
+zplug "hlissner/zsh-autopair"
+# 
+# fzf-相关
+# 
+# fzf-tab
+# zcomet load junegunn/fzf shell completion.zsh
+# zcomet load Aloxaf/fzf-tab
+# zcomet load lincheney/fzf-tab-completion zsh fzf-zsh-completion.sh
+# zcomet load seletskiy/zsh-favorite-directories
+# 
+# quick jump
+# 
+#   autojump
+#       j dir : jump dir
+#       jo dir : jump and open dir
+# zcomet load wting/autojump
+#   bd : backjump
+#   bd parent_dir : go back parent dir
+zplug "Tarrasch/zsh-bd"
+# 
+# utils
+# 
+zplug "wwilsman/zsh-clean-project"
+zplug load

@@ -1,0 +1,29 @@
+ninja_required_version = 1.3
+
+default foo bar
+
+cflags = -Wall -Werror
+rule cc
+    command = gcc $cflags -c $in -o $out
+
+# support header
+rule cc
+    depfile = $out.d
+    command = gcc -MD -MF $out.d [other gcc flags here]
+
+# support depfile
+msvc_deps_prefix = Note: including file:
+rule cc
+    deps = msvc
+    command = cl /showIncludes -c $in /Fo$out
+
+# If left unspecified, builds get the outer $cflags.
+build foo.o: cc foo.c
+
+# But you can shadow variables like cflags for a particular build.
+build special.o: cc special.c
+    cflags = -Wall
+
+# The variable was only shadowed for the scope of special.o;
+# Subsequent build lines get the outer (original) cflags.
+build bar.o: cc bar.c

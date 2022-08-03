@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=Visual Studio Code
-Comment=Code Editing. Refined.
-Exec=/opt/visual-studio-code/code --no-sandbox --unity-launch %F
-Icon=visual-studio-code
-Type=Application
-StartupNotify=false
-Categories=TextEditor;
-MimeType=text/plain;inode/directory;application/x-visual-studio-code-workspace;

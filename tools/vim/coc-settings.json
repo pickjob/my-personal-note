@@ -1,9 +1,0 @@
-{
-    "coc.preferences.formatOnSaveFiletypes": ["rust"],
-    "git.addGBlameToBufferVar": true,
-    "git.addGBlameToVirtualText": true,
-    "yaml.format.enable": true,
-    "snippets.ultisnips.directories": ["UltiSnips", "honza/vim-snippets"],
-    "rust.all_features": true,
-    "python.jediEnabled": false
-}

@@ -1,0 +1,19 @@
+# Workflows: .github/workflows/*.yml
+name: GitHub Actions Workflow Demo
+# Events: workflow触发事件
+on: [push]
+# Jobs: steps集合
+jobs:
+    Explore-GitHub-Actions:
+        runs-on: ubuntu-latest
+        steps:
+            # Actions: 常见复杂重复性工作
+            - name: Check out repository code
+              uses: actions/checkout@v3
+            - run: echo "Hello Github Action!"
+            # 指定环境变量
+              env:
+                    env_key: env_val
+            # 指定执行脚本
+            - run: ./.github/script/build.sh
+              shell: bash

@@ -1,0 +1,7 @@
+format:
+    line_width: 120
+    tab_size: 4
+encode:
+    emit_byteorder_mark: false
+    input_encoding: utf-8
+    output_encoding: utf-8

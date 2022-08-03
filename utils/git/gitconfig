@@ -1,0 +1,11 @@
+[gui]
+	encoding = UTF-8
+[user]
+	email = pickjob@126.com
+	name = 吴胜
+[core]
+	autocrlf = input
+[http]
+	sslVerify = false
+[credential]
+	helper = manager-core

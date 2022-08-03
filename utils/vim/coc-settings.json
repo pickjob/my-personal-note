@@ -1,0 +1,36 @@
+{
+    "suggest.enablePreview": true,
+    "suggest.selection": "recentlyUsed",
+    "coc.preferences.maxFileSize": "1GB",
+    "coc.preferences.formatOnSaveFiletypes": [
+        "json",
+        "yaml",
+        "toml",
+        "rust"
+    ],
+    "languageserver": {
+        "cmake": {
+            "command": "cmake-language-server",
+            "filetypes": [
+                "cmake"
+            ],
+            "rootPatterns": [
+                "build/"
+            ],
+            "initializationOptions": {
+                "buildDirectory": "build"
+            }
+        }
+    },
+    "clangd.path": "$CLANG/bin/clangd",
+    "python.pythonPath": "$CLANG/bin/python",
+    "rust.all_features": true,
+    "json.format.enable": false,
+    "json.schemas": [],
+    "yaml.format.enable": false,
+    "yaml.schemas": {},
+    "snippets.ultisnips.directories": [
+        "honza/vim-snippets"
+    ],
+    "colors.filetypes": [ "*" ]
+}

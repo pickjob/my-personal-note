@@ -1,0 +1,9 @@
+[wsl2]
+memory=8GB
+swap=0GB
+processors=8
+guiApplications=true
+localhostForwarding=true
+pageReporting=false
+nestedVirtualization=false
+debugConsole=true

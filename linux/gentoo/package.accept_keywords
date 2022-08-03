@@ -1,4 +1,0 @@
-app-emulation/snapd ~amd64
-x11-terms/kitty ~amd64
-x11-terms/kitty-terminfo ~amd64
-www-client/microsoft-edge-dev ~amd64

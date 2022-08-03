@@ -1,0 +1,6 @@
+- KDE环境配置
+    - Global Theme: Sweet Mars KDE
+    - Plasma Style: Sweet KDE
+    - Icon: candy-icons
+    - Aurorae: Sweet Dark
+    - SDDM Login Themes: Sweet sddm

@@ -1,0 +1,66 @@
+{
+    "inbounds": [
+        {
+            "protocol": "http",
+            "server": "0.0.0.0",
+            "port": 12345
+        }
+    ],
+    "outbounds": [
+        {
+            "protocol": "vmess",
+            "settings": {
+                "vnext": [
+                    {
+                        "address": "0.0.0.0",
+                        "port": 12345,
+                        "users": [
+                            {
+                                "id": "uuid",
+                                "alterId": 0,
+                                "security": "auto"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "tag": "proxy"
+        },
+        {
+            "protocol": "freedom",
+            "tag": "direct"
+        },
+        {
+            "protocol": "blackhole",
+            "tag": "blackhole"
+        }
+    ],
+    "routing": {
+        "domainStrategy": "AsIs",
+        "rules": [
+            {
+                "type": "field",
+                "domain": [
+                    "geosite:cn"
+                ],
+                "outboundTag": "direct"
+            },
+            {
+                "type": "field",
+                "domain": [
+                    "geosite:category-ads-all"
+                ],
+                "outboundTag": "blackhole"
+            }
+        ]
+    },
+    "dns": {
+        "hosts": {
+            "dying": "127.0.0.1"
+        },
+        "servers": [
+            "114.114.114.114",
+            "8.8.8.8"
+        ]
+    }
+}

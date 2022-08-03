@@ -1,0 +1,11 @@
+- IDEA Plugs
+    - Material Theme UI / Atom Material Icon
+    - Rainbow Brackets / Indent Rainbow
+    - Nyan Progress Bar
+    - File Watchers
+    - GitToolBox
+    - jclasslib Bytecode Viewer
+    - AsciiDoc
+    - .ignore
+    - Smart Tomcat
+    - Database Navigator

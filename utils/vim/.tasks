@@ -1,0 +1,54 @@
+# 
+#
+# 宏变量$(...):
+#   Directory:
+#       $(VIM_ROOT)        # Project root directory
+#       $(VIM_FILEDIR)     # Full path of current buffer without the file name
+#       $(VIM_CWD)         # Current directory (which :pwd returns)
+#       $(VIM_DIRNAME)     # Name of current directory
+#       $(VIM_PRONAME)     # Name of current project root directory
+#       $(VIM_RELDIR)      # File path relativize to current directory
+#   File:
+#       $(VIM_FILEPATH)    # File name of current buffer with full path
+#       $(VIM_FILENAME)    # File name of current buffer without path
+#       $(VIM_FILENOEXT)   # File name of current buffer without path and extension
+#       $(VIM_PATHNOEXT)   # Current file name with full path but without extension
+#       $(VIM_RELNAME)     # File name relativize to current directory
+#       $(VIM_CFILE)       # File name under cursor
+#       $(VIM_CLINE)       # Cursor line number in current buffer
+#   Others:
+#       $(VIM_CWORD)       # Word under cursor
+#       $(VIM_FILEEXT)     # File extension of current buffer
+#       $(VIM_FILETYPE)    # File type (value of &ft in vim)
+#       $(VIM_INIFILE)     # Full path name of current ini (.tasks) file
+#       $(VIM_INIHOME)     # Where the ini file locates
+# 输入变量:
+#   $(-var_name) $(-prompt:default)
+# 内部变量:
+#   $(+var_name) $(+varname:default)
+#   设置
+#       [+]
+#       g:asynctasks_environ
+[file-build]
+command = echo hello_world
+command:c/win32 = clangenv && clang $(VIM_FILENAME) -o $(VIM_FILENOEXT)
+command:rust/win32 = cargoenv && cargo build
+# return zero play success.wav, otherwise play failure.wav
+# notify=sound:success.wav,failure.wav
+output = terminal
+cwd = <root>
+pos = bottom
+close = 1
+focus = 0
+save = 1
+
+[file-run]
+command = echo hello_world
+command:c/win32 = $(VIM_PATHNOEXT)
+command:rust/win32 = cargoenv && cargo run
+output = terminal
+cwd = <root>
+pos = bottom
+close = 0
+focus = 0
+save = 1

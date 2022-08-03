@@ -1,0 +1,10 @@
+- LLVM(Low Level Virtual Machine)
+    - 前端
+    - 中间端
+    - 后端
+    - 链接器: lld
+    - 调试器: lldb
+- 组件介绍
+    - llvm-link: 合并LLVM IR文件
+    - llvm-ld: 链接文件
+    - llvm-rc: 编译资源文件

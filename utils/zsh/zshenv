@@ -1,0 +1,113 @@
+# 
+# 基本环境变量
+# 
+export LANG=zh_CN.UTF-8
+#
+# 目录
+# 
+#     自动跳转
+setopt AUTO_CD CDABLE_VARS CD_SILENT
+#     目录记录
+setopt AUTO_PUSHD PUSHD_TO_HOME PUSHD_IGNORE_DUPS PUSHD_SILENT
+#
+# 补全配置
+#
+setopt GLOB_COMPLETE NO_CASE_GLOB NO_CASE_MATCH
+# 
+# 表达式
+# 
+setopt BAD_PATTERN
+# 
+# History
+# 
+HISTFILE=~/.zsh-history
+HISTSIZE=1000
+SAVEHIST=1000
+setopt SHARE_HISTORY INC_APPEND_HISTORY \
+        HIST_ALLOW_CLOBBER \
+        HIST_NO_FUNCTIONS \
+        HIST_NO_STORE HIST_EXPIRE_DUPS_FIRST \
+        HIST_IGNORE_SPACE HIST_REDUCE_BLANKS \
+        HIST_IGNORE_DUPS HIST_IGNORE_ALL_DUPS \
+        HIST_FIND_NO_DUPS HIST_SAVE_NO_DUPS
+# 
+# Job Control
+# 
+setopt NO_HUP NO_NOTIFY
+# 
+# zsh-基本环境变量
+# 
+fpath=( "${fpath[@]}" )
+# 
+# zsh插件配置
+# 
+# zplug
+ZPLUG_HOME=~/.zplug
+ZPLUG_BIN=~/.zsh-bin
+ZPLUG_REPOS=~/.zsh-repos
+ZPLUG_CACHE_DIR=~/.zsh-cache
+
+# zsh-autosuggestions
+ZSH_AUTOSUGGEST_STRATEGY=(history completion match_prev_cmd)
+COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
+# zsh-autopair
+ZSH_HIGHLIGHT_HIGHLIGHTERS+=brackets
+# clean-project
+AUTO_CLEAN_PROJECT=false
+# AUTO_CLEAN_PROJECT_FILE_PATTERNS=(
+#     ".DS_Store"
+#     "Thumbs.db"
+# )
+# AUTO_CLEAN_PROJECT_IGNORE_PATHS=(
+#     "./node_modules/*"
+# )
+# favorite-directories
+# favorite-directories:get() {
+#     echo <name> <depth> <path>
+#     ...
+# }
+# spaceship
+SPACESHIP_PROMPT_ORDER=(
+    user          # Username section
+    dir           # Current directory section
+    host          # Hostname section
+    git           # Git section (git_branch + git_status)
+    hg            # Mercurial section (hg_branch  + hg_status)
+    package       # Package version
+    gradle        # Gradle section
+    maven         # Maven section
+    node          # Node.js section
+    ruby          # Ruby section
+    elixir        # Elixir section
+    xcode         # Xcode section
+    swift         # Swift section
+    golang        # Go section
+    php           # PHP section
+    rust          # Rust section
+    haskell       # Haskell Stack section
+    julia         # Julia section
+    docker        # Docker section
+    aws           # Amazon Web Services section
+    gcloud        # Google Cloud Platform section
+    venv          # virtualenv section
+    conda         # conda virtualenv section
+    pyenv         # Pyenv section
+    dotnet        # .NET section
+    ember         # Ember.js section
+    kubectl       # Kubectl context section
+    terraform     # Terraform workspace section
+    ibmcloud      # IBM Cloud section
+    exec_time     # Execution time
+    line_sep      # Line break
+    battery       # Battery level and status
+    vi_mode       # Vi-mode indicator
+    jobs          # Background jobs indicator
+    exit_code     # Exit code section
+    char          # Prompt character
+)
+SPACESHIP_RPROMPT_ORDER=(
+    time
+)
+SPACESHIP_PROMPT_SEPARATE_LINE=false
+SPACESHIP_TIME_SHOW=true
+SPACESHIP_TIME_FORMAT="%D %T"

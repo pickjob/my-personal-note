@@ -1,0 +1,47 @@
+printWidth: 120
+useTabs: false
+tabWidth: 4
+# 换行符
+endOfLine: "lf"
+# 大括号空格
+bracketSpacing: true
+# 大括号后同行
+bracketSameLine: true
+overrides:
+    - files: "*.js"
+      options:
+          parser: "flow"
+          # 结尾打印分号
+          semi: true
+          # 结尾逗号
+          trailingComma: "all"
+          # 箭头函数使用括号 (x) => x
+          arrowParens: "always"
+          # 格式语言
+          embeddedLanguageFormatting: "auto"
+    - files: "*.html"
+      options:
+          parser: "html"
+          # 一行一个属性
+          singleAttributePerLine: true
+          htmlWhitespaceSensitivity: "ignore"
+    - files: "*.xml"
+      options:
+          parser: "xml"
+          # 标签结束加个空格
+          xmlSelfClosingSpace: true
+          xmlWhitespaceSensitivity: "ignore"
+    - files: "*.css"
+      options:
+          parser: "css"
+    - files: "*.md"
+      options:
+          parser: "markdown"
+          # 超过长度是否换行
+          proseWrap: "preserve"
+    - files: "*.json"
+      options:
+          parser: "json-stringify"
+    - files: "*.yaml"
+      options:
+          parser: "yaml"

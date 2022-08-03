@@ -1,0 +1,32 @@
+[cargo-new]
+email = "pickjob@126.com"
+name = "吴胜"
+vcs = "git"
+
+[source.crates-io]
+registry = "https://github.com/rust-lang/crates.io-index"
+# 替换成任一镜像源
+replace-with = 'tuna'
+# 清华大学
+[source.tuna]
+registry = "https://mirrors.tuna.tsinghua.edu.cn/git/crates.io-index.git"
+# 中国科学技术大学
+[source.ustc]
+registry = "git://mirrors.ustc.edu.cn/crates.io-index"
+
+[env]
+CC = "clang.exe"
+# CFLAGS
+CXX = "clang++.exe"
+CXXSTDLIB = "c++"
+# CXXFLAGS
+
+[profile.release]
+lto = true
+opt-level = 3
+codegen-units = 1
+debug = true
+panic = "abort"
+
+[build]
+target = "x86_64-pc-windows-gnu"

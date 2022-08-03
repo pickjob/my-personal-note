@@ -1,0 +1,100 @@
+{
+    "$help": "https://aka.ms/terminal-documentation",
+    "$schema": "https://aka.ms/terminal-profiles-schema",
+    "actions": 
+    [
+        {
+            "command": "paste",
+            "keys": "ctrl+v"
+        },
+        {
+            "command": 
+            {
+                "action": "copy",
+                "singleLine": false
+            },
+            "keys": "ctrl+c"
+        },
+        {
+            "command": "find",
+            "keys": "ctrl+shift+f"
+        },
+        {
+            "command": 
+            {
+                "action": "splitPane",
+                "split": "auto",
+                "splitMode": "duplicate"
+            },
+            "keys": "alt+shift+d"
+        }
+    ],
+    "copyFormatting": "none",
+    "copyOnSelect": false,
+    "defaultProfile": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+    "profiles": 
+    {
+        "defaults": 
+        {
+            "colorScheme": "DYING",
+            "font": 
+            {
+                "face": "FiraCode NF",
+                "size": 14
+            }
+        },
+        "list": 
+        [
+            {
+                "commandline": "C:\\repository\\language\\PowerShell-win-7.2\\pwsh.exe",
+                "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+                "icon": "C:\\repository\\language\\PowerShell-win-7.2\\assets\\Square44x44Logo.png",
+                "name": "Windows PowerShell",
+                "startingDirectory": "C:\\"
+            },
+            {
+                "commandline": "%SystemRoot%\\System32\\cmd.exe",
+                "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+                "name": "\u547d\u4ee4\u63d0\u793a\u7b26"
+            },
+            {
+                "commandline": "C:\\repository\\msys64\\msys2_shell.cmd -defterm -no-start -use-full-path -clang64 -shell zsh",
+                "guid": "{87daea3d-ee88-4aaa-99ba-b2bd296702b6}",
+                "icon": "C:\\repository\\msys64\\msys2.ico",
+                "name": "Msys64"
+            },
+            {
+                "guid": "{58ad8b0c-3ef8-5f4d-bc6f-13e4c00f2530}",
+                "hidden": false,
+                "name": "Debian",
+                "source": "Windows.Terminal.Wsl"
+            }
+        ]
+    },
+    "schemes": 
+    [
+        {
+            "background": "#23262E",
+            "black": "#23262E",
+            "blue": "#0321D7",
+            "brightBlack": "#FFF688",
+            "brightBlue": "#F92883",
+            "brightCyan": "#00FF9C",
+            "brightGreen": "#8FD46D",
+            "brightPurple": "#EE5D43",
+            "brightRed": "#F92672",
+            "brightWhite": "#C74DED",
+            "brightYellow": "#FFFC67",
+            "cursorColor": "#F106E3",
+            "cyan": "#03D6B8",
+            "foreground": "#EE5D43",
+            "green": "#14B8A6",
+            "name": "DYING",
+            "purple": "#EE5D43",
+            "red": "#FF0051",
+            "selectionBackground": "#C05CBF",
+            "white": "#E41951",
+            "yellow": "#FFE66D"
+        }
+    ]
+}
